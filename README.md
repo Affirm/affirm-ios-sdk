@@ -10,4 +10,4 @@ Building
 ========
 
 1. The demo app should build with no additional configuration required.
-2. To inclue the framework in a new project, simply drag the AffirmSDK.framework folder into your new project.
+2. To include the framework in a new project, simply drag the AffirmSDK.framework folder into the project.
