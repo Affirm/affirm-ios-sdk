@@ -1,0 +1,316 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 46;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		AF1B529C1B32A146007A887C /* AffirmSDK.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = AF1B529B1B32A146007A887C /* AffirmSDK.framework */; };
+		AF94263A1B2904A400D45762 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = AF9426391B2904A400D45762 /* main.m */; };
+		AF94263D1B2904A400D45762 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = AF94263C1B2904A400D45762 /* AppDelegate.m */; };
+		AF9426401B2904A400D45762 /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = AF94263F1B2904A400D45762 /* ViewController.m */; };
+		AF9426431B2904A400D45762 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = AF9426411B2904A400D45762 /* Main.storyboard */; };
+		AF9426451B2904A400D45762 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = AF9426441B2904A400D45762 /* Images.xcassets */; };
+		AF9426481B2904A400D45762 /* LaunchScreen.xib in Resources */ = {isa = PBXBuildFile; fileRef = AF9426461B2904A400D45762 /* LaunchScreen.xib */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXFileReference section */
+		AF1B529B1B32A146007A887C /* AffirmSDK.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AffirmSDK.framework; path = ../../AffirmSDK.framework; sourceTree = "<group>"; };
+		AF9426341B2904A400D45762 /* AffirmSDKDemo.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = AffirmSDKDemo.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		AF9426381B2904A400D45762 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		AF9426391B2904A400D45762 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
+		AF94263B1B2904A400D45762 /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
+		AF94263C1B2904A400D45762 /* AppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
+		AF94263E1B2904A400D45762 /* ViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ViewController.h; sourceTree = "<group>"; };
+		AF94263F1B2904A400D45762 /* ViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ViewController.m; sourceTree = "<group>"; };
+		AF9426421B2904A400D45762 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
+		AF9426441B2904A400D45762 /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = "<group>"; };
+		AF9426471B2904A400D45762 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Base; path = Base.lproj/LaunchScreen.xib; sourceTree = "<group>"; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		AF9426311B2904A400D45762 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				AF1B529C1B32A146007A887C /* AffirmSDK.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		AF94262B1B2904A400D45762 = {
+			isa = PBXGroup;
+			children = (
+				AF9426361B2904A400D45762 /* AffirmSDKDemo */,
+				AF9426351B2904A400D45762 /* Products */,
+			);
+			sourceTree = "<group>";
+		};
+		AF9426351B2904A400D45762 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				AF9426341B2904A400D45762 /* AffirmSDKDemo.app */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		AF9426361B2904A400D45762 /* AffirmSDKDemo */ = {
+			isa = PBXGroup;
+			children = (
+				AF1B529B1B32A146007A887C /* AffirmSDK.framework */,
+				AF94263B1B2904A400D45762 /* AppDelegate.h */,
+				AF94263C1B2904A400D45762 /* AppDelegate.m */,
+				AF94263E1B2904A400D45762 /* ViewController.h */,
+				AF94263F1B2904A400D45762 /* ViewController.m */,
+				AF9426411B2904A400D45762 /* Main.storyboard */,
+				AF9426441B2904A400D45762 /* Images.xcassets */,
+				AF9426461B2904A400D45762 /* LaunchScreen.xib */,
+				AF9426371B2904A400D45762 /* Supporting Files */,
+			);
+			path = AffirmSDKDemo;
+			sourceTree = "<group>";
+		};
+		AF9426371B2904A400D45762 /* Supporting Files */ = {
+			isa = PBXGroup;
+			children = (
+				AF9426381B2904A400D45762 /* Info.plist */,
+				AF9426391B2904A400D45762 /* main.m */,
+			);
+			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		AF9426331B2904A400D45762 /* AffirmSDKDemo */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = AF9426571B2904A400D45762 /* Build configuration list for PBXNativeTarget "AffirmSDKDemo" */;
+			buildPhases = (
+				AF9426301B2904A400D45762 /* Sources */,
+				AF9426311B2904A400D45762 /* Frameworks */,
+				AF9426321B2904A400D45762 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = AffirmSDKDemo;
+			productName = AffirmSDKDemo;
+			productReference = AF9426341B2904A400D45762 /* AffirmSDKDemo.app */;
+			productType = "com.apple.product-type.application";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		AF94262C1B2904A400D45762 /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				LastUpgradeCheck = 0630;
+				ORGANIZATIONNAME = Affirm;
+				TargetAttributes = {
+					AF9426331B2904A400D45762 = {
+						CreatedOnToolsVersion = 6.3.2;
+					};
+				};
+			};
+			buildConfigurationList = AF94262F1B2904A400D45762 /* Build configuration list for PBXProject "AffirmSDKDemo" */;
+			compatibilityVersion = "Xcode 3.2";
+			developmentRegion = English;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+				Base,
+			);
+			mainGroup = AF94262B1B2904A400D45762;
+			productRefGroup = AF9426351B2904A400D45762 /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				AF9426331B2904A400D45762 /* AffirmSDKDemo */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+		AF9426321B2904A400D45762 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				AF9426431B2904A400D45762 /* Main.storyboard in Resources */,
+				AF9426481B2904A400D45762 /* LaunchScreen.xib in Resources */,
+				AF9426451B2904A400D45762 /* Images.xcassets in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		AF9426301B2904A400D45762 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				AF9426401B2904A400D45762 /* ViewController.m in Sources */,
+				AF94263D1B2904A400D45762 /* AppDelegate.m in Sources */,
+				AF94263A1B2904A400D45762 /* main.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin PBXVariantGroup section */
+		AF9426411B2904A400D45762 /* Main.storyboard */ = {
+			isa = PBXVariantGroup;
+			children = (
+				AF9426421B2904A400D45762 /* Base */,
+			);
+			name = Main.storyboard;
+			sourceTree = "<group>";
+		};
+		AF9426461B2904A400D45762 /* LaunchScreen.xib */ = {
+			isa = PBXVariantGroup;
+			children = (
+				AF9426471B2904A400D45762 /* Base */,
+			);
+			name = LaunchScreen.xib;
+			sourceTree = "<group>";
+		};
+/* End PBXVariantGroup section */
+
+/* Begin XCBuildConfiguration section */
+		AF9426551B2904A400D45762 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 8.3;
+				MTL_ENABLE_DEBUG_INFO = YES;
+				ONLY_ACTIVE_ARCH = YES;
+				SDKROOT = iphoneos;
+			};
+			name = Debug;
+		};
+		AF9426561B2904A400D45762 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				ENABLE_NS_ASSERTIONS = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 8.3;
+				MTL_ENABLE_DEBUG_INFO = NO;
+				SDKROOT = iphoneos;
+				VALIDATE_PRODUCT = YES;
+			};
+			name = Release;
+		};
+		AF9426581B2904A400D45762 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(SRCROOT)/../",
+				);
+				INFOPLIST_FILE = AffirmSDKDemo/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+			};
+			name = Debug;
+		};
+		AF9426591B2904A400D45762 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(SRCROOT)/../",
+				);
+				INFOPLIST_FILE = AffirmSDKDemo/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		AF94262F1B2904A400D45762 /* Build configuration list for PBXProject "AffirmSDKDemo" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				AF9426551B2904A400D45762 /* Debug */,
+				AF9426561B2904A400D45762 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		AF9426571B2904A400D45762 /* Build configuration list for PBXNativeTarget "AffirmSDKDemo" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				AF9426581B2904A400D45762 /* Debug */,
+				AF9426591B2904A400D45762 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = AF94262C1B2904A400D45762 /* Project object */;
+}
