@@ -24,4 +24,10 @@
                                                    configuration:(AffirmConfiguration *)configuration
                                                         checkout:(AffirmCheckout *)checkout;
 
+// This method logs the user out.
+// When a checkout is initiated, the user is first asked to log in to Affirm. The user remains logged in for a period of time, allowing them to complete multiple purchases without having to log in each time.
+// However, sometimes it is necessary to manually log a user out of Affirm. (For example: a user logs out of the app, and a new user logs in.) This method implements that functionality.
+
++ (void)logOut;
+
 @end
