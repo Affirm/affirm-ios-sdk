@@ -1,7 +1,7 @@
 Pod::Spec.new do |spec|
     spec.name                   = "AffirmSDK"
     spec.authors                = "Affirm, Inc."
-    spec.version                = "0.0.1"
+    spec.version                = "1.0.0"
     spec.summary                = "Integrate Affirm into your iOS app"
     spec.homepage               = "https://github.com/Affirm/affirm-ios-sdk"
     spec.license                = { :type => "BSD-3-Clause", :file => "LICENSE.txt" }

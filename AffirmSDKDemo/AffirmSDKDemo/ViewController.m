@@ -56,7 +56,7 @@
 
 - (IBAction)startCheckout:(id)sender {
     // Create the Affirm configuration.
-    AffirmConfiguration *configuration = [AffirmConfiguration configurationWithAffirmDomain:@"sandbox.affirm.com" publicApiKey:@"Y8CQXFF044903JC0" financialProductKey:@"WWJ4P04080S6CFDS"];
+    AffirmConfiguration *configuration = [AffirmConfiguration configurationWithAffirmDomain:@"sandbox.affirm.com" publicAPIKey:@"Y8CQXFF044903JC0" financialProductKey:@"WWJ4P04080S6CFDS"];
     
     // Create the checkout object.
     NSDecimalNumber *price = [NSDecimalNumber decimalNumberWithString:self.textField.text];

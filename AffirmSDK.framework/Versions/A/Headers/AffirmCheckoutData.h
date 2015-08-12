@@ -9,28 +9,35 @@
 #import <Foundation/Foundation.h>
 
 
+/// An AffirmAddress object represents a customer's address.
 @interface AffirmAddress : NSObject
 
-// The customer's address.
-
-// Address line 1. Required.
+/// Address line 1. Required.
 @property(nonatomic, copy, readonly) NSString *line1;
 
-// Address line 2. Required.
+/// Address line 2. Required.
 @property(nonatomic, copy, readonly) NSString *line2;
 
-// City. Required.
+/// City. Required.
 @property(nonatomic, copy, readonly) NSString *city;
 
-// State. Required.
+/// State. Required.
 @property(nonatomic, copy, readonly) NSString *state;
 
-// Zip code. Required.
+/// ZIP code. Required.
 @property(nonatomic, copy, readonly) NSString *zipCode;
 
-// Country code. Required.
+/// Country code. Required.
 @property(nonatomic, copy, readonly) NSString *countryCode;
 
+/// Convenience constructor. See properties for more details.
+/// @param line1 Address line 1.
+/// @param line2 Address line 2.
+/// @param city City.
+/// @param state State.
+/// @param zipCode ZIP code.
+/// @param countryCode Country code.
+/// @return The newly created address.
 + (AffirmAddress *)addressWithLine1:(NSString *)line1
                               line2:(NSString *)line2
                                city:(NSString *)city
@@ -38,6 +45,14 @@
                             zipCode:(NSString *)zipCode
                         countryCode:(NSString *)countryCode;
 
+/// Initializer. See properties for more details.
+/// @param line1 Address line 1.
+/// @param line2 Address line 2.
+/// @param city City.
+/// @param state State.
+/// @param zipCode ZIP code.
+/// @param countryCode Country code.
+/// @return The initialized address.
 - (instancetype)initWithLine1:(NSString *)line1
                         line2:(NSString *)line2
                          city:(NSString *)city
@@ -48,30 +63,45 @@
 @end
 
 
+/// An AffirmContact object represents contact info for a customer.
 @interface AffirmContact : NSObject
 
-// Contact info for a customer.
-
-// The customer's name. Required.
+/// The customer's name. Required.
 @property(nonatomic, copy, readonly) NSString *name;
 
-// The customer's address. Required.
+/// The customer's address. Required.
 @property(nonatomic, copy, readonly) AffirmAddress *address;
 
-// The customer's phone number. Optional.
+/// The customer's phone number. Optional.
 @property(nonatomic, copy, readonly) NSString *phoneNumber;
 
-// The customer's email. Optional.
+/// The customer's email. Optional.
 @property(nonatomic, copy, readonly) NSString *email;
 
+/// Convenience constructor. See properties for more info.
+/// @param name Name.
+/// @param address Address.
+/// @return The newly created contact.
 + (AffirmContact *)contactWithName:(NSString *)name
                            address:(AffirmAddress *)address;
 
+/// Convenience constructor. See properties for more details.
+/// @param name Name.
+/// @param address Address.
+/// @param phoneNumber Phone number.
+/// @param email Email.
+/// @return The newly created contact.
 + (AffirmContact *)contactWithName:(NSString *)name
                            address:(AffirmAddress *)address
                        phoneNumber:(NSString *)phoneNumber
                              email:(NSString *)email;
 
+/// Initializer. See properties for more details.
+/// @param name Name.
+/// @param address Address.
+/// @param phoneNumber Phone number.
+/// @param email Email.
+/// @return The initialized contact.
 - (instancetype)initWithName:(NSString *)name
                      address:(AffirmAddress *)address
                  phoneNumber:(NSString *)phoneNumber
@@ -80,47 +110,61 @@
 @end
 
 
+/// An AffirmDiscount object represents a discount applied to the Affirm purchase.
 @interface AffirmDiscount : NSObject
 
-// A discount applied to the Affirm purchase.
-
-// The name of the discount. Required.
+/// The name of the discount. Required.
 @property(nonatomic, copy, readonly) NSString *name;
 
-// The discount amount in USD. Cannot be negative. Required.
+/// The discount amount in USD. Cannot be negative. Required.
 @property(nonatomic, copy, readonly) NSDecimalNumber *amount;
 
+/// Convenience constructor. See properties for more details.
+/// @param name Discount name.
+/// @param amount Discount amount.
+/// @return The newly created discount.
 + (AffirmDiscount *)discountWithName:(NSString *)name
                               amount:(NSDecimalNumber *)amount;
 
+/// Initializer. See properties for more details.
+/// @param name Discount name.
+/// @param amount Discount amount.
+/// @return The initialized discount.
 - (instancetype)initWithName:(NSString *)name
                       amount:(NSDecimalNumber *)amount;
 
 @end
 
 
+/// An AffirmItem object represents an item that is purchased.
 @interface AffirmItem : NSObject
 
-// An item that is purchased.
-
-// The name of the item. Required.
+/// The name of the item. Required.
 @property(nonatomic, copy, readonly) NSString *name;
 
-// The SKU (stock keeping unit) of the item. Required.
+/// The SKU (stock keeping unit) of the item. Required.
 @property(nonatomic, copy, readonly) NSString *SKU;
 
-// The price per unit of the item. Cannot be negative. Required.
+/// The price in USD per item. Cannot be negative. Required.
 @property(nonatomic, copy, readonly) NSDecimalNumber *unitPrice;
 
-// The quantity of items purchased. Cannot be negative. Required.
+/// The quantity of items purchased. Cannot be negative. Required.
 @property(nonatomic, assign, readonly) NSUInteger quantity;
 
-// The URL of the item page. Required.
+/// The URL of the item page. Required.
 @property(nonatomic, copy, readonly) NSURL *URL;
 
-// The URL of the item image. Required.
+/// The URL of the item image. Required.
 @property(nonatomic, copy, readonly) NSURL *imageURL;
 
+/// Convenience constructor. See properties for more details.
+/// @param name Item name.
+/// @param SKU Item SKU.
+/// @param unitPrice Price per item.
+/// @param quantity Number of items purchased.
+/// @param URL URL of the item.
+/// @param imageURL URL of the item image.
+/// @return The newly created item.
 + (AffirmItem *)itemWithName:(NSString *)name
                          SKU:(NSString *)SKU
                    unitPrice:(NSDecimalNumber *)unitPrice
@@ -128,6 +172,14 @@
                          URL:(NSURL *)URL
                     imageURL:(NSURL *)imageURL;
 
+/// Initializer. See properties for more details.
+/// @param name Item name.
+/// @param SKU Item SKU.
+/// @param unitPrice Price per item.
+/// @param quantity Number of items purchased.
+/// @param URL URL of the item.
+/// @param imageURL URL of the item image.
+/// @return The initialized item.
 - (instancetype)initWithName:(NSString *)name
                          SKU:(NSString *)SKU
                    unitPrice:(NSDecimalNumber *)unitPrice
@@ -138,41 +190,55 @@
 @end
 
 
+/// An AffirmCheckout is complete Affirm checkout object describing the customer and the purchase.
 @interface AffirmCheckout : NSObject
 
-// A complete Affirm checkout object describing the customer and the purchase.
-
-// A list of items purchased. Required.
+/// A list of purchased items. Required.
 @property(nonatomic, copy, readonly) NSArray *items;
 
-// Billing contact information. Required.
+/// Billing contact information. Required.
 @property(nonatomic, copy, readonly) AffirmContact *billing;
 
-// Shipping contact information. Required.
+/// Shipping contact information. Required.
 @property(nonatomic, copy, readonly) AffirmContact *shipping;
 
-// Tax amount. Cannot be negative. Required.
+/// Tax amount in USD. Cannot be negative. Required.
 @property(nonatomic, copy, readonly) NSDecimalNumber *taxAmount;
 
-// Shipping amount. Cannot be negative. Required.
+/// Shipping amount in USD. Cannot be negative. Required.
 @property(nonatomic, copy, readonly) NSDecimalNumber *shippingAmount;
 
-// A list of discounts. Optional.
+/// A list of discounts. Optional.
 @property(nonatomic, copy, readonly) NSArray *discounts;
 
-// Additional metadata for the checkout. Optional.
+/// Additional metadata for the checkout. Optional.
 @property(nonatomic, copy, readonly) NSDictionary *metadata;
 
-// The total purchase amount. Dynamically computed from the other properties of the checkout.
+/// The total purchase amount. Dynamically computed from the other properties of the checkout.
 @property(nonatomic, copy, readonly) NSDecimalNumber *total;
 
-
+/// Convenience constructor. See properties for more details.
+/// @param items List of purchased items.
+/// @param billing Billing contact.
+/// @param shipping Shipping contact.
+/// @param taxAmount Tax amount.
+/// @param shippingAmount shippingAmount.
+/// @return The newly created checkout.
 + (AffirmCheckout *)checkoutWithItems:(NSArray *)items
                               billing:(AffirmContact *)billing
                              shipping:(AffirmContact *)shipping
                             taxAmount:(NSDecimalNumber *)taxAmount
                        shippingAmount:(NSDecimalNumber *)shippingAmount;
 
+/// Convenience constructor. See properties for more details.
+/// @param items List of purchased items.
+/// @param billing Billing contact.
+/// @param shipping Shipping contact.
+/// @param taxAmount Tax amount.
+/// @param shippingAmount shippingAmount.
+/// @param discounts List of discounts.
+/// @param metadata Additional metadata.
+/// @return The newly created checkout.
 + (AffirmCheckout *)checkoutWithItems:(NSArray *)items
                               billing:(AffirmContact *)billing
                              shipping:(AffirmContact *)shipping
@@ -181,6 +247,15 @@
                             discounts:(NSArray *)discounts
                              metadata:(NSDictionary *)metadata;
 
+/// Initializer. See properties for more details.
+/// @param items List of purchased items.
+/// @param billing Billing contact.
+/// @param shipping Shipping contact.
+/// @param taxAmount Tax amount.
+/// @param shippingAmount shippingAmount.
+/// @param discounts List of discounts.
+/// @param metadata Additional metadata.
+/// @return The initialized checkout.
 - (instancetype)initWithItems:(NSArray *)items
                       billing:(AffirmContact *)billing
                      shipping:(AffirmContact *)shipping

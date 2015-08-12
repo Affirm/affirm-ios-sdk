@@ -8,25 +8,35 @@
 
 #import <Foundation/Foundation.h>
 
+
+/// An AffirmConfiguration is a set of merchant-specific Affirm configuration settings.
 @interface AffirmConfiguration : NSObject
 
-// An Affirm merchant configuration object.
-
-// The Affirm domain to interface with. This should either be "www.affirm.com" or "sandbox.affirm.com". Required.
+/// The Affirm domain which hosts the API. This should either be "www.affirm.com" or "sandbox.affirm.com". Required.
 @property(nonatomic, copy, readonly) NSString *affirmDomain;
 
-// The public API key. Required.
-@property(nonatomic, copy, readonly) NSString *publicApiKey;
+/// The merchant's public API key. Required.
+@property(nonatomic, copy, readonly) NSString *publicAPIKey;
 
-// The financial product key. Required.
+/// The merchant's financial product key. Required.
 @property(nonatomic, copy, readonly) NSString *financialProductKey;
 
+/// Convenience constructor. See properties for more details.
+/// @param affirmDomain Affirm domain.
+/// @param publicAPIKey Public API key.
+/// @param financialProductKey Financial product key.
+/// @return The newly created configuration object.
 + (AffirmConfiguration *)configurationWithAffirmDomain:(NSString *)affirmDomain
-                                          publicApiKey:(NSString *)publicApiKey
+                                          publicAPIKey:(NSString *)publicAPIKey
                                    financialProductKey:(NSString *)financialProductKey;
 
+/// Initializer. See properties for more details.
+/// @param affirmDomain Affirm domain.
+/// @param publicAPIKey Public API key.
+/// @param financialProductKey Financial product key.
+/// @return The initialized configuration object.
 - (instancetype)initWithAffirmDomain:(NSString *)affirmDomain
-                        publicApiKey:(NSString *)publicApiKey
+                        publicAPIKey:(NSString *)publicAPIKey
                  financialProductKey:(NSString *)financialProductKey;
 
 @end
