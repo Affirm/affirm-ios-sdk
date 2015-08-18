@@ -225,7 +225,7 @@ NS_ASSUME_NONNULL_BEGIN
 /// @param billing Billing contact.
 /// @param shipping Shipping contact.
 /// @param taxAmount Tax amount.
-/// @param shippingAmount shippingAmount.
+/// @param shippingAmount Shipping amount.
 /// @return The newly created checkout.
 + (AffirmCheckout *)checkoutWithItems:(NSArray *)items
                               billing:(AffirmContact *)billing
@@ -238,7 +238,7 @@ NS_ASSUME_NONNULL_BEGIN
 /// @param billing Billing contact.
 /// @param shipping Shipping contact.
 /// @param taxAmount Tax amount.
-/// @param shippingAmount shippingAmount.
+/// @param shippingAmount Shipping amount.
 /// @param discounts List of discounts.
 /// @param metadata Additional metadata.
 /// @return The newly created checkout.
@@ -255,7 +255,7 @@ NS_ASSUME_NONNULL_BEGIN
 /// @param billing Billing contact.
 /// @param shipping Shipping contact.
 /// @param taxAmount Tax amount.
-/// @param shippingAmount shippingAmount.
+/// @param shippingAmount Shipping amount.
 /// @param discounts List of discounts.
 /// @param metadata Additional metadata.
 /// @return The initialized checkout.
