@@ -41,4 +41,4 @@ Once the checkout has been successfully confirmed by the user, the AffirmCheckou
 Example
 =======
 
-The `AffirmSDKDemo` project in our [GitHub repository](https://github.com/Affirm/affirm-ios-sdk) is a simple example of an iOS app which integrates Affirm. (CocoaPods is required for building the example app.)
+[This repository](https://github.com/Affirm/affirm-ios-sdk-demo) contains a simple demo app which integrates Affirm. (CocoaPods is required for building this app.)

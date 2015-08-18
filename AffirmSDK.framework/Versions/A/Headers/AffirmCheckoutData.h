@@ -9,6 +9,9 @@
 #import <Foundation/Foundation.h>
 
 
+NS_ASSUME_NONNULL_BEGIN
+
+
 /// An AffirmAddress object represents a customer's address.
 @interface AffirmAddress : NSObject
 
@@ -73,10 +76,10 @@
 @property(nonatomic, copy, readonly) AffirmAddress *address;
 
 /// The customer's phone number. Optional.
-@property(nonatomic, copy, readonly) NSString *phoneNumber;
+@property(nonatomic, copy, readonly, nullable) NSString *phoneNumber;
 
 /// The customer's email. Optional.
-@property(nonatomic, copy, readonly) NSString *email;
+@property(nonatomic, copy, readonly, nullable) NSString *email;
 
 /// Convenience constructor. See properties for more info.
 /// @param name Name.
@@ -93,8 +96,8 @@
 /// @return The newly created contact.
 + (AffirmContact *)contactWithName:(NSString *)name
                            address:(AffirmAddress *)address
-                       phoneNumber:(NSString *)phoneNumber
-                             email:(NSString *)email;
+                       phoneNumber:(nullable NSString *)phoneNumber
+                             email:(nullable NSString *)email;
 
 /// Initializer. See properties for more details.
 /// @param name Name.
@@ -104,8 +107,8 @@
 /// @return The initialized contact.
 - (instancetype)initWithName:(NSString *)name
                      address:(AffirmAddress *)address
-                 phoneNumber:(NSString *)phoneNumber
-                       email:(NSString *)email;
+                 phoneNumber:(nullable NSString *)phoneNumber
+                       email:(nullable NSString *)email;
 
 @end
 
@@ -209,10 +212,10 @@
 @property(nonatomic, copy, readonly) NSDecimalNumber *shippingAmount;
 
 /// A list of discounts. Optional.
-@property(nonatomic, copy, readonly) NSArray *discounts;
+@property(nonatomic, copy, readonly, nullable) NSArray *discounts;
 
 /// Additional metadata for the checkout. Optional.
-@property(nonatomic, copy, readonly) NSDictionary *metadata;
+@property(nonatomic, copy, readonly, nullable) NSDictionary *metadata;
 
 /// The total purchase amount. Dynamically computed from the other properties of the checkout.
 @property(nonatomic, copy, readonly) NSDecimalNumber *total;
@@ -244,8 +247,8 @@
                              shipping:(AffirmContact *)shipping
                             taxAmount:(NSDecimalNumber *)taxAmount
                        shippingAmount:(NSDecimalNumber *)shippingAmount
-                            discounts:(NSArray *)discounts
-                             metadata:(NSDictionary *)metadata;
+                            discounts:(nullable NSArray *)discounts
+                             metadata:(nullable NSDictionary *)metadata;
 
 /// Initializer. See properties for more details.
 /// @param items List of purchased items.
@@ -261,7 +264,10 @@
                      shipping:(AffirmContact *)shipping
                     taxAmount:(NSDecimalNumber *)taxAmount
                shippingAmount:(NSDecimalNumber *)shippingAmount
-                    discounts:(NSArray *)discounts
-                     metadata:(NSDictionary *)metadata;
+                    discounts:(nullable NSArray *)discounts
+                     metadata:(nullable NSDictionary *)metadata;
 
 @end
+
+
+NS_ASSUME_NONNULL_END

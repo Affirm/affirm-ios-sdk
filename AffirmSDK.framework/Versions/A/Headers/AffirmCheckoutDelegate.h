@@ -7,6 +7,9 @@
 //
 
 
+NS_ASSUME_NONNULL_BEGIN
+
+
 /// A delegate which handles checkout events.
 @protocol AffirmCheckoutDelegate <NSObject>
 
@@ -24,3 +27,6 @@
 - (void)checkoutCreationFailedWithError:(NSError *)error;
 
 @end
+
+
+NS_ASSUME_NONNULL_END

@@ -9,6 +9,9 @@
 #import <Foundation/Foundation.h>
 
 
+NS_ASSUME_NONNULL_BEGIN
+
+
 /// An AffirmConfiguration is a set of merchant-specific Affirm configuration settings.
 @interface AffirmConfiguration : NSObject
 
@@ -40,3 +43,6 @@
                  financialProductKey:(NSString *)financialProductKey;
 
 @end
+
+
+NS_ASSUME_NONNULL_END

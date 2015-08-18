@@ -13,6 +13,9 @@
 #import "AffirmConfiguration.h"
 
 
+NS_ASSUME_NONNULL_BEGIN
+
+
 /// The AffirmCheckoutViewController is the main view controller which initiates and manages the life cycle of an Affirm checkout.
 @interface AffirmCheckoutViewController : UIViewController
 
@@ -31,4 +34,8 @@
 /// This method removes the current user session so that a new user can log in.
 + (void)logOut;
 
+
 @end
+
+
+NS_ASSUME_NONNULL_END
