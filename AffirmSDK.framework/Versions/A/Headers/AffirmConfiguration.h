@@ -1,5 +1,5 @@
 //
-//  AffirmCheckoutConfig.h
+//  AffirmConfiguration.h
 //  AffirmSDK
 //
 //  Created by md143rbh7f on 6/11/15.
