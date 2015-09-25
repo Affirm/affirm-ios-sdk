@@ -199,9 +199,6 @@ NS_ASSUME_NONNULL_BEGIN
 /// A list of purchased items. Required.
 @property(nonatomic, copy, readonly) NSArray *items;
 
-/// Billing contact information. Required.
-@property(nonatomic, copy, readonly) AffirmContact *billing;
-
 /// Shipping contact information. Required.
 @property(nonatomic, copy, readonly) AffirmContact *shipping;
 
@@ -210,6 +207,9 @@ NS_ASSUME_NONNULL_BEGIN
 
 /// Shipping amount in USD. Cannot be negative. Required.
 @property(nonatomic, copy, readonly) NSDecimalNumber *shippingAmount;
+
+/// Billing contact information. Optional.
+@property(nonatomic, copy, readonly) AffirmContact *billing;
 
 /// A list of discounts. Optional.
 @property(nonatomic, copy, readonly, nullable) NSArray *discounts;
@@ -222,48 +222,46 @@ NS_ASSUME_NONNULL_BEGIN
 
 /// Convenience constructor. See properties for more details.
 /// @param items List of purchased items.
-/// @param billing Billing contact.
 /// @param shipping Shipping contact.
 /// @param taxAmount Tax amount.
 /// @param shippingAmount Shipping amount.
 /// @return The newly created checkout.
 + (AffirmCheckout *)checkoutWithItems:(NSArray *)items
-                              billing:(AffirmContact *)billing
                              shipping:(AffirmContact *)shipping
                             taxAmount:(NSDecimalNumber *)taxAmount
                        shippingAmount:(NSDecimalNumber *)shippingAmount;
 
 /// Convenience constructor. See properties for more details.
 /// @param items List of purchased items.
-/// @param billing Billing contact.
 /// @param shipping Shipping contact.
 /// @param taxAmount Tax amount.
 /// @param shippingAmount Shipping amount.
+/// @param billing Billing contact.
 /// @param discounts List of discounts.
 /// @param metadata Additional metadata.
 /// @return The newly created checkout.
 + (AffirmCheckout *)checkoutWithItems:(NSArray *)items
-                              billing:(AffirmContact *)billing
                              shipping:(AffirmContact *)shipping
                             taxAmount:(NSDecimalNumber *)taxAmount
                        shippingAmount:(NSDecimalNumber *)shippingAmount
+                              billing:(nullable AffirmContact *)billing
                             discounts:(nullable NSArray *)discounts
                              metadata:(nullable NSDictionary *)metadata;
 
 /// Initializer. See properties for more details.
 /// @param items List of purchased items.
-/// @param billing Billing contact.
 /// @param shipping Shipping contact.
 /// @param taxAmount Tax amount.
 /// @param shippingAmount Shipping amount.
+/// @param billing Billing contact.
 /// @param discounts List of discounts.
 /// @param metadata Additional metadata.
 /// @return The initialized checkout.
 - (instancetype)initWithItems:(NSArray *)items
-                      billing:(AffirmContact *)billing
                      shipping:(AffirmContact *)shipping
                     taxAmount:(NSDecimalNumber *)taxAmount
                shippingAmount:(NSDecimalNumber *)shippingAmount
+                      billing:(nullable AffirmContact *)billing
                     discounts:(nullable NSArray *)discounts
                      metadata:(nullable NSDictionary *)metadata;
 
