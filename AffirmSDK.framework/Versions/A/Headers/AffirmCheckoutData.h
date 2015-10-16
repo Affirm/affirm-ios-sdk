@@ -69,11 +69,11 @@ NS_ASSUME_NONNULL_BEGIN
 /// An AffirmContact object represents contact info for a customer.
 @interface AffirmContact : NSObject
 
-/// The customer's name. Required.
-@property(nonatomic, copy, readonly) NSString *name;
+/// The customer's name. Required in shipping contact; otherwise optional. (See AffirmCheckout for more info.)
+@property(nonatomic, copy, readonly, nullable) NSString *name;
 
-/// The customer's address. Required.
-@property(nonatomic, copy, readonly) AffirmAddress *address;
+/// The customer's address. Required in shipping contact; otherwise optional. (See AffirmCheckout for more info.)
+@property(nonatomic, copy, readonly, nullable) AffirmAddress *address;
 
 /// The customer's phone number. Optional.
 @property(nonatomic, copy, readonly, nullable) NSString *phoneNumber;
@@ -85,8 +85,8 @@ NS_ASSUME_NONNULL_BEGIN
 /// @param name Name.
 /// @param address Address.
 /// @return The newly created contact.
-+ (AffirmContact *)contactWithName:(NSString *)name
-                           address:(AffirmAddress *)address;
++ (AffirmContact *)contactWithName:(nullable NSString *)name
+                           address:(nullable AffirmAddress *)address;
 
 /// Convenience constructor. See properties for more details.
 /// @param name Name.
@@ -94,8 +94,8 @@ NS_ASSUME_NONNULL_BEGIN
 /// @param phoneNumber Phone number.
 /// @param email Email.
 /// @return The newly created contact.
-+ (AffirmContact *)contactWithName:(NSString *)name
-                           address:(AffirmAddress *)address
++ (AffirmContact *)contactWithName:(nullable NSString *)name
+                           address:(nullable AffirmAddress *)address
                        phoneNumber:(nullable NSString *)phoneNumber
                              email:(nullable NSString *)email;
 
@@ -105,8 +105,8 @@ NS_ASSUME_NONNULL_BEGIN
 /// @param phoneNumber Phone number.
 /// @param email Email.
 /// @return The initialized contact.
-- (instancetype)initWithName:(NSString *)name
-                     address:(AffirmAddress *)address
+- (instancetype)initWithName:(nullable NSString *)name
+                     address:(nullable AffirmAddress *)address
                  phoneNumber:(nullable NSString *)phoneNumber
                        email:(nullable NSString *)email;
 
@@ -200,6 +200,7 @@ NS_ASSUME_NONNULL_BEGIN
 @property(nonatomic, copy, readonly) NSArray *items;
 
 /// Shipping contact information. Required.
+/// The shipping contact object must contain a non-nil name and address.
 @property(nonatomic, copy, readonly) AffirmContact *shipping;
 
 /// Tax amount in USD. Cannot be negative. Required.
@@ -209,6 +210,7 @@ NS_ASSUME_NONNULL_BEGIN
 @property(nonatomic, copy, readonly) NSDecimalNumber *shippingAmount;
 
 /// Billing contact information. Optional.
+/// If provided, the billing name and email will be automatically loaded into the Affirm account creation screen.
 @property(nonatomic, copy, readonly) AffirmContact *billing;
 
 /// A list of discounts. Optional.
