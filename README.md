@@ -13,7 +13,7 @@ Installation
 pod 'AffirmSDK'
 ```
 
-Alternatively, if you do not want to use CocoaPods, you may clone our [GitHub repository](https://github.com/Affirm/affirm-ios-sdk) and simply drag and drop the `AffirmSDK.framework` folder into your XCode project.
+Alternatively, if you do not want to use CocoaPods, you may clone our [GitHub repository](https://github.com/Affirm/affirm-ios-sdk) and simply drag and drop the `AffirmSDK.framework` folder into your Xcode project.
 
 
 Usage Overview
