@@ -7,7 +7,8 @@
 //
 
 #import <Foundation/Foundation.h>
-
+#import <UIKit/UIKit.h>
+#import "AffirmConfiguration.h"
 
 NS_ASSUME_NONNULL_BEGIN
 
@@ -222,6 +223,41 @@ NS_ASSUME_NONNULL_BEGIN
 /// The total purchase amount. Dynamically computed from the other properties of the checkout.
 @property(nonatomic, copy, readonly) NSDecimalNumber *total;
 
+/// Any financing program that should be applied (see https://docs.affirm.com/Integrate_Affirm/Multiple_Financing_Programs)
+@property(nonatomic, copy, readonly, nullable) NSString *financingProgram;
+
+/// Convenience constructor. See properties for more details.
+/// @param items List of purchased items.
+/// @param shipping Shipping contact.
+/// @param taxAmount Tax amount.
+/// @param shippingAmount Shipping amount.
+/// @param financingProgram Financing program to be applied.
+/// @return The newly created checkout.
++ (AffirmCheckout *)checkoutWithItems:(NSArray *)items
+                             shipping:(AffirmContact *)shipping
+                            taxAmount:(NSDecimalNumber *)taxAmount
+                       shippingAmount:(NSDecimalNumber *)shippingAmount
+                     financingProgram:(nullable NSString *)financingProgram;
+
+/// Convenience constructor. See properties for more details.
+/// @param items List of purchased items.
+/// @param shipping Shipping contact.
+/// @param taxAmount Tax amount.
+/// @param shippingAmount Shipping amount.
+/// @param billing Billing contact.
+/// @param discounts List of discounts.
+/// @param metadata Additional metadata.
+/// @param financingProgram Financing program to be applied.
+/// @return The newly created checkout.
++ (AffirmCheckout *)checkoutWithItems:(NSArray *)items
+                             shipping:(AffirmContact *)shipping
+                            taxAmount:(NSDecimalNumber *)taxAmount
+                       shippingAmount:(NSDecimalNumber *)shippingAmount
+                              billing:(nullable AffirmContact *)billing
+                            discounts:(nullable NSArray *)discounts
+                             metadata:(nullable NSDictionary *)metadata
+                     financingProgram:(nullable NSString *)financingProgram;
+
 /// Convenience constructor. See properties for more details.
 /// @param items List of purchased items.
 /// @param shipping Shipping contact.
@@ -250,7 +286,7 @@ NS_ASSUME_NONNULL_BEGIN
                             discounts:(nullable NSArray *)discounts
                              metadata:(nullable NSDictionary *)metadata;
 
-/// Initializer. See properties for more details.
+// Initializer. See properties for more details.
 /// @param items List of purchased items.
 /// @param shipping Shipping contact.
 /// @param taxAmount Tax amount.
@@ -258,6 +294,7 @@ NS_ASSUME_NONNULL_BEGIN
 /// @param billing Billing contact.
 /// @param discounts List of discounts.
 /// @param metadata Additional metadata.
+/// @param financingProgram Financing Program to be applied
 /// @return The initialized checkout.
 - (instancetype)initWithItems:(NSArray *)items
                      shipping:(AffirmContact *)shipping
@@ -265,7 +302,87 @@ NS_ASSUME_NONNULL_BEGIN
                shippingAmount:(NSDecimalNumber *)shippingAmount
                       billing:(nullable AffirmContact *)billing
                     discounts:(nullable NSArray *)discounts
-                     metadata:(nullable NSDictionary *)metadata;
+                     metadata:(nullable NSDictionary *)metadata
+             financingProgram:(nullable NSString *)financingProgram;
+
+@end
+
+/// An AffirmPricing object represents a customer's possible monthly payments.
+@interface AffirmPricing : NSObject
+
+/// Disclosure text. Required.
+@property(nonatomic, copy, readonly) NSString *disclosure;
+
+/// termLength used in the calculation. Required.
+@property(nonatomic, copy, readonly) NSDecimalNumber *termLength;
+
+/// String representation of the Payment. Required.
+@property(nonatomic, copy, readonly) NSString *paymentString;
+
+/// Payment. Required.
+@property(nonatomic, copy, readonly) NSDecimalNumber *payment;
+
+/// Convenience constructor. See properties for more details.
+/// @param payment Monthly payment amount
+/// @param paymentString Monthly payment represented as a String
+/// @param termLength Number of termLength for the payment
+/// @param disclosure Disclosure that can be displayed to the consumer
+/// @return The initialized Affirm Pricing
++ (AffirmPricing *)pricingWithPayment:(NSDecimalNumber *)payment
+                        paymentString:(NSString *)paymentString
+                           termLength:(NSDecimalNumber *)termLength
+                           disclosure:(NSString *)disclosure;
+
+
+/// Initializer. See properties for more details.
+/// @param payment Monthly payment amount
+/// @param paymentString Monthly payment represented as a String
+/// @param termLength Number of termLength for the payment
+/// @param disclosure Disclosure that can be displayed to the consumer
+/// @return The initialized Affirm Pricing
+- (instancetype)initWithPayment:(NSDecimalNumber *)payment
+                  paymentString:(NSString *)paymentString
+                     termLength:(NSDecimalNumber *)termLength
+                     disclosure:(NSString *)disclosure;
+
+- (NSDictionary *)toJSONDictionary;
+
+@end
+
+
+/// An AffirmAsLowAs is complete Affirm as low as object describing the merchant and the item.
+@interface AffirmAsLowAs : NSObject
+
+typedef NS_ENUM(NSInteger, AffirmDisplayType) {
+    AffirmDisplayTypeDefault = 1,
+    AffirmDisplayTypeText = 2,
+    AffirmDisplayTypeLogo = 3,
+    AffirmDisplayTypeSymbol = 4,
+    AffirmDisplayTypeSymbolHollow = 5
+};
+
+typedef NS_ENUM(NSInteger, AffirmColorType) {
+    AffirmColorTypeDefault = 1,
+    AffirmColorTypeBlue = 2,
+    AffirmColorTypeBlack = 3,
+    AffirmColorTypeWhite = 4
+};
+
+/// Calculates the monthly price and updates the content of the Label with the proper text
+/// @param label Label to write to
+/// @param amount Amount of the transaction
+/// @param promoId Promo ID to use when getting terms (provided by Affirm)
+/// @param affirmType type of Affirm to display (text, logo, symbol)
+/// @param affirmColor color of Affirm to display (blue, black, white) - only applies to logo and symbol affirmType values
+/// @param configuration AffirmConfiguration instance to use
+/// @param callback method that can be passed and executed once the calls are completed.
++ (void) writeAffirmAsLowAsToLabel:(UILabel *)label
+                            amount:(NSDecimalNumber *)amount
+                           promoId:(NSString *)promoId
+                        affirmType:(AffirmDisplayType)affirmType
+                       affirmColor:(AffirmColorType)affirmColor
+                     configuration:(AffirmConfiguration *)configuration
+                          callback:(void (^)(NSError *error, BOOL success))callback;
 
 @end
 

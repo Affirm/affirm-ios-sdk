@@ -24,6 +24,7 @@ NS_ASSUME_NONNULL_BEGIN
 /// The merchant's financial product key. Required.
 @property(nonatomic, copy, readonly) NSString *financialProductKey;
 
+
 /// Convenience constructor. See properties for more details.
 /// @param affirmDomain Affirm domain.
 /// @param publicAPIKey Public API key.
@@ -31,7 +32,8 @@ NS_ASSUME_NONNULL_BEGIN
 /// @return The newly created configuration object.
 + (AffirmConfiguration *)configurationWithAffirmDomain:(NSString *)affirmDomain
                                           publicAPIKey:(NSString *)publicAPIKey
-                                   financialProductKey:(NSString *)financialProductKey;
+                                   financialProductKey:(NSString *)financialProductKey
+                                                    __attribute__((deprecated));
 
 /// Initializer. See properties for more details.
 /// @param affirmDomain Affirm domain.
@@ -40,7 +42,22 @@ NS_ASSUME_NONNULL_BEGIN
 /// @return The initialized configuration object.
 - (instancetype)initWithAffirmDomain:(NSString *)affirmDomain
                         publicAPIKey:(NSString *)publicAPIKey
-                 financialProductKey:(NSString *)financialProductKey;
+                 financialProductKey:(NSString *)financialProductKey
+                                    __attribute__((deprecated));
+
+/// Convenience constructor. See properties for more details.
+/// @param affirmDomain Affirm domain.
+/// @param publicAPIKey Public API key.
+/// @return The newly created configuration object.
++ (AffirmConfiguration *)configurationWithAffirmDomain:(NSString *)affirmDomain
+                                          publicAPIKey:(NSString *)publicAPIKey;
+
+/// Initializer. See properties for more details.
+/// @param affirmDomain Affirm domain.
+/// @param publicAPIKey Public API key.
+/// @return The initialized configuration object.
+- (instancetype)initWithAffirmDomain:(NSString *)affirmDomain
+                        publicAPIKey:(NSString *)publicAPIKey;
 
 @end
 

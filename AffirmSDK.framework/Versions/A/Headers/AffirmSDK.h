@@ -8,7 +8,10 @@
 
 #import <Foundation/Foundation.h>
 
+#import <AffirmSDK/AffirmBaseModalViewController.h> 
 #import <AffirmSDK/AffirmCheckoutData.h>
 #import <AffirmSDK/AffirmCheckoutDelegate.h>
 #import <AffirmSDK/AffirmCheckoutViewController.h>
 #import <AffirmSDK/AffirmConfiguration.h>
+#import <AffirmSDK/AffirmSiteModalViewController.h>
+#import <AffirmSDK/AffirmProductModalViewController.h>
