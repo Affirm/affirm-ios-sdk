@@ -1,0 +1,16 @@
+PODS:
+  - AffirmSDK (4.0.0)
+
+DEPENDENCIES:
+  - AffirmSDK
+
+SPEC CHECKSUMS:
+<<<<<<< HEAD
+  AffirmSDK: 2ed7c3bd4c52e60a423dc4ffbac7c343dbe369a2
+=======
+  AffirmSDK: ac59ed84bf678bd35cb622d47d436ec6e6fffacd
+>>>>>>> 3c601f3... Version 3.0.0
+
+PODFILE CHECKSUM: b3e2cb36bb71d44bb3457408676696470835c3bd
+
+COCOAPODS: 1.2.1

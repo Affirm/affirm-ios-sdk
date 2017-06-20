@@ -3,9 +3,6 @@ Affirm iOS SDK
 
 The Affirm iOS SDK allows you accept Affirm payments in your own app.
 
-Support
-==============
-In lieu of creating github issues, please contact us directly at mts@affirm.com for SDK issue support
 
 Installation
 ============

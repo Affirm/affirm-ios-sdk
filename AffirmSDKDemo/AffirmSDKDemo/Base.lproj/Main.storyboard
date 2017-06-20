@@ -1,0 +1,104 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="12120" systemVersion="16F73" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="BYZ-38-t0r">
+    <device id="retina4_7" orientation="portrait">
+        <adaptation id="fullscreen"/>
+    </device>
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="12088"/>
+        <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <scenes>
+        <!--View Controller-->
+        <scene sceneID="tne-QT-ifu">
+            <objects>
+                <viewController id="BYZ-38-t0r" customClass="ViewController" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="Yln-Jy-jbG"/>
+                        <viewControllerLayoutGuide type="bottom" id="fkl-95-MnC"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="4vc-N6-62z">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                        <subviews>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Affirm test purchase" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="QkI-Rh-u0S">
+                                <rect key="frame" x="109" y="293" width="156" height="21"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Price:" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="2lO-qC-i1I">
+                                <rect key="frame" x="85.5" y="322" width="44" height="20.5"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" text="500" borderStyle="roundedRect" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="XKa-2r-foI">
+                                <rect key="frame" x="137" y="318" width="100" height="30"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="100" id="yrt-O4-kXx"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                <textInputTraits key="textInputTraits" keyboardType="numberPad"/>
+                            </textField>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="bx8-rW-fbr">
+                                <rect key="frame" x="16" y="356" width="343" height="0.0"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="48k-tS-5yi">
+                                <rect key="frame" x="134.5" y="364" width="105" height="30"/>
+                                <state key="normal" title="Buy with Affirm">
+                                    <color key="titleShadowColor" red="0.5" green="0.5" blue="0.5" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                </state>
+                                <connections>
+                                    <action selector="checkout:" destination="BYZ-38-t0r" eventType="touchUpInside" id="JOJ-5D-c17"/>
+                                </connections>
+                            </button>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="0QT-mE-Jgx">
+                                <rect key="frame" x="151" y="423.5" width="73" height="30"/>
+                                <state key="normal" title="Site Modal"/>
+                                <connections>
+                                    <action selector="showSiteModal:" destination="BYZ-38-t0r" eventType="touchUpInside" id="PeD-cQ-nWJ"/>
+                                </connections>
+                            </button>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="RVV-al-slw">
+                                <rect key="frame" x="137" y="393.5" width="101" height="30"/>
+                                <state key="normal" title="Product Modal"/>
+                                <connections>
+                                    <action selector="showProductModal:" destination="BYZ-38-t0r" eventType="touchUpInside" id="RGb-K9-GCu"/>
+                                </connections>
+                            </button>
+                        </subviews>
+                        <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                        <constraints>
+                            <constraint firstItem="RVV-al-slw" firstAttribute="centerX" secondItem="48k-tS-5yi" secondAttribute="centerX" id="1pw-xe-ZF2"/>
+                            <constraint firstItem="bx8-rW-fbr" firstAttribute="top" secondItem="XKa-2r-foI" secondAttribute="bottom" constant="8" id="430-k8-kwd"/>
+                            <constraint firstItem="0QT-mE-Jgx" firstAttribute="centerX" secondItem="RVV-al-slw" secondAttribute="centerX" id="50W-kN-Qb3"/>
+                            <constraint firstAttribute="centerY" secondItem="XKa-2r-foI" secondAttribute="centerY" id="93c-my-Whq"/>
+                            <constraint firstItem="XKa-2r-foI" firstAttribute="baseline" secondItem="2lO-qC-i1I" secondAttribute="baseline" id="RdP-1j-KK6"/>
+                            <constraint firstItem="48k-tS-5yi" firstAttribute="top" secondItem="bx8-rW-fbr" secondAttribute="bottom" constant="8" id="Spf-u1-14b"/>
+                            <constraint firstItem="2lO-qC-i1I" firstAttribute="top" secondItem="QkI-Rh-u0S" secondAttribute="bottom" constant="8" id="Uci-xh-Hvz"/>
+                            <constraint firstItem="QkI-Rh-u0S" firstAttribute="centerX" secondItem="4vc-N6-62z" secondAttribute="centerX" id="VSh-72-SED"/>
+                            <constraint firstItem="48k-tS-5yi" firstAttribute="centerX" secondItem="XKa-2r-foI" secondAttribute="centerX" id="ak4-Ze-6WF"/>
+                            <constraint firstItem="bx8-rW-fbr" firstAttribute="leading" secondItem="4vc-N6-62z" secondAttribute="leadingMargin" id="e4m-wR-FO0"/>
+                            <constraint firstItem="XKa-2r-foI" firstAttribute="centerX" secondItem="QkI-Rh-u0S" secondAttribute="centerX" id="jti-fG-737"/>
+                            <constraint firstItem="0QT-mE-Jgx" firstAttribute="top" secondItem="RVV-al-slw" secondAttribute="bottom" id="lFJ-f6-s6t"/>
+                            <constraint firstAttribute="trailingMargin" secondItem="bx8-rW-fbr" secondAttribute="trailing" id="oV7-Sv-zcH"/>
+                            <constraint firstItem="XKa-2r-foI" firstAttribute="leading" secondItem="2lO-qC-i1I" secondAttribute="trailing" constant="8" symbolic="YES" id="oZB-9d-vPg"/>
+                            <constraint firstItem="RVV-al-slw" firstAttribute="top" secondItem="48k-tS-5yi" secondAttribute="bottom" id="qE8-3j-Mif"/>
+                        </constraints>
+                    </view>
+                    <connections>
+                        <outlet property="asLowAsLabel" destination="bx8-rW-fbr" id="dfj-Oj-ugf"/>
+                        <outlet property="textField" destination="XKa-2r-foI" id="0Ct-iq-6hY"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="136.80000000000001" y="138.98050974512745"/>
+        </scene>
+    </scenes>
+</document>
