@@ -1,0 +1,746 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 46;
+	objects = {
+
+/* Begin PBXAggregateTarget section */
+		AF9426241B28FF1300D45762 /* Framework */ = {
+			isa = PBXAggregateTarget;
+			buildConfigurationList = AF9426251B28FF1300D45762 /* Build configuration list for PBXAggregateTarget "Framework" */;
+			buildPhases = (
+				AF94262A1B29011500D45762 /* ShellScript */,
+			);
+			dependencies = (
+				AF9426291B28FF5200D45762 /* PBXTargetDependency */,
+				AF9426E21B2F407200D45762 /* PBXTargetDependency */,
+			);
+			name = Framework;
+			productName = Framework;
+		};
+/* End PBXAggregateTarget section */
+
+/* Begin PBXBuildFile section */
+		082C61561DD1330D0039E94B /* AffirmBaseModalViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 082C61551DD1330D0039E94B /* AffirmBaseModalViewController.m */; };
+		082C61591DD133910039E94B /* AffirmBaseModalViewController+Protected.h in Headers */ = {isa = PBXBuildFile; fileRef = 082C61581DD133910039E94B /* AffirmBaseModalViewController+Protected.h */; };
+		082C615A1DD133970039E94B /* AffirmBaseModalViewController.h in Headers */ = {isa = PBXBuildFile; fileRef = 082C61571DD133350039E94B /* AffirmBaseModalViewController.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		082C615B1DD13A2D0039E94B /* AffirmBaseModalViewController.h in CopyFiles */ = {isa = PBXBuildFile; fileRef = 082C61571DD133350039E94B /* AffirmBaseModalViewController.h */; };
+		0833465E1D9C5CF10080092C /* AffirmSiteModalViewController.h in CopyFiles */ = {isa = PBXBuildFile; fileRef = 08D052C01D99CBFB009BBD67 /* AffirmSiteModalViewController.h */; };
+		08D052C21D99CBFB009BBD67 /* AffirmSiteModalViewController.h in Headers */ = {isa = PBXBuildFile; fileRef = 08D052C01D99CBFB009BBD67 /* AffirmSiteModalViewController.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		08D052C31D99CBFB009BBD67 /* AffirmSiteModalViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 08D052C11D99CBFB009BBD67 /* AffirmSiteModalViewController.m */; };
+		08D052C51D99D0B0009BBD67 /* AffirmSiteModalViewController+Protected.h in Headers */ = {isa = PBXBuildFile; fileRef = 08D052C41D99D0B0009BBD67 /* AffirmSiteModalViewController+Protected.h */; };
+		08E131B31DC01935005F4894 /* AffirmProductModalViewController.h in Headers */ = {isa = PBXBuildFile; fileRef = 08E131B11DC018E2005F4894 /* AffirmProductModalViewController.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		08E131B41DC01938005F4894 /* AffirmProductModalViewController+Protected.h in Headers */ = {isa = PBXBuildFile; fileRef = 08E131B21DC01922005F4894 /* AffirmProductModalViewController+Protected.h */; };
+		08E131B61DC01974005F4894 /* AffirmProductModalViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 08E131B51DC01974005F4894 /* AffirmProductModalViewController.m */; };
+		08E131B71DC01CA1005F4894 /* AffirmProductModalViewController.h in CopyFiles */ = {isa = PBXBuildFile; fileRef = 08E131B11DC018E2005F4894 /* AffirmProductModalViewController.h */; };
+		4E273BE61EE08C4F007106AE /* AffirmActivityIndicator.h in Headers */ = {isa = PBXBuildFile; fileRef = 4E273BE41EE08C4F007106AE /* AffirmActivityIndicator.h */; };
+		4E273BE71EE08C4F007106AE /* AffirmActivityIndicator.m in Sources */ = {isa = PBXBuildFile; fileRef = 4E273BE51EE08C4F007106AE /* AffirmActivityIndicator.m */; };
+		4EA0BE681EE9FF4200E5D9D6 /* AffirmLogger.h in Headers */ = {isa = PBXBuildFile; fileRef = 4EA0BE661EE9FF4200E5D9D6 /* AffirmLogger.h */; };
+		4EA0BE691EE9FF4200E5D9D6 /* AffirmLogger.m in Sources */ = {isa = PBXBuildFile; fileRef = 4EA0BE671EE9FF4200E5D9D6 /* AffirmLogger.m */; };
+		AF522F091B31EF2F00A03AE3 /* AffirmCheckoutData+Protected.h in Headers */ = {isa = PBXBuildFile; fileRef = AF9426FB1B30D68400D45762 /* AffirmCheckoutData+Protected.h */; };
+		AF522F0A1B31EF5000A03AE3 /* AffirmJSONifiable.h in Headers */ = {isa = PBXBuildFile; fileRef = AF522F081B313C6400A03AE3 /* AffirmJSONifiable.h */; };
+		AF9425F41B26610000D45762 /* AffirmSDK.h in CopyFiles */ = {isa = PBXBuildFile; fileRef = AF9425F31B26610000D45762 /* AffirmSDK.h */; };
+		AF9425FC1B26610000D45762 /* libAffirmSDK.a in Frameworks */ = {isa = PBXBuildFile; fileRef = AF9425F01B26610000D45762 /* libAffirmSDK.a */; };
+		AF94260C1B27835300D45762 /* AffirmCheckoutViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = AF94260B1B27835300D45762 /* AffirmCheckoutViewController.m */; };
+		AF9426211B28D19A00D45762 /* AffirmSDK.h in Headers */ = {isa = PBXBuildFile; fileRef = AF9425F31B26610000D45762 /* AffirmSDK.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		AF94265F1B291B4B00D45762 /* AffirmCheckoutViewController.h in Headers */ = {isa = PBXBuildFile; fileRef = AF94260A1B27835300D45762 /* AffirmCheckoutViewController.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		AF9426641B291C3C00D45762 /* AffirmCheckoutViewController.h in CopyFiles */ = {isa = PBXBuildFile; fileRef = AF94260A1B27835300D45762 /* AffirmCheckoutViewController.h */; };
+		AF9426751B2A43C700D45762 /* AffirmConfiguration.h in Headers */ = {isa = PBXBuildFile; fileRef = AF9426731B2A43C700D45762 /* AffirmConfiguration.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		AF9426761B2A43C700D45762 /* AffirmConfiguration.m in Sources */ = {isa = PBXBuildFile; fileRef = AF9426741B2A43C700D45762 /* AffirmConfiguration.m */; };
+		AF94267B1B2A68B700D45762 /* AffirmConfiguration.h in CopyFiles */ = {isa = PBXBuildFile; fileRef = AF9426731B2A43C700D45762 /* AffirmConfiguration.h */; };
+		AF9426971B2B7E1A00D45762 /* AffirmConfiguration+Protected.h in Headers */ = {isa = PBXBuildFile; fileRef = AF9426901B2B79F000D45762 /* AffirmConfiguration+Protected.h */; };
+		AF9426E71B2F653700D45762 /* AffirmPopupViewController.h in Headers */ = {isa = PBXBuildFile; fileRef = AF9426E51B2F653700D45762 /* AffirmPopupViewController.h */; };
+		AF9426E81B2F653700D45762 /* AffirmPopupViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = AF9426E61B2F653700D45762 /* AffirmPopupViewController.m */; };
+		AF9426F21B2F7B0200D45762 /* AffirmCheckoutDelegate.h in Headers */ = {isa = PBXBuildFile; fileRef = AF9426F11B2F7AC000D45762 /* AffirmCheckoutDelegate.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		AF9426F31B2F7B0900D45762 /* AffirmCheckoutDelegate.h in CopyFiles */ = {isa = PBXBuildFile; fileRef = AF9426F11B2F7AC000D45762 /* AffirmCheckoutDelegate.h */; };
+		AF9426F71B30C7C000D45762 /* AffirmCheckoutData.h in Headers */ = {isa = PBXBuildFile; fileRef = AF9426F51B30C7C000D45762 /* AffirmCheckoutData.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		AF9426F81B30C7C000D45762 /* AffirmCheckoutData.m in Sources */ = {isa = PBXBuildFile; fileRef = AF9426F61B30C7C000D45762 /* AffirmCheckoutData.m */; };
+		AF9426F91B30C80600D45762 /* AffirmCheckoutData.h in CopyFiles */ = {isa = PBXBuildFile; fileRef = AF9426F51B30C7C000D45762 /* AffirmCheckoutData.h */; };
+		AFA815CA1B83F63500A06A34 /* AffirmUtils.h in Headers */ = {isa = PBXBuildFile; fileRef = AFA815C91B83F63500A06A34 /* AffirmUtils.h */; };
+		AFA815CC1B83FFA700A06A34 /* AffirmUtils.m in Sources */ = {isa = PBXBuildFile; fileRef = AFA815CB1B83FFA700A06A34 /* AffirmUtils.m */; };
+		AFA815CE1B83FFB800A06A34 /* AffirmUtilsTests.m in Sources */ = {isa = PBXBuildFile; fileRef = AFA815CD1B83FFB800A06A34 /* AffirmUtilsTests.m */; };
+		AFAC22C61B3B5A7000BFBB18 /* AffirmCheckoutDataTests.m in Sources */ = {isa = PBXBuildFile; fileRef = AFAC22C51B3B5A7000BFBB18 /* AffirmCheckoutDataTests.m */; };
+		AFAC22C91B3B720B00BFBB18 /* AffirmTestData.m in Sources */ = {isa = PBXBuildFile; fileRef = AFAC22C81B3B720B00BFBB18 /* AffirmTestData.m */; };
+		AFAC22CB1B3B7B4F00BFBB18 /* AffirmCheckoutViewControllerTests.m in Sources */ = {isa = PBXBuildFile; fileRef = AFAC22CA1B3B7B4F00BFBB18 /* AffirmCheckoutViewControllerTests.m */; };
+		AFAC22CF1B41E74700BFBB18 /* AffirmCheckoutViewController+Protected.h in Headers */ = {isa = PBXBuildFile; fileRef = AFAC22CE1B41E6DC00BFBB18 /* AffirmCheckoutViewController+Protected.h */; };
+		AFAC22D11B41EC6D00BFBB18 /* AffirmConfigurationTests.m in Sources */ = {isa = PBXBuildFile; fileRef = AFAC22D01B41EC6D00BFBB18 /* AffirmConfigurationTests.m */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXContainerItemProxy section */
+		AF9425FD1B26610000D45762 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = AF9425E81B26610000D45762 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = AF9425EF1B26610000D45762;
+			remoteInfo = AffirmSDK;
+		};
+		AF9426281B28FF5200D45762 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = AF9425E81B26610000D45762 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = AF9425EF1B26610000D45762;
+			remoteInfo = AffirmSDK;
+		};
+		AF9426E11B2F407200D45762 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = AF9425E81B26610000D45762 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = AF9426D81B2F3FCA00D45762;
+			remoteInfo = AffirmSDKResources;
+		};
+/* End PBXContainerItemProxy section */
+
+/* Begin PBXCopyFilesBuildPhase section */
+		AF9425EE1B26610000D45762 /* CopyFiles */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "include/$(PRODUCT_NAME)";
+			dstSubfolderSpec = 16;
+			files = (
+				082C615B1DD13A2D0039E94B /* AffirmBaseModalViewController.h in CopyFiles */,
+				08E131B71DC01CA1005F4894 /* AffirmProductModalViewController.h in CopyFiles */,
+				0833465E1D9C5CF10080092C /* AffirmSiteModalViewController.h in CopyFiles */,
+				AF9426F91B30C80600D45762 /* AffirmCheckoutData.h in CopyFiles */,
+				AF9426F31B2F7B0900D45762 /* AffirmCheckoutDelegate.h in CopyFiles */,
+				AF9426641B291C3C00D45762 /* AffirmCheckoutViewController.h in CopyFiles */,
+				AF94267B1B2A68B700D45762 /* AffirmConfiguration.h in CopyFiles */,
+				AF9425F41B26610000D45762 /* AffirmSDK.h in CopyFiles */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXCopyFilesBuildPhase section */
+
+/* Begin PBXFileReference section */
+		082C61551DD1330D0039E94B /* AffirmBaseModalViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AffirmBaseModalViewController.m; sourceTree = "<group>"; };
+		082C61571DD133350039E94B /* AffirmBaseModalViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AffirmBaseModalViewController.h; sourceTree = "<group>"; };
+		082C61581DD133910039E94B /* AffirmBaseModalViewController+Protected.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "AffirmBaseModalViewController+Protected.h"; sourceTree = "<group>"; };
+		08D052C01D99CBFB009BBD67 /* AffirmSiteModalViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AffirmSiteModalViewController.h; sourceTree = "<group>"; };
+		08D052C11D99CBFB009BBD67 /* AffirmSiteModalViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AffirmSiteModalViewController.m; sourceTree = "<group>"; };
+		08D052C41D99D0B0009BBD67 /* AffirmSiteModalViewController+Protected.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "AffirmSiteModalViewController+Protected.h"; sourceTree = "<group>"; };
+		08E131B11DC018E2005F4894 /* AffirmProductModalViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AffirmProductModalViewController.h; sourceTree = "<group>"; };
+		08E131B21DC01922005F4894 /* AffirmProductModalViewController+Protected.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "AffirmProductModalViewController+Protected.h"; sourceTree = "<group>"; };
+		08E131B51DC01974005F4894 /* AffirmProductModalViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AffirmProductModalViewController.m; sourceTree = "<group>"; };
+		4E273BE41EE08C4F007106AE /* AffirmActivityIndicator.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AffirmActivityIndicator.h; sourceTree = "<group>"; };
+		4E273BE51EE08C4F007106AE /* AffirmActivityIndicator.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AffirmActivityIndicator.m; sourceTree = "<group>"; };
+		4E7A63631EF9B7D20067288F /* AffirmSDK.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; path = AffirmSDK.bundle; sourceTree = SOURCE_ROOT; };
+		4EA0BE661EE9FF4200E5D9D6 /* AffirmLogger.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AffirmLogger.h; sourceTree = "<group>"; };
+		4EA0BE671EE9FF4200E5D9D6 /* AffirmLogger.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AffirmLogger.m; sourceTree = "<group>"; };
+		AF522F081B313C6400A03AE3 /* AffirmJSONifiable.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AffirmJSONifiable.h; sourceTree = "<group>"; };
+		AF9425F01B26610000D45762 /* libAffirmSDK.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libAffirmSDK.a; sourceTree = BUILT_PRODUCTS_DIR; };
+		AF9425F31B26610000D45762 /* AffirmSDK.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AffirmSDK.h; sourceTree = "<group>"; };
+		AF9425FB1B26610000D45762 /* AffirmSDKTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = AffirmSDKTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		AF9426011B26610000D45762 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		AF94260A1B27835300D45762 /* AffirmCheckoutViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AffirmCheckoutViewController.h; sourceTree = "<group>"; };
+		AF94260B1B27835300D45762 /* AffirmCheckoutViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AffirmCheckoutViewController.m; sourceTree = "<group>"; };
+		AF9426731B2A43C700D45762 /* AffirmConfiguration.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AffirmConfiguration.h; sourceTree = "<group>"; };
+		AF9426741B2A43C700D45762 /* AffirmConfiguration.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; lineEnding = 0; path = AffirmConfiguration.m; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objc; };
+		AF9426901B2B79F000D45762 /* AffirmConfiguration+Protected.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; lineEnding = 0; path = "AffirmConfiguration+Protected.h"; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objcpp; };
+		AF9426D91B2F3FCA00D45762 /* AffirmSDK.bundle */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = AffirmSDK.bundle; sourceTree = BUILT_PRODUCTS_DIR; };
+		AF9426E51B2F653700D45762 /* AffirmPopupViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AffirmPopupViewController.h; sourceTree = "<group>"; };
+		AF9426E61B2F653700D45762 /* AffirmPopupViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AffirmPopupViewController.m; sourceTree = "<group>"; };
+		AF9426F11B2F7AC000D45762 /* AffirmCheckoutDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AffirmCheckoutDelegate.h; sourceTree = "<group>"; };
+		AF9426F51B30C7C000D45762 /* AffirmCheckoutData.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; lineEnding = 0; path = AffirmCheckoutData.h; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objcpp; };
+		AF9426F61B30C7C000D45762 /* AffirmCheckoutData.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; lineEnding = 0; path = AffirmCheckoutData.m; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objc; };
+		AF9426FB1B30D68400D45762 /* AffirmCheckoutData+Protected.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "AffirmCheckoutData+Protected.h"; sourceTree = "<group>"; };
+		AFA815C91B83F63500A06A34 /* AffirmUtils.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AffirmUtils.h; sourceTree = "<group>"; };
+		AFA815CB1B83FFA700A06A34 /* AffirmUtils.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AffirmUtils.m; sourceTree = "<group>"; };
+		AFA815CD1B83FFB800A06A34 /* AffirmUtilsTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AffirmUtilsTests.m; sourceTree = "<group>"; };
+		AFAC22C51B3B5A7000BFBB18 /* AffirmCheckoutDataTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = AffirmCheckoutDataTests.m; path = AffirmSDKTests/AffirmCheckoutDataTests.m; sourceTree = SOURCE_ROOT; };
+		AFAC22C71B3B720B00BFBB18 /* AffirmTestData.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AffirmTestData.h; sourceTree = "<group>"; };
+		AFAC22C81B3B720B00BFBB18 /* AffirmTestData.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AffirmTestData.m; sourceTree = "<group>"; };
+		AFAC22CA1B3B7B4F00BFBB18 /* AffirmCheckoutViewControllerTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AffirmCheckoutViewControllerTests.m; sourceTree = "<group>"; };
+		AFAC22CE1B41E6DC00BFBB18 /* AffirmCheckoutViewController+Protected.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "AffirmCheckoutViewController+Protected.h"; sourceTree = "<group>"; };
+		AFAC22D01B41EC6D00BFBB18 /* AffirmConfigurationTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AffirmConfigurationTests.m; sourceTree = "<group>"; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		AF9425ED1B26610000D45762 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		AF9425F81B26610000D45762 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				AF9425FC1B26610000D45762 /* libAffirmSDK.a in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		AF9426D61B2F3FCA00D45762 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		AF9425E71B26610000D45762 = {
+			isa = PBXGroup;
+			children = (
+				AF9425F21B26610000D45762 /* AffirmSDK */,
+				4E7A63631EF9B7D20067288F /* AffirmSDK.bundle */,
+				AF9425FF1B26610000D45762 /* AffirmSDKTests */,
+				AF9425F11B26610000D45762 /* Products */,
+			);
+			sourceTree = "<group>";
+		};
+		AF9425F11B26610000D45762 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				AF9425F01B26610000D45762 /* libAffirmSDK.a */,
+				AF9425FB1B26610000D45762 /* AffirmSDKTests.xctest */,
+				AF9426D91B2F3FCA00D45762 /* AffirmSDK.bundle */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		AF9425F21B26610000D45762 /* AffirmSDK */ = {
+			isa = PBXGroup;
+			children = (
+				082C61571DD133350039E94B /* AffirmBaseModalViewController.h */,
+				082C61551DD1330D0039E94B /* AffirmBaseModalViewController.m */,
+				082C61581DD133910039E94B /* AffirmBaseModalViewController+Protected.h */,
+				08D052C01D99CBFB009BBD67 /* AffirmSiteModalViewController.h */,
+				08D052C11D99CBFB009BBD67 /* AffirmSiteModalViewController.m */,
+				08D052C41D99D0B0009BBD67 /* AffirmSiteModalViewController+Protected.h */,
+				08E131B11DC018E2005F4894 /* AffirmProductModalViewController.h */,
+				08E131B51DC01974005F4894 /* AffirmProductModalViewController.m */,
+				08E131B21DC01922005F4894 /* AffirmProductModalViewController+Protected.h */,
+				AF9426F51B30C7C000D45762 /* AffirmCheckoutData.h */,
+				AF9426F61B30C7C000D45762 /* AffirmCheckoutData.m */,
+				AF9426FB1B30D68400D45762 /* AffirmCheckoutData+Protected.h */,
+				AF9426F11B2F7AC000D45762 /* AffirmCheckoutDelegate.h */,
+				AF94260A1B27835300D45762 /* AffirmCheckoutViewController.h */,
+				AF94260B1B27835300D45762 /* AffirmCheckoutViewController.m */,
+				AFAC22CE1B41E6DC00BFBB18 /* AffirmCheckoutViewController+Protected.h */,
+				AF9426731B2A43C700D45762 /* AffirmConfiguration.h */,
+				AF9426741B2A43C700D45762 /* AffirmConfiguration.m */,
+				AF9426901B2B79F000D45762 /* AffirmConfiguration+Protected.h */,
+				AF9426E51B2F653700D45762 /* AffirmPopupViewController.h */,
+				AF9426E61B2F653700D45762 /* AffirmPopupViewController.m */,
+				AF522F081B313C6400A03AE3 /* AffirmJSONifiable.h */,
+				AF9425F31B26610000D45762 /* AffirmSDK.h */,
+				AFA815C91B83F63500A06A34 /* AffirmUtils.h */,
+				AFA815CB1B83FFA700A06A34 /* AffirmUtils.m */,
+				4E273BE41EE08C4F007106AE /* AffirmActivityIndicator.h */,
+				4E273BE51EE08C4F007106AE /* AffirmActivityIndicator.m */,
+				4EA0BE661EE9FF4200E5D9D6 /* AffirmLogger.h */,
+				4EA0BE671EE9FF4200E5D9D6 /* AffirmLogger.m */,
+			);
+			path = AffirmSDK;
+			sourceTree = "<group>";
+		};
+		AF9425FF1B26610000D45762 /* AffirmSDKTests */ = {
+			isa = PBXGroup;
+			children = (
+				AFAC22C71B3B720B00BFBB18 /* AffirmTestData.h */,
+				AFAC22C81B3B720B00BFBB18 /* AffirmTestData.m */,
+				AFAC22C51B3B5A7000BFBB18 /* AffirmCheckoutDataTests.m */,
+				AFAC22CA1B3B7B4F00BFBB18 /* AffirmCheckoutViewControllerTests.m */,
+				AFAC22D01B41EC6D00BFBB18 /* AffirmConfigurationTests.m */,
+				AFA815CD1B83FFB800A06A34 /* AffirmUtilsTests.m */,
+				AF9426001B26610000D45762 /* Supporting Files */,
+			);
+			path = AffirmSDKTests;
+			sourceTree = "<group>";
+		};
+		AF9426001B26610000D45762 /* Supporting Files */ = {
+			isa = PBXGroup;
+			children = (
+				AF9426011B26610000D45762 /* Info.plist */,
+			);
+			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXHeadersBuildPhase section */
+		AF9426201B28D18A00D45762 /* Headers */ = {
+			isa = PBXHeadersBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				AF9426F71B30C7C000D45762 /* AffirmCheckoutData.h in Headers */,
+				08D052C51D99D0B0009BBD67 /* AffirmSiteModalViewController+Protected.h in Headers */,
+				AF9426F21B2F7B0200D45762 /* AffirmCheckoutDelegate.h in Headers */,
+				AF94265F1B291B4B00D45762 /* AffirmCheckoutViewController.h in Headers */,
+				AF9426751B2A43C700D45762 /* AffirmConfiguration.h in Headers */,
+				4EA0BE681EE9FF4200E5D9D6 /* AffirmLogger.h in Headers */,
+				08E131B31DC01935005F4894 /* AffirmProductModalViewController.h in Headers */,
+				AF522F091B31EF2F00A03AE3 /* AffirmCheckoutData+Protected.h in Headers */,
+				082C61591DD133910039E94B /* AffirmBaseModalViewController+Protected.h in Headers */,
+				AF9426211B28D19A00D45762 /* AffirmSDK.h in Headers */,
+				AFAC22CF1B41E74700BFBB18 /* AffirmCheckoutViewController+Protected.h in Headers */,
+				08E131B41DC01938005F4894 /* AffirmProductModalViewController+Protected.h in Headers */,
+				08D052C21D99CBFB009BBD67 /* AffirmSiteModalViewController.h in Headers */,
+				AF9426971B2B7E1A00D45762 /* AffirmConfiguration+Protected.h in Headers */,
+				AF522F0A1B31EF5000A03AE3 /* AffirmJSONifiable.h in Headers */,
+				AF9426E71B2F653700D45762 /* AffirmPopupViewController.h in Headers */,
+				AFA815CA1B83F63500A06A34 /* AffirmUtils.h in Headers */,
+				082C615A1DD133970039E94B /* AffirmBaseModalViewController.h in Headers */,
+				4E273BE61EE08C4F007106AE /* AffirmActivityIndicator.h in Headers */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXHeadersBuildPhase section */
+
+/* Begin PBXNativeTarget section */
+		AF9425EF1B26610000D45762 /* AffirmSDK */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = AF9426041B26610000D45762 /* Build configuration list for PBXNativeTarget "AffirmSDK" */;
+			buildPhases = (
+				AF9425EC1B26610000D45762 /* Sources */,
+				AF9425ED1B26610000D45762 /* Frameworks */,
+				AF9425EE1B26610000D45762 /* CopyFiles */,
+				AF9426201B28D18A00D45762 /* Headers */,
+				AF9426231B28F4B600D45762 /* Prepare Framework */,
+				AFB280501B7A9F2A00176510 /* Generate Documentation */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = AffirmSDK;
+			productName = AffirmSDK;
+			productReference = AF9425F01B26610000D45762 /* libAffirmSDK.a */;
+			productType = "com.apple.product-type.library.static";
+		};
+		AF9425FA1B26610000D45762 /* AffirmSDKTests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = AF9426071B26610000D45762 /* Build configuration list for PBXNativeTarget "AffirmSDKTests" */;
+			buildPhases = (
+				AF9425F71B26610000D45762 /* Sources */,
+				AF9425F81B26610000D45762 /* Frameworks */,
+				AF9425F91B26610000D45762 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				AF9425FE1B26610000D45762 /* PBXTargetDependency */,
+			);
+			name = AffirmSDKTests;
+			productName = AffirmSDKTests;
+			productReference = AF9425FB1B26610000D45762 /* AffirmSDKTests.xctest */;
+			productType = "com.apple.product-type.bundle.unit-test";
+		};
+		AF9426D81B2F3FCA00D45762 /* AffirmSDKResources */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = AF9426DD1B2F3FCA00D45762 /* Build configuration list for PBXNativeTarget "AffirmSDKResources" */;
+			buildPhases = (
+				AF9426D51B2F3FCA00D45762 /* Sources */,
+				AF9426D61B2F3FCA00D45762 /* Frameworks */,
+				AF9426D71B2F3FCA00D45762 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = AffirmSDKResources;
+			productName = AffirmSDKResources;
+			productReference = AF9426D91B2F3FCA00D45762 /* AffirmSDK.bundle */;
+			productType = "com.apple.product-type.bundle";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		AF9425E81B26610000D45762 /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				LastUpgradeCheck = 0700;
+				ORGANIZATIONNAME = Affirm;
+				TargetAttributes = {
+					AF9425EF1B26610000D45762 = {
+						CreatedOnToolsVersion = 6.3.2;
+					};
+					AF9425FA1B26610000D45762 = {
+						CreatedOnToolsVersion = 6.3.2;
+					};
+					AF9426241B28FF1300D45762 = {
+						CreatedOnToolsVersion = 6.3.2;
+					};
+					AF9426D81B2F3FCA00D45762 = {
+						CreatedOnToolsVersion = 6.3.2;
+					};
+				};
+			};
+			buildConfigurationList = AF9425EB1B26610000D45762 /* Build configuration list for PBXProject "AffirmSDK" */;
+			compatibilityVersion = "Xcode 3.2";
+			developmentRegion = English;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+			);
+			mainGroup = AF9425E71B26610000D45762;
+			productRefGroup = AF9425F11B26610000D45762 /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				AF9425EF1B26610000D45762 /* AffirmSDK */,
+				AF9425FA1B26610000D45762 /* AffirmSDKTests */,
+				AF9426241B28FF1300D45762 /* Framework */,
+				AF9426D81B2F3FCA00D45762 /* AffirmSDKResources */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+		AF9425F91B26610000D45762 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		AF9426D71B2F3FCA00D45762 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXShellScriptBuildPhase section */
+		AF9426231B28F4B600D45762 /* Prepare Framework */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "Prepare Framework";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "set -e\n\nmkdir -p \"${BUILT_PRODUCTS_DIR}/${PRODUCT_NAME}.framework/Versions/A/Headers\"\n\n# Link the \"Current\" version to \"A\"\n/bin/ln -sfh A \"${BUILT_PRODUCTS_DIR}/${PRODUCT_NAME}.framework/Versions/Current\"\n/bin/ln -sfh Versions/Current/Headers \"${BUILT_PRODUCTS_DIR}/${PRODUCT_NAME}.framework/Headers\"\n/bin/ln -sfh \"Versions/Current/${PRODUCT_NAME}\" \"${BUILT_PRODUCTS_DIR}/${PRODUCT_NAME}.framework/${PRODUCT_NAME}\"\n\n# The -a ensures that the headers maintain the source modification date so that we don't constantly\n# cause propagating rebuilds of files that import these headers.\n/bin/cp -a \"${TARGET_BUILD_DIR}/${PUBLIC_HEADERS_FOLDER_PATH}/\" \"${BUILT_PRODUCTS_DIR}/${PRODUCT_NAME}.framework/Versions/A/Headers\"";
+		};
+		AF94262A1B29011500D45762 /* ShellScript */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "set -e\nset +u\n# Avoid recursively calling this script.\nif [[ $SF_MASTER_SCRIPT_RUNNING ]]\nthen\nexit 0\nfi\nset -u\nexport SF_MASTER_SCRIPT_RUNNING=1\n\nSF_TARGET_NAME=${PROJECT_NAME}\nSF_EXECUTABLE_PATH=\"lib${SF_TARGET_NAME}.a\"\nSF_WRAPPER_NAME=\"${SF_TARGET_NAME}.framework\"\n\n# The following conditionals come from\n# https://github.com/kstenerud/iOS-Universal-Framework\n\nif [[ \"$SDK_NAME\" =~ ([A-Za-z]+) ]]\nthen\nSF_SDK_PLATFORM=${BASH_REMATCH[1]}\nelse\necho \"Could not find platform name from SDK_NAME: $SDK_NAME\"\nexit 1\nfi\n\nif [[ \"$SDK_NAME\" =~ ([0-9]+.*$) ]]\nthen\nSF_SDK_VERSION=${BASH_REMATCH[1]}\nelse\necho \"Could not find sdk version from SDK_NAME: $SDK_NAME\"\nexit 1\nfi\n\nif [[ \"$SF_SDK_PLATFORM\" = \"iphoneos\" ]]\nthen\nSF_OTHER_PLATFORM=iphonesimulator\nelse\nSF_OTHER_PLATFORM=iphoneos\nfi\n\nif [[ \"$BUILT_PRODUCTS_DIR\" =~ (.*)$SF_SDK_PLATFORM$ ]]\nthen\nSF_OTHER_BUILT_PRODUCTS_DIR=\"${BASH_REMATCH[1]}${SF_OTHER_PLATFORM}\"\nelse\necho \"Could not find platform name from build products directory: $BUILT_PRODUCTS_DIR\"\nexit 1\nfi\n\n# Build the other platform.\nxcrun xcodebuild -project \"${PROJECT_FILE_PATH}\" -target \"${TARGET_NAME}\" -configuration \"${CONFIGURATION}\" -sdk ${SF_OTHER_PLATFORM}${SF_SDK_VERSION} BUILD_DIR=\"${BUILD_DIR}\" OBJROOT=\"${OBJROOT}\" BUILD_ROOT=\"${BUILD_ROOT}\" SYMROOT=\"${SYMROOT}\" $ACTION\n\n# Smash the two static libraries into one fat binary and store it in the .framework\nxcrun lipo -create \"${BUILT_PRODUCTS_DIR}/${SF_EXECUTABLE_PATH}\" \"${SF_OTHER_BUILT_PRODUCTS_DIR}/${SF_EXECUTABLE_PATH}\" -output \"${BUILT_PRODUCTS_DIR}/${SF_WRAPPER_NAME}/Versions/A/${SF_TARGET_NAME}\"\n\n# Copy the binary to the other architecture folder to have a complete framework in both.\ncp -a \"${BUILT_PRODUCTS_DIR}/${SF_WRAPPER_NAME}/Versions/A/${SF_TARGET_NAME}\" \"${SF_OTHER_BUILT_PRODUCTS_DIR}/${SF_WRAPPER_NAME}/Versions/A/${SF_TARGET_NAME}\"";
+		};
+		AFB280501B7A9F2A00176510 /* Generate Documentation */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "Generate Documentation";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "/usr/local/bin/appledoc \\\n--project-name \"${PROJECT_NAME}\" \\\n--project-company \"Affirm, Inc.\" \\\n--company-id \"com.affirm\" \\\n--install-docset \\\n--merge-categories \\\n--logformat xcode \\\n--output /tmp \\\n--no-repeat-first-par \\\n\"${PROJECT_DIR}/${PROJECT_NAME}\"";
+		};
+/* End PBXShellScriptBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		AF9425EC1B26610000D45762 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				AF9426E81B2F653700D45762 /* AffirmPopupViewController.m in Sources */,
+				AF9426761B2A43C700D45762 /* AffirmConfiguration.m in Sources */,
+				AF94260C1B27835300D45762 /* AffirmCheckoutViewController.m in Sources */,
+				08E131B61DC01974005F4894 /* AffirmProductModalViewController.m in Sources */,
+				08D052C31D99CBFB009BBD67 /* AffirmSiteModalViewController.m in Sources */,
+				082C61561DD1330D0039E94B /* AffirmBaseModalViewController.m in Sources */,
+				4E273BE71EE08C4F007106AE /* AffirmActivityIndicator.m in Sources */,
+				4EA0BE691EE9FF4200E5D9D6 /* AffirmLogger.m in Sources */,
+				AFA815CC1B83FFA700A06A34 /* AffirmUtils.m in Sources */,
+				AF9426F81B30C7C000D45762 /* AffirmCheckoutData.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		AF9425F71B26610000D45762 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				AFAC22D11B41EC6D00BFBB18 /* AffirmConfigurationTests.m in Sources */,
+				AFAC22C61B3B5A7000BFBB18 /* AffirmCheckoutDataTests.m in Sources */,
+				AFAC22C91B3B720B00BFBB18 /* AffirmTestData.m in Sources */,
+				AFA815CE1B83FFB800A06A34 /* AffirmUtilsTests.m in Sources */,
+				AFAC22CB1B3B7B4F00BFBB18 /* AffirmCheckoutViewControllerTests.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		AF9426D51B2F3FCA00D45762 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin PBXTargetDependency section */
+		AF9425FE1B26610000D45762 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = AF9425EF1B26610000D45762 /* AffirmSDK */;
+			targetProxy = AF9425FD1B26610000D45762 /* PBXContainerItemProxy */;
+		};
+		AF9426291B28FF5200D45762 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = AF9425EF1B26610000D45762 /* AffirmSDK */;
+			targetProxy = AF9426281B28FF5200D45762 /* PBXContainerItemProxy */;
+		};
+		AF9426E21B2F407200D45762 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = AF9426D81B2F3FCA00D45762 /* AffirmSDKResources */;
+			targetProxy = AF9426E11B2F407200D45762 /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
+
+/* Begin XCBuildConfiguration section */
+		AF9426021B26610000D45762 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_TESTABILITY = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
+				MTL_ENABLE_DEBUG_INFO = YES;
+				ONLY_ACTIVE_ARCH = YES;
+				SDKROOT = iphoneos;
+			};
+			name = Debug;
+		};
+		AF9426031B26610000D45762 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				ENABLE_NS_ASSERTIONS = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
+				MTL_ENABLE_DEBUG_INFO = NO;
+				SDKROOT = iphoneos;
+				VALIDATE_PRODUCT = YES;
+			};
+			name = Release;
+		};
+		AF9426051B26610000D45762 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				DEAD_CODE_STRIPPING = NO;
+				ONLY_ACTIVE_ARCH = NO;
+				OTHER_LDFLAGS = "-ObjC";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				PUBLIC_HEADERS_FOLDER_PATH = "$(PROJECT_NAME)Headers";
+				SKIP_INSTALL = YES;
+				STRIP_STYLE = "non-global";
+			};
+			name = Debug;
+		};
+		AF9426061B26610000D45762 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				DEAD_CODE_STRIPPING = NO;
+				ONLY_ACTIVE_ARCH = NO;
+				OTHER_LDFLAGS = "-ObjC";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				PUBLIC_HEADERS_FOLDER_PATH = "$(PROJECT_NAME)Headers";
+				SKIP_INSTALL = YES;
+				STRIP_STYLE = "non-global";
+			};
+			name = Release;
+		};
+		AF9426081B26610000D45762 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(SDKROOT)/Developer/Library/Frameworks",
+					"$(inherited)",
+				);
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				INFOPLIST_FILE = AffirmSDKTests/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = "com.affirm.$(PRODUCT_NAME:rfc1034identifier)";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+			};
+			name = Debug;
+		};
+		AF9426091B26610000D45762 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(SDKROOT)/Developer/Library/Frameworks",
+					"$(inherited)",
+				);
+				INFOPLIST_FILE = AffirmSDKTests/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = "com.affirm.$(PRODUCT_NAME:rfc1034identifier)";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+			};
+			name = Release;
+		};
+		AF9426261B28FF1300D45762 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				PRODUCT_NAME = "$(TARGET_NAME)";
+			};
+			name = Debug;
+		};
+		AF9426271B28FF1300D45762 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				PRODUCT_NAME = "$(TARGET_NAME)";
+			};
+			name = Release;
+		};
+		AF9426DE1B2F3FCA00D45762 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				INFOPLIST_FILE = AffirmSDKResources/Info.plist;
+				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Bundles";
+				MACOSX_DEPLOYMENT_TARGET = 10.10;
+				PRODUCT_BUNDLE_IDENTIFIER = "com.affirm.$(PRODUCT_NAME:rfc1034identifier)";
+				PRODUCT_NAME = AffirmSDK;
+				SKIP_INSTALL = YES;
+				WRAPPER_EXTENSION = bundle;
+			};
+			name = Debug;
+		};
+		AF9426DF1B2F3FCA00D45762 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				INFOPLIST_FILE = AffirmSDKResources/Info.plist;
+				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Bundles";
+				MACOSX_DEPLOYMENT_TARGET = 10.10;
+				PRODUCT_BUNDLE_IDENTIFIER = "com.affirm.$(PRODUCT_NAME:rfc1034identifier)";
+				PRODUCT_NAME = AffirmSDK;
+				SKIP_INSTALL = YES;
+				WRAPPER_EXTENSION = bundle;
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		AF9425EB1B26610000D45762 /* Build configuration list for PBXProject "AffirmSDK" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				AF9426021B26610000D45762 /* Debug */,
+				AF9426031B26610000D45762 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		AF9426041B26610000D45762 /* Build configuration list for PBXNativeTarget "AffirmSDK" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				AF9426051B26610000D45762 /* Debug */,
+				AF9426061B26610000D45762 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		AF9426071B26610000D45762 /* Build configuration list for PBXNativeTarget "AffirmSDKTests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				AF9426081B26610000D45762 /* Debug */,
+				AF9426091B26610000D45762 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		AF9426251B28FF1300D45762 /* Build configuration list for PBXAggregateTarget "Framework" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				AF9426261B28FF1300D45762 /* Debug */,
+				AF9426271B28FF1300D45762 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		AF9426DD1B2F3FCA00D45762 /* Build configuration list for PBXNativeTarget "AffirmSDKResources" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				AF9426DE1B2F3FCA00D45762 /* Debug */,
+				AF9426DF1B2F3FCA00D45762 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = AF9425E81B26610000D45762 /* Project object */;
+}
