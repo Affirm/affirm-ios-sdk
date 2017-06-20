@@ -18,9 +18,7 @@ NS_ASSUME_NONNULL_BEGIN
 @interface AffirmProductModalViewController : AffirmBaseModalViewController
 
 + (instancetype)productModalControllerWithModalId:(NSString *)modalId
-                                           amount:(NSDecimalNumber *)amount
-                                    configuration:(AffirmConfiguration *)configuration;
-
+                                           amount:(NSDecimalNumber *)amount;
 
 @end
 

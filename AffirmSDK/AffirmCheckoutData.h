@@ -12,9 +12,17 @@
 
 NS_ASSUME_NONNULL_BEGIN
 
+/// An AffirmShippingDetail object represents the shipping details for a customer.
+@interface AffirmShippingDetail : NSObject
 
-/// An AffirmAddress object represents a customer's address.
-@interface AffirmAddress : NSObject
+/// The customer's name. Required in shipping contact; otherwise optional. (See AffirmCheckout for more info.)
+@property(nonatomic, copy, readonly, nullable) NSString *name;
+
+/// The customer's phone number. Optional.
+@property(nonatomic, copy, readonly, nullable) NSString *phoneNumber;
+
+/// The customer's email. Optional.
+@property(nonatomic, copy, readonly, nullable) NSString *email;
 
 /// Address line 1. Required.
 @property(nonatomic, copy, readonly) NSString *line1;
@@ -34,22 +42,8 @@ NS_ASSUME_NONNULL_BEGIN
 /// Country code. Required.
 @property(nonatomic, copy, readonly) NSString *countryCode;
 
-/// Convenience constructor. See properties for more details.
-/// @param line1 Address line 1.
-/// @param line2 Address line 2.
-/// @param city City.
-/// @param state State.
-/// @param zipCode ZIP code.
-/// @param countryCode Country code.
-/// @return The newly created address.
-+ (AffirmAddress *)addressWithLine1:(NSString *)line1
-                              line2:(NSString *)line2
-                               city:(NSString *)city
-                              state:(NSString *)state
-                            zipCode:(NSString *)zipCode
-                        countryCode:(NSString *)countryCode;
-
-/// Initializer. See properties for more details.
+/// Convenience constructor for a shipping detail object.
+/// @param name Name.
 /// @param line1 Address line 1.
 /// @param line2 Address line 2.
 /// @param city City.
@@ -57,59 +51,55 @@ NS_ASSUME_NONNULL_BEGIN
 /// @param zipCode ZIP code.
 /// @param countryCode Country code.
 /// @return The initialized address.
-- (instancetype)initWithLine1:(NSString *)line1
-                        line2:(NSString *)line2
-                         city:(NSString *)city
-                        state:(NSString *)state
-                      zipCode:(NSString *)zipCode
-                  countryCode:(NSString *)countryCode;
++ (AffirmShippingDetail *)shippingDetailWithName:(NSString *)name
+                                addressWithLine1:(NSString *)line1
+                                           line2:(NSString *)line2
+                                            city:(NSString *)city
+                                           state:(NSString *)state
+                                         zipCode:(NSString *)zipCode
+                                     countryCode:(NSString *)countryCode;
 
-@end
-
-
-/// An AffirmContact object represents contact info for a customer.
-@interface AffirmContact : NSObject
-
-/// The customer's name. Required in shipping contact; otherwise optional. (See AffirmCheckout for more info.)
-@property(nonatomic, copy, readonly, nullable) NSString *name;
-
-/// The customer's address. Required in shipping contact; otherwise optional. (See AffirmCheckout for more info.)
-@property(nonatomic, copy, readonly, nullable) AffirmAddress *address;
-
-/// The customer's phone number. Optional.
-@property(nonatomic, copy, readonly, nullable) NSString *phoneNumber;
-
-/// The customer's email. Optional.
-@property(nonatomic, copy, readonly, nullable) NSString *email;
-
-/// Convenience constructor. See properties for more info.
+/// Convenience constructor for a shipping detail object with email and phone number.
 /// @param name Name.
-/// @param address Address.
-/// @return The newly created contact.
-+ (AffirmContact *)contactWithName:(nullable NSString *)name
-                           address:(nullable AffirmAddress *)address;
-
-/// Convenience constructor. See properties for more details.
-/// @param name Name.
-/// @param address Address.
-/// @param phoneNumber Phone number.
 /// @param email Email.
-/// @return The newly created contact.
-+ (AffirmContact *)contactWithName:(nullable NSString *)name
-                           address:(nullable AffirmAddress *)address
-                       phoneNumber:(nullable NSString *)phoneNumber
-                             email:(nullable NSString *)email;
-
-/// Initializer. See properties for more details.
-/// @param name Name.
-/// @param address Address.
 /// @param phoneNumber Phone number.
+/// @param line1 Address line 1.
+/// @param line2 Address line 2.
+/// @param city City.
+/// @param state State.
+/// @param zipCode ZIP code.
+/// @param countryCode Country code.
+/// @return The initialized address.
++ (AffirmShippingDetail *)shippingDetailWithName:(NSString *)name
+                                           email:(nullable NSString *)email
+                                     phoneNumber:(nullable NSString *)phoneNumber
+                                addressWithLine1:(NSString *)line1
+                                           line2:(NSString *)line2
+                                            city:(NSString *)city
+                                           state:(NSString *)state
+                                         zipCode:(NSString *)zipCode
+                                     countryCode:(NSString *)countryCode;
+
+/// Initializer for a shipping detail object with email and phone number.
+/// @param name Name.
 /// @param email Email.
-/// @return The initialized contact.
-- (instancetype)initWithName:(nullable NSString *)name
-                     address:(nullable AffirmAddress *)address
-                 phoneNumber:(nullable NSString *)phoneNumber
-                       email:(nullable NSString *)email;
+/// @param phoneNumber Phone number.
+/// @param line1 Address line 1.
+/// @param line2 Address line 2.
+/// @param city City.
+/// @param state State.
+/// @param zipCode ZIP code.
+/// @param countryCode Country code.
+/// @return The initialized address.
+- (instancetype)initShippingDetailWithName:(NSString *)name
+                                     email:(nullable NSString *)email
+                               phoneNumber:(nullable NSString *)phoneNumber
+                          addressWithLine1:(NSString *)line1
+                                     line2:(NSString *)line2
+                                      city:(NSString *)city
+                                     state:(NSString *)state
+                                   zipCode:(NSString *)zipCode
+                               countryCode:(NSString *)countryCode;
 
 @end
 
@@ -167,14 +157,12 @@ NS_ASSUME_NONNULL_BEGIN
 /// @param unitPrice Price per item.
 /// @param quantity Number of items purchased.
 /// @param URL URL of the item.
-/// @param imageURL URL of the item image.
 /// @return The newly created item.
 + (AffirmItem *)itemWithName:(NSString *)name
                          SKU:(NSString *)SKU
                    unitPrice:(NSDecimalNumber *)unitPrice
                     quantity:(NSUInteger)quantity
-                         URL:(NSURL *)URL
-                    imageURL:(NSURL *)imageURL;
+                         URL:(NSURL *)URL;
 
 /// Initializer. See properties for more details.
 /// @param name Item name.
@@ -182,14 +170,12 @@ NS_ASSUME_NONNULL_BEGIN
 /// @param unitPrice Price per item.
 /// @param quantity Number of items purchased.
 /// @param URL URL of the item.
-/// @param imageURL URL of the item image.
 /// @return The initialized item.
 - (instancetype)initWithName:(NSString *)name
                          SKU:(NSString *)SKU
                    unitPrice:(NSDecimalNumber *)unitPrice
                     quantity:(NSUInteger)quantity
-                         URL:(NSURL *)URL
-                    imageURL:(NSURL *)imageURL;
+                         URL:(NSURL *)URL;
 
 @end
 
@@ -198,11 +184,11 @@ NS_ASSUME_NONNULL_BEGIN
 @interface AffirmCheckout : NSObject
 
 /// A list of purchased items. Required.
-@property(nonatomic, copy, readonly) NSArray *items;
+@property(nonatomic, copy, readonly) NSArray <AffirmItem *>*items;
 
 /// Shipping contact information. Required.
 /// The shipping contact object must contain a non-nil name and address.
-@property(nonatomic, copy, readonly) AffirmContact *shipping;
+@property(nonatomic, copy, readonly) AffirmShippingDetail *shipping;
 
 /// Tax amount in USD. Cannot be negative. Required.
 @property(nonatomic, copy, readonly) NSDecimalNumber *taxAmount;
@@ -210,12 +196,8 @@ NS_ASSUME_NONNULL_BEGIN
 /// Shipping amount in USD. Cannot be negative. Required.
 @property(nonatomic, copy, readonly) NSDecimalNumber *shippingAmount;
 
-/// Billing contact information. Optional.
-/// If provided, the billing name and email will be automatically loaded into the Affirm account creation screen.
-@property(nonatomic, copy, readonly) AffirmContact *billing;
-
 /// A list of discounts. Optional.
-@property(nonatomic, copy, readonly, nullable) NSArray *discounts;
+@property(nonatomic, copy, readonly, nullable) NSArray <AffirmDiscount *>*discounts;
 
 /// Additional metadata for the checkout. Optional.
 @property(nonatomic, copy, readonly, nullable) NSDictionary *metadata;
@@ -233,8 +215,8 @@ NS_ASSUME_NONNULL_BEGIN
 /// @param shippingAmount Shipping amount.
 /// @param financingProgram Financing program to be applied.
 /// @return The newly created checkout.
-+ (AffirmCheckout *)checkoutWithItems:(NSArray *)items
-                             shipping:(AffirmContact *)shipping
++ (AffirmCheckout *)checkoutWithItems:(NSArray <AffirmItem *>*)items
+                             shipping:(AffirmShippingDetail *)shipping
                             taxAmount:(NSDecimalNumber *)taxAmount
                        shippingAmount:(NSDecimalNumber *)shippingAmount
                      financingProgram:(nullable NSString *)financingProgram;
@@ -244,17 +226,15 @@ NS_ASSUME_NONNULL_BEGIN
 /// @param shipping Shipping contact.
 /// @param taxAmount Tax amount.
 /// @param shippingAmount Shipping amount.
-/// @param billing Billing contact.
 /// @param discounts List of discounts.
 /// @param metadata Additional metadata.
 /// @param financingProgram Financing program to be applied.
 /// @return The newly created checkout.
-+ (AffirmCheckout *)checkoutWithItems:(NSArray *)items
-                             shipping:(AffirmContact *)shipping
++ (AffirmCheckout *)checkoutWithItems:(NSArray <AffirmItem *>*)items
+                             shipping:(AffirmShippingDetail *)shipping
                             taxAmount:(NSDecimalNumber *)taxAmount
                        shippingAmount:(NSDecimalNumber *)shippingAmount
-                              billing:(nullable AffirmContact *)billing
-                            discounts:(nullable NSArray *)discounts
+                            discounts:(nullable NSArray <AffirmDiscount *>*)discounts
                              metadata:(nullable NSDictionary *)metadata
                      financingProgram:(nullable NSString *)financingProgram;
 
@@ -264,8 +244,8 @@ NS_ASSUME_NONNULL_BEGIN
 /// @param taxAmount Tax amount.
 /// @param shippingAmount Shipping amount.
 /// @return The newly created checkout.
-+ (AffirmCheckout *)checkoutWithItems:(NSArray *)items
-                             shipping:(AffirmContact *)shipping
++ (AffirmCheckout *)checkoutWithItems:(NSArray <AffirmItem *>*)items
+                             shipping:(AffirmShippingDetail *)shipping
                             taxAmount:(NSDecimalNumber *)taxAmount
                        shippingAmount:(NSDecimalNumber *)shippingAmount;
 
@@ -274,16 +254,14 @@ NS_ASSUME_NONNULL_BEGIN
 /// @param shipping Shipping contact.
 /// @param taxAmount Tax amount.
 /// @param shippingAmount Shipping amount.
-/// @param billing Billing contact.
 /// @param discounts List of discounts.
 /// @param metadata Additional metadata.
 /// @return The newly created checkout.
-+ (AffirmCheckout *)checkoutWithItems:(NSArray *)items
-                             shipping:(AffirmContact *)shipping
++ (AffirmCheckout *)checkoutWithItems:(NSArray <AffirmItem *>*)items
+                             shipping:(AffirmShippingDetail *)shipping
                             taxAmount:(NSDecimalNumber *)taxAmount
                        shippingAmount:(NSDecimalNumber *)shippingAmount
-                              billing:(nullable AffirmContact *)billing
-                            discounts:(nullable NSArray *)discounts
+                            discounts:(nullable NSArray <AffirmDiscount *>*)discounts
                              metadata:(nullable NSDictionary *)metadata;
 
 // Initializer. See properties for more details.
@@ -291,17 +269,15 @@ NS_ASSUME_NONNULL_BEGIN
 /// @param shipping Shipping contact.
 /// @param taxAmount Tax amount.
 /// @param shippingAmount Shipping amount.
-/// @param billing Billing contact.
 /// @param discounts List of discounts.
 /// @param metadata Additional metadata.
 /// @param financingProgram Financing Program to be applied
 /// @return The initialized checkout.
-- (instancetype)initWithItems:(NSArray *)items
-                     shipping:(AffirmContact *)shipping
+- (instancetype)initWithItems:(NSArray <AffirmItem *>*)items
+                     shipping:(AffirmShippingDetail *)shipping
                     taxAmount:(NSDecimalNumber *)taxAmount
                shippingAmount:(NSDecimalNumber *)shippingAmount
-                      billing:(nullable AffirmContact *)billing
-                    discounts:(nullable NSArray *)discounts
+                    discounts:(nullable NSArray <AffirmDiscount *>*)discounts
                      metadata:(nullable NSDictionary *)metadata
              financingProgram:(nullable NSString *)financingProgram;
 
@@ -353,12 +329,11 @@ NS_ASSUME_NONNULL_BEGIN
 /// An AffirmAsLowAs is complete Affirm as low as object describing the merchant and the item.
 @interface AffirmAsLowAs : NSObject
 
-typedef NS_ENUM(NSInteger, AffirmDisplayType) {
-    AffirmDisplayTypeDefault = 1,
-    AffirmDisplayTypeText = 2,
-    AffirmDisplayTypeLogo = 3,
-    AffirmDisplayTypeSymbol = 4,
-    AffirmDisplayTypeSymbolHollow = 5
+typedef NS_ENUM(NSInteger, AffirmLogoType) {
+    AffirmLogoTypeText = 1,
+    AffirmLogoTypeName = 2,
+    AffirmLogoTypeSymbol = 3,
+    AffirmLogoTypeSymbolHollow = 4
 };
 
 typedef NS_ENUM(NSInteger, AffirmColorType) {
@@ -369,20 +344,24 @@ typedef NS_ENUM(NSInteger, AffirmColorType) {
 };
 
 /// Calculates the monthly price and updates the content of the Label with the proper text
-/// @param label Label to write to
 /// @param amount Amount of the transaction
 /// @param promoId Promo ID to use when getting terms (provided by Affirm)
-/// @param affirmType type of Affirm to display (text, logo, symbol)
+/// @param fontSize font size of text to display
+/// @param affirmLogoType type of Affirm logo to display (text, name, symbol)
 /// @param affirmColor color of Affirm to display (blue, black, white) - only applies to logo and symbol affirmType values
-/// @param configuration AffirmConfiguration instance to use
 /// @param callback method that can be passed and executed once the calls are completed.
-+ (void) writeAffirmAsLowAsToLabel:(UILabel *)label
-                            amount:(NSDecimalNumber *)amount
++ (void) getAffirmAsLowAsForAmount:(NSDecimalNumber *)amount
                            promoId:(NSString *)promoId
-                        affirmType:(AffirmDisplayType)affirmType
+                          fontSize:(CGFloat) fontSize
+                    affirmLogoType:(AffirmLogoType)affirmLogoType
                        affirmColor:(AffirmColorType)affirmColor
-                     configuration:(AffirmConfiguration *)configuration
-                          callback:(void (^)(NSError *error, BOOL success))callback;
+                          callback:(void (^)(NSString *asLowAsText, UIImage *logo, NSError *error, BOOL success))callback;
+
+/// Inserts the Affirm logo into the asLowAs text to display in your label
+/// @param logo The Affirm logo image
+/// @param text The asLowAs text
+/// @return Attributed string with the Affirm logo inserted in the asLowAs text
++ (NSAttributedString *)appendLogo:(UIImage *)logo toText:(NSString *)text;
 
 @end
 

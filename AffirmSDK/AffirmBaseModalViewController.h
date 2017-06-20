@@ -7,9 +7,7 @@
 //
 
 #import <UIKit/UIKit.h>
-
 #import "AffirmCheckoutData.h"
-#import "AffirmConfiguration.h"
 
 NS_ASSUME_NONNULL_BEGIN
 

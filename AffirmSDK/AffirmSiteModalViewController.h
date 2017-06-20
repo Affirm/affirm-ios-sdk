@@ -19,8 +19,7 @@ NS_ASSUME_NONNULL_BEGIN
 /// To launch the modal when a button is clicked, create an AffirmConfiguration instance, then create an AffirmSiteModalViewController instance, passing in the modalId (given to you by Affirm) and the configuration. Then present the view controller.
 @interface AffirmSiteModalViewController : AffirmBaseModalViewController
 
-+ (instancetype)siteModalControllerWithModalId:(NSString *)modalId
-                                 configuration:(AffirmConfiguration *)configuration;
++ (instancetype)siteModalControllerWithModalId:(NSString *)modalId;
 
 @end
 
