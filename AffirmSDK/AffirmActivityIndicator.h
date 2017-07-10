@@ -3,7 +3,7 @@
 //  AffirmSDK
 //
 //  Created by Sachin Kesiraju on 5/31/17.
-//  Copyright © 2017 Sachin Kesiraju. All rights reserved.
+//  Copyright © 2017 Affirm. All rights reserved.
 //
 
 #import <UIKit/UIKit.h>

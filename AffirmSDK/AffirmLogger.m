@@ -42,6 +42,7 @@ NSInteger logCount;
     log[@"device_type"] = [self getDeviceModel];
     log[@"release"] = [AffirmConfiguration affirmSDKVersion];
     log[@"app_name"] = [self getAppName];
+    log[@"environment"] = [self getDevEnvironment];
     NSTimeInterval interval = [[NSDate date] timeIntervalSince1970] * 1000;
     log[@"ts"] = [NSNumber numberWithLong:(long) interval];
     log[@"local_log_counter"] = [NSNumber numberWithInteger:logCount];
@@ -60,6 +61,11 @@ NSInteger logCount;
 
 + (NSString *) getAppName {
     return [[NSBundle mainBundle] objectForInfoDictionaryKey:@"CFDisplayName"];
+}
+
++ (NSString *) getDevEnvironment {
+    AffirmEnvironment environment = [AffirmConfiguration sharedConfiguration].environment;
+    return [[AffirmConfiguration sharedConfiguration] formatForEnvironment:environment];
 }
 
 @end

@@ -12,7 +12,7 @@
 @interface ViewController () <AffirmCheckoutDelegate>
 
 @property (weak, nonatomic) IBOutlet UITextField *textField;
-@property (weak, nonatomic) IBOutlet UILabel *asLowAsLabel;
+@property (nonatomic, strong) AffirmAsLowAsButton *alaButton;
 
 @end
 
@@ -22,6 +22,11 @@
     [super viewDidLoad];
     [self setupView];
     self.textField.delegate = self;
+    
+    CGRect frame = CGRectMake(0, 0, self.view.frame.size.width - 40, 40);
+    self.alaButton = [AffirmAsLowAsButton createButtonWithPromoID:@"promo_set_ios_test" presentingViewController:self frame:frame];
+    self.alaButton.center = CGPointMake(self.view.center.x, self.textField.frame.origin.y - 60);
+    [self.view addSubview:self.alaButton];
     
     [self reloadAffirmAsLowAs];
 }
@@ -55,42 +60,37 @@
 
 - (void)reloadAffirmAsLowAs {
     NSDecimalNumber *price = [NSDecimalNumber decimalNumberWithString:self.textField.text];
-    [AffirmAsLowAs getAffirmAsLowAsForAmount:price promoId:@"SFCRL4VYS0C78607" fontSize:self.asLowAsLabel.font.pointSize affirmLogoType:AffirmLogoTypeName affirmColor:AffirmColorTypeBlue callback:^(NSString *asLowAsText, UIImage *logo, NSError *error, BOOL success) {
-        if (success) {
-            dispatch_async(dispatch_get_main_queue(), ^{
-                self.asLowAsLabel.attributedText = [AffirmAsLowAs appendLogo:logo toText:asLowAsText]; //Helper method that inserts the Affirm logo into the asLowAs text
-                self.asLowAsLabel.adjustsFontSizeToFitWidth = YES;
-            });
-        } else {
-            NSLog(@"As low as error: %@", error.localizedDescription);
-        }
+    [self.alaButton configureWithAmount:price affirmLogoType:AffirmLogoTypeName affirmColor:AffirmColorTypeBlue maxFontSize:18 callback:^(BOOL alaEnabled, NSError *error) {
+        //alaButton successfully configured
     }];
 }
 
 - (IBAction)checkout:(id)sender {
     NSDecimalNumber *price = [NSDecimalNumber decimalNumberWithString:@"500"];
     AffirmItem *item = [AffirmItem itemWithName:@"Affirm Test Item" SKU:@"test_item" unitPrice:price quantity:1 URL:[NSURL URLWithString:@"http://sandbox.affirm.com/item"]];
-    AffirmShippingDetail *shipping = [AffirmShippingDetail shippingDetailWithName:@"Chester Cheetah" addressWithLine1:@"633 Folsom" line2:@"" city:@"San Francisco" state:@"CA" zipCode:@"94111" countryCode:@"USA"];
+    AffirmShippingDetail *shipping = [AffirmShippingDetail shippingDetailWithName:@"Chester Cheetah" addressWithLine1:@"633 Folsom Street" line2:@"" city:@"San Francisco" state:@"CA" zipCode:@"94107" countryCode:@"USA"];
     AffirmCheckout *checkout = [AffirmCheckout checkoutWithItems:@[item] shipping:shipping taxAmount:[NSDecimalNumber zero] shippingAmount:[NSDecimalNumber zero]];
     
     // Initializes a checkout view controller and starts the checkout process
-    // Option to present view controller when delegate receives readyToPresent notification
-    [AffirmCheckoutViewController startCheckout:checkout withDelegate:self];
-    
-    // Alternatively, can present view controller at this point and SDK will handle loading state
-    // AffirmCheckoutViewController *checkoutVC = [AffirmCheckoutViewController startCheckout:checkout withDelegate:self];
-    // [self presentViewController:checkoutVC animated:true completion:nil];
+    AffirmCheckoutViewController *checkoutVC = [AffirmCheckoutViewController startCheckout:checkout checkoutType:AffirmCheckoutTypeAutomatic delegate:self];
+    [self presentViewController:checkoutVC animated:true completion:nil];
 }
 
-- (IBAction)showProductModal:(id)sender {
+- (IBAction)showPromoModal:(id)sender {
     NSDecimalNumber *price = [NSDecimalNumber decimalNumberWithString:@"500"];
-    AffirmProductModalViewController *vc = [AffirmProductModalViewController productModalControllerWithModalId:@"0Q97G0Z4Y4TLGHGB" amount:price];
+    AffirmPromoModalViewController *vc = [AffirmPromoModalViewController promoModalControllerWithModalId:@"promo_set_ios_test" amount:price];
     [self presentViewController:vc animated:YES completion:nil];
 }
 
-- (IBAction)showSiteModal:(id)sender {
-    AffirmSiteModalViewController *vc = [AffirmSiteModalViewController siteModalControllerWithModalId:@"5LNMQ33SEUYHLNUC"];
-    [self presentViewController:vc animated:YES completion:nil];
+- (IBAction)showFailedCheckout:(id)sender {
+    NSDecimalNumber *price = [NSDecimalNumber decimalNumberWithString:@"500"];
+    AffirmItem *item = [AffirmItem itemWithName:@"Affirm Test Item" SKU:@"test_item" unitPrice:price quantity:1 URL:[NSURL URLWithString:@"http://sandbox.affirm.com/item"]];
+    AffirmShippingDetail *shipping = [AffirmShippingDetail shippingDetailWithName:@"Test Tester" email:@"testtester@test.com" phoneNumber:@"1111111111" addressWithLine1:@"633 Folsom Street" line2:@"" city:@"San Francisco" state:@"CA" zipCode:@"94107" countryCode:@"USA"];
+    AffirmCheckout *checkout = [AffirmCheckout checkoutWithItems:@[item] shipping:shipping taxAmount:[NSDecimalNumber zero] shippingAmount:[NSDecimalNumber zero]];
+    
+    // Initializes a checkout view controller and starts the checkout process
+    AffirmCheckoutViewController *checkoutVC = [AffirmCheckoutViewController startCheckout:checkout checkoutType:AffirmCheckoutTypeAutomatic delegate:self];
+    [self presentViewController:checkoutVC animated:true completion:nil];
 }
 
 #pragma mark - Affirm Checkout Delegate
@@ -98,7 +98,6 @@
 - (void)checkoutReadyToPresent:(AffirmCheckoutViewController *)checkoutVC {
     // The checkout process is ready to begin
     NSLog(@"Checkout ready to present");
-    [self presentViewController:checkoutVC animated:true completion:nil];
 }
 
 - (void)checkout:(AffirmCheckoutViewController *)checkoutVC completedWithToken:(NSString *)checkoutToken {
@@ -121,7 +120,6 @@
     // The checkout process failed
     NSLog(@"Checkout failed with error: %@", error.localizedDescription);
     [self dismissViewControllerAnimated:true completion:nil];
-    [self showAlert:error.localizedDescription];
 }
 
 @end

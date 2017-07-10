@@ -14,10 +14,10 @@ NS_ASSUME_NONNULL_BEGIN
 static NSString *AFFIRM_CHECKOUT_CONFIRMATION_URL = @"affirm://checkout/confirmed";
 static NSString *AFFIRM_CHECKOUT_CANCELLATION_URL = @"affirm://checkout/cancelled";
 
-static NSString *AFFIRM_PRODUCTION_DOMAIN = @"cdn1.affirm.com";
+static NSString *AFFIRM_PRODUCTION_DOMAIN = @"api.affirm.com";
 static NSString *AFFIRM_SANDBOX_DOMAIN = @"sandbox.affirm.com";
 
-static NSString *AFFIRM_ALA_PRODUCTION_DOMAIN = @"api.affirm.com";
+static NSString *AFFIRM_ALA_PRODUCTION_DOMAIN = @"cdn1.affirm.com";
 static NSString *AFFIRM_ALA_SANDBOX_DOMAIN = @"cdn1-sandbox.affirm.com";
 
 @interface AffirmConfiguration () <NSCopying>
@@ -49,6 +49,11 @@ static NSString *AFFIRM_ALA_SANDBOX_DOMAIN = @"cdn1-sandbox.affirm.com";
 /// @param promoId Promo ID to use in the calculation
 /// @return URL to use to get the configuration to use to calculate the monthly payments
 - (NSURL *)affirmAsLowAsURLWithPromoId:(NSString *)promoId;
+
+/// Formats string for an environment type
+/// @param environment Dev environment
+/// @return Formatted string from environment
+- (NSString *)formatForEnvironment:(AffirmEnvironment)environment;
 
 /// The current version of the SDK.
 + (NSString *)affirmSDKVersion;

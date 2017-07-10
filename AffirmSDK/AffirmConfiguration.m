@@ -91,6 +91,22 @@ static AffirmConfiguration *sharedInstance = nil;
     return alaDomain;
 }
 
+- (NSString *)formatForEnvironment:(AffirmEnvironment)environment {
+    NSString *env = nil;
+    switch(environment) {
+        case AffirmEnvironmentProduction:
+            env = @"production";
+            break;
+        case AffirmEnvironmentSandbox:
+            env = @"sandbox";
+            break;
+        default:
+            env = @"sandbox";
+            break;
+    }
+    return env;
+}
+
 - (NSURL *)affirmURLWithString:(NSString *)path {
     NSURLComponents *urlComponents = [[NSURLComponents alloc] init];
     urlComponents.scheme = @"https";
@@ -133,7 +149,7 @@ static AffirmConfiguration *sharedInstance = nil;
 }
 
 - (NSURL *)affirmAsLowAsURLWithPromoId:(NSString *)promoId {
-    NSString *baseURL = [NSString stringWithFormat:@"/platform/public/promos/as_low_as/%@/%@.json",
+    NSString *baseURL = [NSString stringWithFormat:@"/platform/public/promos/promo_set/%@/%@.json",
                          self.publicAPIKey, promoId];
     return [self affirmAsLowAsURLWithString:baseURL];
 }

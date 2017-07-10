@@ -30,11 +30,4 @@ NS_ASSUME_NONNULL_BEGIN
 @interface AffirmCheckout () <AffirmJSONifiable, NSCopying>
 @end
 
-@interface AffirmPricing () <AffirmJSONifiable, NSCopying>
-@end
-
-@interface AffirmAsLowAs () <NSObject>
-@end
-
-
 NS_ASSUME_NONNULL_END
