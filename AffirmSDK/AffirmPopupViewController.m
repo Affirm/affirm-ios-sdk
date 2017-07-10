@@ -39,17 +39,18 @@
 
 - (void)loadPage {
     self.automaticallyAdjustsScrollViewInsets = NO;
-    self.webView.scalesPageToFit = YES;
     self.webView.contentMode = UIViewContentModeScaleAspectFit;
     [self.webView loadRequest:[[NSURLRequest alloc] initWithURL:self.startURL]];
 }
 
-- (BOOL) webView:(UIWebView *)webView shouldStartLoadWithRequest:(NSURLRequest *)request navigationType:(UIWebViewNavigationType)navigationType {
-    if ([request.URL.scheme isEqualToString:@"http"] || [request.URL.scheme isEqualToString:@"mailto"] || [request.URL.scheme isEqualToString:@"tel"]) {
-        [[UIApplication sharedApplication] openURL:request.URL options:@{} completionHandler:nil];
-        return NO;
+- (void) webView:(WKWebView *)webView decidePolicyForNavigationAction:(WKNavigationAction *)navigationAction decisionHandler:(void (^)(WKNavigationActionPolicy))decisionHandler {
+    NSURL *url = navigationAction.request.URL;
+    if ([url.scheme isEqualToString:@"http"] || [url.scheme isEqualToString:@"mailto"] || [url.scheme isEqualToString:@"tel"]) {
+        [[UIApplication sharedApplication] openURL:url options:@{} completionHandler:nil];
+        decisionHandler(WKNavigationActionPolicyCancel);
+        return;
     }
-    return YES;
+    decisionHandler(WKNavigationActionPolicyAllow);
 }
 
 @end

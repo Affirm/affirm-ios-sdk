@@ -20,7 +20,7 @@
     // Override point for customization after application launch.
     
     //Create a configuration object with your API key and set the dev environment
-    AffirmConfiguration *config = [AffirmConfiguration configurationWithPublicAPIKey:@"Y8CQXFF044903JC0" environment:AffirmEnvironmentSandbox];
+    AffirmConfiguration *config = [AffirmConfiguration configurationWithPublicAPIKey:@"35ZGU5TN2YDZX0RA" environment:AffirmEnvironmentSandbox];
     //set the configuration as the shared configuration to be used across your app
     [AffirmConfiguration setSharedConfiguration:config];
     

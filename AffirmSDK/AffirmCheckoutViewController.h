@@ -19,14 +19,22 @@ NS_ASSUME_NONNULL_BEGIN
 /// The AffirmCheckoutViewController is the main view controller which initiates and manages the life cycle of an Affirm checkout.
 @interface AffirmCheckoutViewController : AffirmBaseModalViewController
 
+typedef NS_ENUM(NSInteger, AffirmCheckoutType) {
+    AffirmCheckoutTypeAutomatic = 0,
+    AffirmCheckoutTypeManual
+};
+
 /// The checkout object used to start the checkout process.
 @property (nonatomic, copy, readwrite) AffirmCheckout *checkout;
 
 /// Convenience constructor starts the checkout process and notifies delegate regarding checkout events
 /// @param checkout A checkout object which contains information about the customer and the purchase.
+/// @param checkoutType Specifies whether loading and error displays for the checkout process should be provided by the SDK (Automatic) or will be handled by the developer (Manual)
 /// @param delegate A delegate object which responds to the checkout events created by the view controller.
 /// @return The newly created checkout view controller.
-+ (AffirmCheckoutViewController *)startCheckout:(AffirmCheckout *)checkout withDelegate:(id<AffirmCheckoutDelegate>)delegate;
++ (AffirmCheckoutViewController *)startCheckout:(AffirmCheckout *)checkout
+                                   checkoutType:(AffirmCheckoutType)checkoutType
+                                       delegate:(id<AffirmCheckoutDelegate>)delegate;
 
 /// This method logs the current user out.
 /// When a user logs in and creates a checkout through Affirm, the SDK creates and stores a session which allows the user to complete multiple purchases without having to log in again each time.

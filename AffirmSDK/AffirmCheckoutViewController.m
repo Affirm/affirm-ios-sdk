@@ -11,27 +11,30 @@
 #import "AffirmCheckoutData+Protected.h"
 #import "AffirmCheckoutDelegate.h"
 #import "AffirmConfiguration+Protected.h"
+#import "AffirmErrorModal.h"
 #import "AffirmUtils.h"
 #import "AffirmLogger.h"
 
 @implementation AffirmCheckoutViewController
 
 - (instancetype)initWithDelegate:(id<AffirmCheckoutDelegate>)delegate
-                        checkout:(AffirmCheckout *)checkout {
+                        checkout:(AffirmCheckout *)checkout
+                    checkoutType:(AffirmCheckoutType)checkoutType {
     [AffirmValidationUtils checkNotNil:delegate name:@"delegate"];
     [AffirmValidationUtils checkNotNil:checkout name:@"checkout"];
     
     if (self = [super init]) {
         _checkout = [checkout copy];
         _configuration = [[AffirmConfiguration sharedConfiguration] copy];
+        _checkoutType = checkoutType;
     }
     self.delegate = delegate;
     [self prepareForCheckout];
     return self;
 }
 
-+ (AffirmCheckoutViewController *)startCheckout:(AffirmCheckout *)checkout withDelegate:(id<AffirmCheckoutDelegate>)delegate {
-    return [[self alloc] initWithDelegate:delegate checkout:checkout];
++ (AffirmCheckoutViewController *)startCheckout:(AffirmCheckout *)checkout checkoutType:(AffirmCheckoutType)checkoutType delegate:(nonnull id<AffirmCheckoutDelegate>)delegate {
+    return [[self alloc] initWithDelegate:delegate checkout:checkout checkoutType:checkoutType];
 }
 
 - (void)viewDidLoad {
@@ -63,12 +66,23 @@
 }
 
 - (void) prepareForCheckout {
+    [self.loadingIndicator startAnimatingOnView:self.view];
+    self.loadingIndicator.hidden = self.checkoutType == AffirmCheckoutTypeManual;
     NSURLRequest *request = [self createCheckoutRequest];
     [AffirmNetworkUtils performNetworkRequest:request withCompletion:^(NSDictionary *result, NSHTTPURLResponse *response, NSError *error) {
         if (response.statusCode != 200) {
             NSError *descriptiveError = [AffirmErrorUtils errorFromInfo:result];
-            [self.delegate checkout:self creationFailedWithError:descriptiveError];
-            [AffirmLogger logEvent:@"Checkout creation failed" info:error.userInfo];
+            [AffirmLogger logEvent:@"Checkout creation failed" info:descriptiveError.userInfo];
+            if (self.checkoutType == AffirmCheckoutTypeAutomatic) {
+                dispatch_async(dispatch_get_main_queue(), ^{
+                    [self.loadingIndicator stopAnimating];
+                    [AffirmErrorModal showErrorModalWithTitle:@"Checkout Error" description:descriptiveError.localizedDescription onView:self.view withCloseBlock:^(AffirmErrorModal *errorModal) {
+                        [self.delegate checkout:self creationFailedWithError:[AffirmErrorUtils errorFromInfo:result]];
+                    }];
+                });
+            } else {
+                [self.delegate checkout:self creationFailedWithError:[AffirmErrorUtils errorFromInfo:result]];
+            }
         } else {
             NSString *redirect_url = [result objectForKey:@"redirect_url"];
             if (redirect_url) {
@@ -105,32 +119,40 @@
 
 #pragma mark - Webview
 
-- (BOOL)webView:(UIWebView *)webView
-shouldStartLoadWithRequest:(NSURLRequest *)request
- navigationType:(UIWebViewNavigationType)navigationType {
-    NSString *URLString = request.URL.absoluteString;
-    if ([URLString isEqualToString:AFFIRM_CHECKOUT_CONFIRMATION_URL]) {
-        NSString* formString = [[NSString alloc] initWithData:request.HTTPBody encoding:NSUTF8StringEncoding];
-        NSString* checkoutToken = [formString componentsSeparatedByString:@"="][1];
+- (void) webView:(WKWebView *)webView decidePolicyForNavigationAction:(WKNavigationAction *)navigationAction decisionHandler:(void (^)(WKNavigationActionPolicy))decisionHandler {
+    NSURL *URL = navigationAction.request.URL;
+    NSString *strippedURL = [NSString stringWithFormat:@"%@://%@%@", URL.scheme, URL.host, URL.path];
+    if ([strippedURL isEqualToString:AFFIRM_CHECKOUT_CONFIRMATION_URL]) {
+        NSURLComponents *urlComponents = [[NSURLComponents alloc] initWithString:URL.absoluteString];
+        NSString *checkoutToken;
+        for(NSURLQueryItem *item in urlComponents.queryItems) {
+            if([item.name isEqualToString:@"checkout_token"]) {
+                checkoutToken = item.value;
+                break;
+            }
+        }
         [self.delegate checkout:self completedWithToken:checkoutToken];
         [AffirmLogger logEvent:@"Checkout completed" info:@{@"checkout_ari": self.checkoutARI}];
-        return NO;
+        decisionHandler(WKNavigationActionPolicyCancel);
+        return;
     }
-    else if ([URLString isEqualToString:AFFIRM_CHECKOUT_CANCELLATION_URL]) {
+    if ([strippedURL isEqualToString:AFFIRM_CHECKOUT_CANCELLATION_URL]) {
         [self.delegate checkoutCancelled:self];
         [AffirmLogger logEvent:@"Checkout cancelled" info:@{@"checkout_ari": self.checkoutARI}];
-        return NO;
+        decisionHandler(WKNavigationActionPolicyCancel);
+        return;
     }
-    else if ([self webView:webView isPopup:URLString]) {
-        [self showPopup:request.URL];
-        [AffirmLogger logEvent:@"External link selected from checkout" info:@{@"checkout_ari": self.checkoutARI, @"selected_link" : URLString}];
-        return NO;
-    }
-    return YES;
+    [self webView:webView checkIfURL:URL.absoluteString isPopupWithCompletion:^(BOOL isPopup) {
+        if (isPopup) {
+            [self showPopup:URL];
+            [AffirmLogger logEvent:@"External link selected from checkout" info:@{@"checkout_ari": self.checkoutARI, @"selected_link": URL.absoluteString}];
+            decisionHandler(WKNavigationActionPolicyCancel);
+        }
+    }];
+    decisionHandler(WKNavigationActionPolicyAllow);
 }
 
-- (BOOL)webView:(UIWebView *)webView
-        isPopup:(NSString *)URLString {
+- (void)webView:(WKWebView *)webView checkIfURL:(NSString *)URLString isPopupWithCompletion:(void(^)(BOOL isPopup))completion {
     NSString *JSCodeFormat = @"javascript: (function () {"
     "var anchors = document.getElementsByTagName('a');"
     "for (var i = 0; i < anchors.length; i++) {"
@@ -142,8 +164,28 @@ shouldStartLoadWithRequest:(NSURLRequest *)request
     "})();"
     ;
     NSString *JSCode = [NSString stringWithFormat:JSCodeFormat, URLString];
-    NSString *result = [webView stringByEvaluatingJavaScriptFromString:JSCode];
-    return [result isEqualToString:@"true"];
+    [webView evaluateJavaScript:JSCode completionHandler:^(id result, NSError *error) {
+        completion([result boolValue]);
+    }];
+}
+
+- (void)webView:(WKWebView *)webView runJavaScriptConfirmPanelWithMessage:(NSString *)message initiatedByFrame:(WKFrameInfo *)frame completionHandler:(void (^)(BOOL))completionHandler {
+    UIAlertController *alertController = [UIAlertController alertControllerWithTitle:message
+                                                                             message:nil
+                                                                      preferredStyle:UIAlertControllerStyleAlert];
+    [alertController addAction:[UIAlertAction actionWithTitle:@"Cancel"
+                                                        style:UIAlertActionStyleCancel
+                                                      handler:^(UIAlertAction *action) {
+                                                          completionHandler(false);
+                                                      }]];
+    [alertController addAction:[UIAlertAction actionWithTitle:@"OK"
+                                                        style:UIAlertActionStyleDefault
+                                                      handler:^(UIAlertAction *action) {
+                                                          completionHandler(true);
+                                                      }]];
+    
+    
+    [self presentViewController:alertController animated:YES completion:^{}];
 }
 
 @end

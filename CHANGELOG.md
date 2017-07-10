@@ -1,6 +1,34 @@
 # Affirm iOS SDK Changelog
 All notable changes to the SDK will be documented in this file.
 
+## Version 4.0.0 (July 10, 2017)
+### Added
+- Calls to start the checkout process now require passing an ```AffirmCheckoutType``` (either Automatic or Manual) to specify whether the SDK should display a loading spinner and handle error notifications or that the developer will manually handle these states. The call to start the checkout process is now
+``` 
+[AffirmCheckoutViewController startCheckout:checkout checkoutType:AffirmCheckoutType delegate:self]; 
+```
+- Added AffirmAsLowAsButton that encapsulates the AffirmAsLowAs functionality in a button that handles all states and only requires the developer to add to their view and configure to implement. Tapping on the button automatically opens the appropriate promo modal
+- Added AffirmErrorModal that displays error notifications in the checkout flow if the Automatic checkout type is selected
+
+### Changed
+- Developers no longer need to configure AffirmAsLowAs text onto their label manually. The ALA functionality has been wrapped into a custom AffirmAsLowAsButton that handles all states and can be implemented as follows
+```
+AffirmAsLowAsButton *alaButton = [AffirmAsLowAsButton createButtonWithPromoID:@"promo_id" presentingViewController:self frame:frame];
+[self.view addSubview:alaButton];
+[alaButton configureWithAmount:amount affirmLogoType:AffirmLogoTypeName 		affirmColor:AffirmColorTypeBlue maxFontSize:18 callback:^(BOOL alaEnabled, NSError *error) {
+//alaEnabled specifies whether ALA text or a default message is being displayed
+}];
+```
+- Tapping on the ALA button automatically opens a product/site modal depending on whether ALA is enabled on the button
+- The AffirmProductModal and AffirmSiteModal classes have now been merged into the AffirmPromoModal class. This modal can still be created and shown manually outside of tapping on the AffirmALAButton as follows
+```
+AffirmPromoModalViewController *promoVC = [AffirmPromoModalViewController promoModalControllerWithModalId:@"promo_id" amount:amount];
+[self presentViewController:promoVC animated:YES completion:nil];
+```
+- AffirmAsLowAs has been broken into its own class and has been refactored to use a new endpoint internally
+- The SDK now uses WKWebView internally to display all web content
+- Fixed bug where the checkout VC would not close after the second open
+
 ## Version 3.0.0 (June 20, 2017)
 ### Added
 - Delegate method that notifies when checkout ready to present
