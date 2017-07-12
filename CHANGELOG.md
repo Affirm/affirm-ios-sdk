@@ -1,6 +1,10 @@
 # Affirm iOS SDK Changelog
 All notable changes to the SDK will be documented in this file.
 
+## Version 4.0.1 (July 12, 2017)
+- Added Carthage support for SDK installation
+- UI Tests on SDK demo
+
 ## Version 4.0.0 (July 10, 2017)
 ### Added
 - Calls to start the checkout process now require passing an ```AffirmCheckoutType``` (either Automatic or Manual) to specify whether the SDK should display a loading spinner and handle error notifications or that the developer will manually handle these states. The call to start the checkout process is now

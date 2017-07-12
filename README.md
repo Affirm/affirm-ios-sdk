@@ -1,35 +1,60 @@
 Affirm iOS SDK
 ==============
+[![CocoaPods](https://img.shields.io/cocoapods/v/AffirmSDK.svg)](http://cocoadocs.org/docsets/AffirmSDK/4.0.0/) [![Carthage compatible](https://img.shields.io/badge/Carthage-compatible-4BC51D.svg?style=flat)](https://github.com/Carthage/Carthage) [![license](https://img.shields.io/cocoapods/l/AffirmSDK.svg)]()
 
 The Affirm iOS SDK allows you accept Affirm payments in your own app.
-
 
 Installation
 ============
 
-[CocoaPods](https://cocoapods.org/) is the preferred method for installing the Affirm SDK. If you are using CocoaPods, you can set up Affirm by simply adding the following line to your Podfile:
+[CocoaPods](https://cocoapods.org/) and [Carthage](https://github.com/Carthage/Carthage) are the recommended methods for installing the Affirm SDK. 
 
+<strong> CocoaPods </strong>
+
+Add the following to your Podfile and run `pod install`
 ```ruby
 pod 'AffirmSDK'
 ```
 
-Alternatively, if you do not want to use CocoaPods, you may clone our [GitHub repository](https://github.com/Affirm/affirm-ios-sdk) and simply drag and drop the `AffirmSDK.framework` folder into your XCode project.
+<strong> Carthage </strong>
 
+Add the following to your Cartfile and follow the setup instructions [here](https://github.com/Carthage/Carthage#adding-frameworks-to-an-application).
+```
+github "Affirm/affirm-ios-sdk"
+```
+<strong> Manual </strong>
+
+Alternatively, if you do not want to use CocoaPods or Carthage, you may clone our [GitHub repository](https://github.com/Affirm/affirm-ios-sdk) and simply drag and drop the `AffirmSDK` folder into your XCode project.
 
 Usage Overview
 ==============
 
-An Affirm integration consists of two components: checkout creation, and charge authorization.
+An Affirm integration consists of two components: checkout and promotional messaging.
+
+Before you can use these components, first you must set the AffirmSDK with your public API key from your [Merchant Dashboard](https://sandbox.affirm.com/dashboard). You must set this key to the shared AffirmConfiguration once (preferably in your AppDelegate) as follows
+```
+AffirmConfiguration *config = [AffirmConfiguration configurationWithPublicAPIKey:@"PUBLIC_API_KEY" environment:AffirmEnvironmentSandbox];
+[AffirmConfiguration setSharedConfiguration:config];
+```
+
+## Checkout
 
 ### Checkout creation
 
 Checkout creation is the process in which a customer uses Affirm to pay for a purchase in your store. This process is governed by the AffirmCheckoutViewController object, which requires three parameters:
 
-1. An AffirmCheckoutDelegate object which receives messages when the checkout creation process has succeeded or failed
-2. An AffirmConfiguration object which stores merchant-specific configuration settings
-3. An AffirmCheckout object which describes the purchase itself
+- An AffirmCheckout object which contains details about the purchase itself
+- An AffirmCheckoutType which determines whether the checkout flow should use the SDK's built-in loading indicator and error modal to handle loading and error states in the checkout process or if the developer will handle these states manually.
+- An AffirmCheckoutDelegate object which receives messages at various stages in the checkout process
 
-Once the AffirmCheckoutViewController has been constructed from the parameters above, you may present it as with any other view controller. This initiates the flow which guides the user through the Affirm checkout process.
+Once the AffirmCheckoutViewController has been constructed from the parameters above, you may present it as with any other view controller. This initiates the flow which guides the user through the Affirm checkout process. An example of how this is implemented is provided as follows
+```
+AffirmItem *item = [AffirmItem itemWithName:@"Affirm Test Item" SKU:@"test_item" unitPrice:price quantity:1 URL:[NSURL URLWithString:@"http://sandbox.affirm.com/item"]];
+AffirmShippingDetail *shipping = [AffirmShippingDetail shippingDetailWithName:@"Chester Cheetah" addressWithLine1:@"633 Folsom Street" line2:@"" city:@"San Francisco" state:@"CA" zipCode:@"94107" countryCode:@"USA"];
+AffirmCheckout *checkout = [AffirmCheckout checkoutWithItems:@[item] shipping:shipping taxAmount:[NSDecimalNumber zero] shippingAmount:[NSDecimalNumber zero]];
+AffirmCheckoutViewController *checkoutVC = [AffirmCheckoutViewController startCheckout:checkout checkoutType:AffirmCheckoutTypeAutomatic delegate:self];
+[self presentViewController:checkoutVC animated:true completion:nil];
+```
 
 The flow ends once the user has successfully confirmed the checkout, canceled the checkout, or encountered an error in the process. In each of these cases, Affirm will send a message to the AffirmCheckoutDelegate along with additional information about the result.
 
@@ -37,8 +62,26 @@ The flow ends once the user has successfully confirmed the checkout, canceled th
 
 Once the checkout has been successfully confirmed by the user, the AffirmCheckoutDelegate object will receive a checkout token. This token should be forwarded to your server, which should then use the token to authorize a charge on the user's account. For more details about the server integration, see our [API documentation](https://docs.affirm.com/v2/api/charges/).
 
+## Promotional Messaging
 
+Affirm Promotional Messaging allows you to display the monthly payment price to inform customers about the availability of installment financing.
+
+To display Affirm As Low As promotional messaging, the SDK provides a custom AffirmAsLowAsButton that encapsulates the AffirmAsLowAs functionality in a button that handles all states and only requires the developer to add to their view and configure to implement. The AffirmALAButton is implemented as follows
+```
+AffirmAsLowAsButton *alaButton = [AffirmAsLowAsButton createButtonWithPromoID:@"promo_id" presentingViewController:self frame:frame];
+[self.view addSubview:alaButton];
+[alaButton configureWithAmount:amount affirmLogoType:AffirmLogoTypeName affirmColor:AffirmColorTypeBlue maxFontSize:18 callback:^(BOOL alaEnabled, NSError *error) {
+    //alaEnabled specifies whether ALA text or a default message is being displayed
+}];
+```
+Tapping on the ALA button automatically opens a product/site modal depending on whether ALA is enabled on the button
+
+To display the AffirmPromoModal outside of tapping on the AffirmALAButton you may initialize and display an instance of the promo modal VC as follows
+```
+AffirmPromoModalViewController *promoVC = [AffirmPromoModalViewController promoModalControllerWithModalId:@"promo_id" amount:amount];
+[self presentViewController:promoVC animated:YES completion:nil];
+```
 Example
 =======
 
-[This repository](https://github.com/Affirm/affirm-ios-sdk-demo) contains a simple demo app which integrates Affirm. (CocoaPods is required for building this app.)
+A demo app that integrates Affirm is included in the repo. To run it, run `pod install` and then open `AffirmSDKDemo.xcworkspace` in Xcode.

@@ -216,7 +216,7 @@ static NSString *defaultALATemplate = @"Buy in monthly payments with Affirm";
 + (UIImage *) getAffirmDisplayForLogoType:(AffirmLogoType) logoType
                                 colorType:(AffirmColorType) colorType {
     NSString *file = [NSString stringWithFormat:@"%@_%@-transparent_bg", [AffirmAsLowAs formatAffirmColorToString:colorType], [AffirmAsLowAs formatAffirmTypeToString:logoType]];
-    NSBundle *sdkBundle = [NSBundle bundleWithURL:[[NSBundle mainBundle] URLForResource:@"AffirmSDK" withExtension:@"bundle"]];
+    NSBundle *sdkBundle = [NSBundle bundleWithPath:[[NSBundle bundleForClass:[self class]] pathForResource:@"AffirmSDK" ofType:@"bundle"]];
     UIImage *image = [UIImage imageNamed:file inBundle:sdkBundle compatibleWithTraitCollection:nil];
     return image;
 }

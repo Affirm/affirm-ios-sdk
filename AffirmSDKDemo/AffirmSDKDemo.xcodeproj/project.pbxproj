@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		47F7A4FC966EEE5EB5430956 /* libPods-AffirmSDKDemo.a in Frameworks */ = {isa = PBXBuildFile; fileRef = E8A02B2F28D490A3B32374B4 /* libPods-AffirmSDKDemo.a */; };
+		4E704B761F16CF25000FDFBB /* AffirmSDKUITests.m in Sources */ = {isa = PBXBuildFile; fileRef = 4E704B751F16CF25000FDFBB /* AffirmSDKUITests.m */; };
 		4E7A62E91EF83A850067288F /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 4E7A62E81EF83A850067288F /* main.m */; };
 		4E7A62EC1EF83A850067288F /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 4E7A62EB1EF83A850067288F /* AppDelegate.m */; };
 		4E7A62EF1EF83A850067288F /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4E7A62EE1EF83A850067288F /* ViewController.m */; };
@@ -16,8 +17,21 @@
 		4E7A62F71EF83A850067288F /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 4E7A62F51EF83A850067288F /* LaunchScreen.storyboard */; };
 /* End PBXBuildFile section */
 
+/* Begin PBXContainerItemProxy section */
+		4E704B781F16CF25000FDFBB /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 4E7A62DC1EF83A850067288F /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 4E7A62E31EF83A850067288F;
+			remoteInfo = AffirmSDKDemo;
+		};
+/* End PBXContainerItemProxy section */
+
 /* Begin PBXFileReference section */
 		487A1E196EC55F6944E84E12 /* Pods-AffirmSDKDemo.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-AffirmSDKDemo.debug.xcconfig"; path = "Pods/Target Support Files/Pods-AffirmSDKDemo/Pods-AffirmSDKDemo.debug.xcconfig"; sourceTree = "<group>"; };
+		4E704B731F16CF25000FDFBB /* AffirmSDKUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = AffirmSDKUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		4E704B751F16CF25000FDFBB /* AffirmSDKUITests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AffirmSDKUITests.m; sourceTree = "<group>"; };
+		4E704B771F16CF25000FDFBB /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		4E7A62E41EF83A850067288F /* AffirmSDKDemo.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = AffirmSDKDemo.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		4E7A62E81EF83A850067288F /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
 		4E7A62EA1EF83A850067288F /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
@@ -33,6 +47,13 @@
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
+		4E704B701F16CF25000FDFBB /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		4E7A62E11EF83A850067288F /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
@@ -44,10 +65,20 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		4E704B741F16CF25000FDFBB /* AffirmSDKUITests */ = {
+			isa = PBXGroup;
+			children = (
+				4E704B751F16CF25000FDFBB /* AffirmSDKUITests.m */,
+				4E704B771F16CF25000FDFBB /* Info.plist */,
+			);
+			path = AffirmSDKUITests;
+			sourceTree = "<group>";
+		};
 		4E7A62DB1EF83A850067288F = {
 			isa = PBXGroup;
 			children = (
 				4E7A62E61EF83A850067288F /* AffirmSDKDemo */,
+				4E704B741F16CF25000FDFBB /* AffirmSDKUITests */,
 				4E7A62E51EF83A850067288F /* Products */,
 				F3DE9013D6066B3AABF1A9D6 /* Pods */,
 				629ABCA4A61E243BA6E925EC /* Frameworks */,
@@ -58,6 +89,7 @@
 			isa = PBXGroup;
 			children = (
 				4E7A62E41EF83A850067288F /* AffirmSDKDemo.app */,
+				4E704B731F16CF25000FDFBB /* AffirmSDKUITests.xctest */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -106,6 +138,24 @@
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
+		4E704B721F16CF25000FDFBB /* AffirmSDKUITests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 4E704B7C1F16CF25000FDFBB /* Build configuration list for PBXNativeTarget "AffirmSDKUITests" */;
+			buildPhases = (
+				4E704B6F1F16CF25000FDFBB /* Sources */,
+				4E704B701F16CF25000FDFBB /* Frameworks */,
+				4E704B711F16CF25000FDFBB /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				4E704B791F16CF25000FDFBB /* PBXTargetDependency */,
+			);
+			name = AffirmSDKUITests;
+			productName = AffirmSDKUITests;
+			productReference = 4E704B731F16CF25000FDFBB /* AffirmSDKUITests.xctest */;
+			productType = "com.apple.product-type.bundle.ui-testing";
+		};
 		4E7A62E31EF83A850067288F /* AffirmSDKDemo */ = {
 			isa = PBXNativeTarget;
 			buildConfigurationList = 4E7A62FB1EF83A850067288F /* Build configuration list for PBXNativeTarget "AffirmSDKDemo" */;
@@ -135,6 +185,12 @@
 				LastUpgradeCheck = 0830;
 				ORGANIZATIONNAME = Affirm;
 				TargetAttributes = {
+					4E704B721F16CF25000FDFBB = {
+						CreatedOnToolsVersion = 8.3.2;
+						DevelopmentTeam = YD484U2GCW;
+						ProvisioningStyle = Automatic;
+						TestTargetID = 4E7A62E31EF83A850067288F;
+					};
 					4E7A62E31EF83A850067288F = {
 						CreatedOnToolsVersion = 8.3.2;
 						DevelopmentTeam = YD484U2GCW;
@@ -156,11 +212,19 @@
 			projectRoot = "";
 			targets = (
 				4E7A62E31EF83A850067288F /* AffirmSDKDemo */,
+				4E704B721F16CF25000FDFBB /* AffirmSDKUITests */,
 			);
 		};
 /* End PBXProject section */
 
 /* Begin PBXResourcesBuildPhase section */
+		4E704B711F16CF25000FDFBB /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		4E7A62E21EF83A850067288F /* Resources */ = {
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
@@ -222,6 +286,14 @@
 /* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
+		4E704B6F1F16CF25000FDFBB /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				4E704B761F16CF25000FDFBB /* AffirmSDKUITests.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		4E7A62E01EF83A850067288F /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
@@ -233,6 +305,14 @@
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXSourcesBuildPhase section */
+
+/* Begin PBXTargetDependency section */
+		4E704B791F16CF25000FDFBB /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 4E7A62E31EF83A850067288F /* AffirmSDKDemo */;
+			targetProxy = 4E704B781F16CF25000FDFBB /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
 
 /* Begin PBXVariantGroup section */
 		4E7A62F01EF83A850067288F /* Main.storyboard */ = {
@@ -254,6 +334,30 @@
 /* End PBXVariantGroup section */
 
 /* Begin XCBuildConfiguration section */
+		4E704B7A1F16CF25000FDFBB /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				DEVELOPMENT_TEAM = YD484U2GCW;
+				INFOPLIST_FILE = AffirmSDKUITests/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = com.affirm.AffirmSDKUITests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				TEST_TARGET_NAME = AffirmSDKDemo;
+			};
+			name = Debug;
+		};
+		4E704B7B1F16CF25000FDFBB /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				DEVELOPMENT_TEAM = YD484U2GCW;
+				INFOPLIST_FILE = AffirmSDKUITests/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = com.affirm.AffirmSDKUITests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				TEST_TARGET_NAME = AffirmSDKDemo;
+			};
+			name = Release;
+		};
 		4E7A62F91EF83A850067288F /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
@@ -373,6 +477,14 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
+		4E704B7C1F16CF25000FDFBB /* Build configuration list for PBXNativeTarget "AffirmSDKUITests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				4E704B7A1F16CF25000FDFBB /* Debug */,
+				4E704B7B1F16CF25000FDFBB /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+		};
 		4E7A62DF1EF83A850067288F /* Build configuration list for PBXProject "AffirmSDKDemo" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (

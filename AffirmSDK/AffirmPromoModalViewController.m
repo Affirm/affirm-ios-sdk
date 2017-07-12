@@ -17,7 +17,7 @@
     AffirmConfiguration *configuration = [AffirmConfiguration sharedConfiguration];
     [AffirmValidationUtils checkNotNil:configuration];
     
-    NSBundle *sdkBundle = [NSBundle bundleWithURL:[[NSBundle mainBundle] URLForResource:@"AffirmSDK" withExtension:@"bundle"]];
+    NSBundle *sdkBundle = [NSBundle bundleWithPath:[[NSBundle bundleForClass:[self class]] pathForResource:@"AffirmSDK" ofType:@"bundle"]];
     NSString *filePath = [sdkBundle pathForResource:@"promo_modal_template" ofType:@"html"];
     NSString *rawContent = [NSString stringWithContentsOfFile:filePath encoding:NSUTF8StringEncoding error:nil];
     NSString *content = [NSString stringWithFormat:rawContent, configuration.publicAPIKey, configuration.affirmJavascriptURL.absoluteString, [AffirmNumberUtils decimalDollarsToIntegerCents:amount], modalId, AFFIRM_CHECKOUT_CANCELLATION_URL];

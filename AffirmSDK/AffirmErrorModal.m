@@ -120,7 +120,7 @@ static const CGFloat ERROR_MODAL_HEIGHT = 170;
 }
 
 - (void)_loadCustomFont {
-    NSBundle *sdkBundle = [NSBundle bundleWithURL:[[NSBundle mainBundle] URLForResource:@"AffirmSDK" withExtension:@"bundle"]];
+    NSBundle *sdkBundle = [NSBundle bundleWithPath:[[NSBundle bundleForClass:[self class]] pathForResource:@"AffirmSDK" ofType:@"bundle"]];
     NSString *fontPath = [sdkBundle pathForResource:@"Proxima Nova Light" ofType:@"ttf"];
     NSData *inData = [NSData dataWithContentsOfFile:fontPath];
     CFErrorRef error;

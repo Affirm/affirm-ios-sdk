@@ -136,7 +136,7 @@ static AffirmConfiguration *sharedInstance = nil;
 }
 
 + (NSString *)affirmSDKVersion {
-    NSBundle *sdkBundle = [NSBundle bundleWithURL:[[NSBundle mainBundle] URLForResource:@"AffirmSDK" withExtension:@"bundle"]];
+    NSBundle *sdkBundle = [NSBundle bundleWithPath:[[NSBundle bundleForClass:[self class]] pathForResource:@"AffirmSDK" ofType:@"bundle"]];
     return [sdkBundle objectForInfoDictionaryKey:(NSString *)kCFBundleVersionKey];
 }
 

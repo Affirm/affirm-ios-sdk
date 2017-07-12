@@ -14,8 +14,8 @@
             buildForAnalyzing = "YES">
             <BuildableReference
                BuildableIdentifier = "primary"
-               BlueprintIdentifier = "AF9425EF1B26610000D45762"
-               BuildableName = "libAffirmSDK.a"
+               BlueprintIdentifier = "4E078B8B1F1431B600395ECE"
+               BuildableName = "AffirmSDK.framework"
                BlueprintName = "AffirmSDK"
                ReferencedContainer = "container:AffirmSDK.xcodeproj">
             </BuildableReference>
@@ -42,8 +42,8 @@
       <MacroExpansion>
          <BuildableReference
             BuildableIdentifier = "primary"
-            BlueprintIdentifier = "AF9425EF1B26610000D45762"
-            BuildableName = "libAffirmSDK.a"
+            BlueprintIdentifier = "4E078B8B1F1431B600395ECE"
+            BuildableName = "AffirmSDK.framework"
             BlueprintName = "AffirmSDK"
             ReferencedContainer = "container:AffirmSDK.xcodeproj">
          </BuildableReference>
@@ -64,8 +64,8 @@
       <MacroExpansion>
          <BuildableReference
             BuildableIdentifier = "primary"
-            BlueprintIdentifier = "AF9425EF1B26610000D45762"
-            BuildableName = "libAffirmSDK.a"
+            BlueprintIdentifier = "4E078B8B1F1431B600395ECE"
+            BuildableName = "AffirmSDK.framework"
             BlueprintName = "AffirmSDK"
             ReferencedContainer = "container:AffirmSDK.xcodeproj">
          </BuildableReference>
@@ -82,8 +82,8 @@
       <MacroExpansion>
          <BuildableReference
             BuildableIdentifier = "primary"
-            BlueprintIdentifier = "AF9425EF1B26610000D45762"
-            BuildableName = "libAffirmSDK.a"
+            BlueprintIdentifier = "4E078B8B1F1431B600395ECE"
+            BuildableName = "AffirmSDK.framework"
             BlueprintName = "AffirmSDK"
             ReferencedContainer = "container:AffirmSDK.xcodeproj">
          </BuildableReference>
