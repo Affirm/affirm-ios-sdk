@@ -96,7 +96,7 @@
     
     XCUIElement *webView = self.app.webViews.element;
     XCUICoordinate *normalizedCoord = [webView coordinateWithNormalizedOffset:CGVectorMake(0, 0)];
-    XCUICoordinate *coord = [normalizedCoord coordinateWithOffset:CGVectorMake(5, agreementText.frame.origin.y)];
+    XCUICoordinate *coord = [normalizedCoord coordinateWithOffset:CGVectorMake(15, agreementText.frame.origin.y)];
     [coord tap];
     
     [self.app.staticTexts[@"No, not now"] tap];

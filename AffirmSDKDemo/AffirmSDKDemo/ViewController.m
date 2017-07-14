@@ -24,7 +24,7 @@
     self.textField.delegate = self;
     
     CGRect frame = CGRectMake(0, 0, self.view.frame.size.width - 40, 40);
-    self.alaButton = [AffirmAsLowAsButton createButtonWithPromoID:@"promo_set_ios_test" presentingViewController:self frame:frame];
+    self.alaButton = [AffirmAsLowAsButton createButtonWithPromoID:@"promo_set_ios" presentingViewController:self frame:frame];
     self.alaButton.center = CGPointMake(self.view.center.x, self.textField.frame.origin.y - 60);
     [self.view addSubview:self.alaButton];
     
@@ -66,7 +66,7 @@
 }
 
 - (IBAction)checkout:(id)sender {
-    NSDecimalNumber *price = [NSDecimalNumber decimalNumberWithString:@"500"];
+    NSDecimalNumber *price = [NSDecimalNumber decimalNumberWithString:self.textField.text];
     AffirmItem *item = [AffirmItem itemWithName:@"Affirm Test Item" SKU:@"test_item" unitPrice:price quantity:1 URL:[NSURL URLWithString:@"http://sandbox.affirm.com/item"]];
     AffirmShippingDetail *shipping = [AffirmShippingDetail shippingDetailWithName:@"Chester Cheetah" addressWithLine1:@"633 Folsom Street" line2:@"" city:@"San Francisco" state:@"CA" zipCode:@"94107" countryCode:@"USA"];
     AffirmCheckout *checkout = [AffirmCheckout checkoutWithItems:@[item] shipping:shipping taxAmount:[NSDecimalNumber zero] shippingAmount:[NSDecimalNumber zero]];
@@ -77,13 +77,13 @@
 }
 
 - (IBAction)showPromoModal:(id)sender {
-    NSDecimalNumber *price = [NSDecimalNumber decimalNumberWithString:@"500"];
-    AffirmPromoModalViewController *vc = [AffirmPromoModalViewController promoModalControllerWithModalId:@"promo_set_ios_test" amount:price];
+    NSDecimalNumber *price = [NSDecimalNumber decimalNumberWithString:self.textField.text];
+    AffirmPromoModalViewController *vc = [AffirmPromoModalViewController promoModalControllerWithModalId:@"promo_set_ios" amount:price];
     [self presentViewController:vc animated:YES completion:nil];
 }
 
 - (IBAction)showFailedCheckout:(id)sender {
-    NSDecimalNumber *price = [NSDecimalNumber decimalNumberWithString:@"500"];
+    NSDecimalNumber *price = [NSDecimalNumber decimalNumberWithString:self.textField.text];
     AffirmItem *item = [AffirmItem itemWithName:@"Affirm Test Item" SKU:@"test_item" unitPrice:price quantity:1 URL:[NSURL URLWithString:@"http://sandbox.affirm.com/item"]];
     AffirmShippingDetail *shipping = [AffirmShippingDetail shippingDetailWithName:@"Test Tester" email:@"testtester@test.com" phoneNumber:@"1111111111" addressWithLine1:@"633 Folsom Street" line2:@"" city:@"San Francisco" state:@"CA" zipCode:@"94107" countryCode:@"USA"];
     AffirmCheckout *checkout = [AffirmCheckout checkoutWithItems:@[item] shipping:shipping taxAmount:[NSDecimalNumber zero] shippingAmount:[NSDecimalNumber zero]];

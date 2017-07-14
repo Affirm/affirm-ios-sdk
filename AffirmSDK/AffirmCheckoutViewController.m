@@ -66,6 +66,7 @@
 }
 
 - (void) prepareForCheckout {
+    [AffirmLogger logEvent:@"Checkout initiated"];
     [self.loadingIndicator startAnimatingOnView:self.view];
     self.loadingIndicator.hidden = self.checkoutType == AffirmCheckoutTypeManual;
     NSURLRequest *request = [self createCheckoutRequest];

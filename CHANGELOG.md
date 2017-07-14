@@ -1,6 +1,11 @@
 # Affirm iOS SDK Changelog
 All notable changes to the SDK will be documented in this file.
 
+## Version 4.0.2 (July 14, 2017)
+- Minor fixes to logger
+- Added Travis config
+- Minor updates to SDK demo
+
 ## Version 4.0.1 (July 12, 2017)
 - Added Carthage support for SDK installation
 - UI Tests on SDK demo

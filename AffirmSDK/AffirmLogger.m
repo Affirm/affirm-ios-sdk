@@ -39,6 +39,7 @@ NSInteger logCount;
 
 + (NSDictionary *) logInfoWithContext:(NSDictionary *)info {
     NSMutableDictionary *log = [[NSMutableDictionary alloc] initWithDictionary:info];
+    log[@"app_id"] = @"iOS SDK";
     log[@"device_type"] = [self getDeviceModel];
     log[@"release"] = [AffirmConfiguration affirmSDKVersion];
     log[@"app_name"] = [self getAppName];
@@ -60,7 +61,7 @@ NSInteger logCount;
 }
 
 + (NSString *) getAppName {
-    return [[NSBundle mainBundle] objectForInfoDictionaryKey:@"CFDisplayName"];
+    return [[NSBundle mainBundle] objectForInfoDictionaryKey:@"CFBundleName"];
 }
 
 + (NSString *) getDevEnvironment {
