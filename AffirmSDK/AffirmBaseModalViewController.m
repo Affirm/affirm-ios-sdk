@@ -33,6 +33,7 @@
     [self.view addSubview:self.webView];
     self.webView.translatesAutoresizingMaskIntoConstraints = NO;
     self.webView.scrollView.bounces = NO;
+    [self configureUserAgent];
     [self.webView addObserver:self forKeyPath:NSStringFromSelector(@selector(estimatedProgress)) options:NSKeyValueObservingOptionNew context:NULL];
     NSLayoutConstraint * top = [NSLayoutConstraint constraintWithItem:self.webView attribute:NSLayoutAttributeTop relatedBy:NSLayoutRelationEqual toItem:self.topLayoutGuide attribute:NSLayoutAttributeBottom multiplier:1 constant:0];
     NSLayoutConstraint * bottom = [NSLayoutConstraint constraintWithItem:self.webView attribute:NSLayoutAttributeBottom relatedBy:NSLayoutRelationEqual toItem:self.bottomLayoutGuide attribute:NSLayoutAttributeTop multiplier:1 constant:0];
@@ -45,6 +46,15 @@
     self.loadingIndicator.indicatorPathColor = [UIColor colorWithRed:246/255.0 green:248/255.0 blue:252/255.0 alpha:1.0];
     self.loadingIndicator.indicatorLineWidth = 1.5;
     [self.loadingIndicator startAnimatingOnView:self.view];
+}
+
+- (void)configureUserAgent {
+    [self.webView evaluateJavaScript:@"navigator.userAgent" completionHandler:^(id result, NSError *error) {
+        if (result && ![result containsString:@"Affirm-iOS-SDK"]) {
+            NSString *sdkUserAgent = [NSString stringWithFormat:@"Affirm-iOS-SDK-%@ %@", [AffirmConfiguration affirmSDKVersion], result];
+            [[NSUserDefaults standardUserDefaults] registerDefaults:@{@"UserAgent": sdkUserAgent}];
+        }
+    }];
 }
 
 - (void)dealloc {

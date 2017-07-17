@@ -11,47 +11,28 @@
 
 #import "AffirmTestData.h"
 #import "AffirmCheckoutData+Protected.h"
+#import "AffirmAsLowAsData.h"
 
-
-@interface AffirmAddressTests : XCTestCase
+@interface AffirmShippingDetailTests : XCTestCase
 @end
 
-@implementation AffirmAddressTests
+@implementation AffirmShippingDetailTests
 
 - (void)testToJSONDictionary {
-    NSDictionary *rendered = @{
-                               @"line1": @"325 Pacific Ave.",
-                               @"line2": @"",
-                               @"city": @"San Francisco",
-                               @"state": @"CA",
-                               @"zipcode": @"94111",
-                               @"country": @"USA"
+    NSDictionary *addressDetails = @{
+                              @"line1": @"325 Pacific Ave.",
+                              @"line2": @"",
+                              @"city": @"San Francisco",
+                              @"state": @"CA",
+                              @"zipcode": @"94111",
+                              @"country": @"USA"
+                              };
+    NSDictionary *shippingDetailDic = @{
+                               @"billing": @{@"address": addressDetails, @"name": @{@"full": @"Test Tester"}},
+                               @"shipping": @{@"address": addressDetails, @"name": @{@"full": @"Test Tester"}}
                                };
-    XCTAssertEqualObjects([[AffirmTestData address] toJSONDictionary], rendered);
-}
 
-@end
-
-
-@interface AffirmContactTests : XCTestCase
-@end
-
-@implementation AffirmContactTests
-
-- (void)testToJSONDictionary {
-    NSDictionary *rendered = @{
-                               @"name": @{@"full": @"Test Tester"},
-                               @"address":
-                                   @{
-                                       @"line1": @"325 Pacific Ave.",
-                                       @"line2": @"",
-                                       @"city": @"San Francisco",
-                                       @"state": @"CA",
-                                       @"zipcode": @"94111",
-                                       @"country": @"USA"
-                                       }
-                               };
-    XCTAssertEqualObjects([[AffirmTestData contact] toJSONDictionary], rendered);
+    XCTAssertEqualObjects([[AffirmTestData shippingDetails] toJSONDictionary], shippingDetailDic);
 }
 
 @end
@@ -84,8 +65,7 @@
                                @"sku": @"test_item",
                                @"unit_price": @1500,
                                @"qty": @1,
-                               @"item_url": @"http://sandbox.affirm.com/item",
-                               @"item_image_url": @"http://sandbox.affirm.com/image.png"
+                               @"item_url": @"http://sandbox.affirm.com/item"
                                };
     XCTAssertEqualObjects([[AffirmTestData item] toJSONDictionary], rendered);
 }
@@ -107,15 +87,8 @@
                                        @"unit_price": @1500,
                                        @"qty": @1,
                                        @"item_url": @"http://sandbox.affirm.com/item",
-                                       @"item_image_url": @"http://sandbox.affirm.com/image.png"
                                        }
                                    },
-                               @"discounts": @{
-                                       @"Affirm Test Discount": @{
-                                               @"discount_display_name": @"Affirm Test Discount",
-                                               @"discount_amount": @300
-                                               }
-                                       },
                                @"billing": @{
                                        @"name": @{@"full": @"Test Tester"},
                                        @"address":
@@ -142,7 +115,7 @@
                                        },
                                @"shipping_amount": @500,
                                @"tax_amount": @100,
-                               @"total": @1800,
+                               @"total": @2100,
                                @"api_version": @"v2"
                                };
     XCTAssertEqualObjects([[AffirmTestData checkout] toJSONDictionary], rendered);
@@ -170,46 +143,15 @@
 
 @implementation AffirmAsLowAsTests
 
-- (void) testAsLowAsWithPromoId {
-    AffirmConfiguration *config = [AffirmConfiguration configurationWithAffirmDomain:@"cdn1.affirm.com" publicAPIKey:@"G0IWVIM1N4U785G1"];
-    AffirmAsLowAs *affirmALA = [AffirmAsLowAs asLowAsWithPromoId:@"A1A7H0XHUV9JTEHJ" affirmType:AffirmDisplayTypeText affirmColor:AffirmColorTypeDefault showLearnMore:NO configuration:config];
-    
-    XCTAssertEqual([affirmALA affirmColor], AffirmColorTypeDefault);
-    XCTAssertEqual([affirmALA affirmType], AffirmDisplayTypeText);
-    XCTAssertEqualObjects([affirmALA apr], [NSDecimalNumber decimalNumberWithString:@"0.000000"]);
-    XCTAssertEqualObjects([affirmALA pricingTemplate], @"As low as {payment}/month at 0% APR with {affirm_logo}");
-    XCTAssertEqual([affirmALA promoId], @"A1A7H0XHUV9JTEHJ");
-    XCTAssertEqual([affirmALA showLearnMore], NO);
-    XCTAssertEqualObjects([affirmALA termLength], [NSDecimalNumber decimalNumberWithString:@"12"]);
-}
-
 - (void) testCalculatePrice {
-    AffirmConfiguration *config = [AffirmConfiguration configurationWithAffirmDomain:@"cdn1.affirm.com" publicAPIKey:@"G0IWVIM1N4U785G1"];
-    AffirmAsLowAs *affirmALA = [AffirmAsLowAs asLowAsWithPromoId:@"A1A7H0XHUV9JTEHJ" affirmType:AffirmDisplayTypeText affirmColor:AffirmColorTypeDefault showLearnMore:NO configuration:config];
-    AffirmPricing *pricing = [affirmALA calculatePrice:[NSDecimalNumber decimalNumberWithString:@"100.00"]];
+    AffirmConfiguration *config = [AffirmConfiguration configurationWithPublicAPIKey:@"G0IWVIM1N4U785G1" environment:AffirmEnvironmentSandbox];
+    [AffirmConfiguration setSharedConfiguration:config];
     
-    XCTAssertEqualObjects([pricing payment], [NSDecimalNumber decimalNumberWithString:@"833"]);
-    XCTAssertEqualObjects([pricing paymentString], @"9");
-}
-
-- (void) testFormatAffirmTypeToString {
-    XCTAssertEqualObjects([AffirmAsLowAs formatAffirmTypeToString:AffirmDisplayTypeText], @"text");
-    XCTAssertEqualObjects([AffirmAsLowAs formatAffirmTypeToString:AffirmDisplayTypeLogo], @"logo");
-    XCTAssertEqualObjects([AffirmAsLowAs formatAffirmTypeToString:AffirmDisplayTypeSymbol], @"solid");
-    XCTAssertEqualObjects([AffirmAsLowAs formatAffirmTypeToString:AffirmDisplayTypeSymbolHollow], @"hollow");
-    XCTAssertEqualObjects([AffirmAsLowAs formatAffirmTypeToString:AffirmDisplayTypeDefault], @"logo");
-}
-
-- (void) testFormatAffirmColorToString {
-    XCTAssertEqualObjects([AffirmAsLowAs formatAffirmColorToString:AffirmColorTypeDefault], @"blue");
-    XCTAssertEqualObjects([AffirmAsLowAs formatAffirmColorToString:AffirmColorTypeBlue], @"blue");
-    XCTAssertEqualObjects([AffirmAsLowAs formatAffirmColorToString:AffirmColorTypeWhite], @"white");
-    XCTAssertEqualObjects([AffirmAsLowAs formatAffirmColorToString:AffirmColorTypeBlack], @"black");
-}
-
-- (void) testFormatBoolToString {
-    XCTAssertEqualObjects([AffirmAsLowAs formatBoolToString:YES], @"true");
-    XCTAssertEqualObjects([AffirmAsLowAs formatBoolToString:NO], @"false");
+    [AffirmAsLowAs getAffirmAsLowAsForAmount:[NSDecimalNumber decimalNumberWithString:@"500"] promoId:@"A1A7H0XHUV9JTEHJ" affirmLogoType:AffirmLogoTypeSymbol affirmColor:AffirmColorTypeBlue callback:^(NSString *asLowAsText, UIImage *logo, NSError *error, BOOL success) {
+        XCTAssertNotNil(logo);
+        XCTAssertNil(error);
+        XCTAssertEqualObjects(asLowAsText, @"As low as $86/month with Affirm");
+    }];
 }
 
 @end

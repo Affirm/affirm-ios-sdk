@@ -11,12 +11,8 @@
 
 @implementation AffirmTestData
 
-+ (AffirmAddress *)address {
-    return [AffirmAddress addressWithLine1:@"325 Pacific Ave." line2:@"" city:@"San Francisco" state:@"CA" zipCode:@"94111" countryCode:@"USA"];
-}
-
-+ (AffirmContact *)contact {
-    return [AffirmContact contactWithName:@"Test Tester" address:[self address]];
++ (AffirmShippingDetail *)shippingDetails {
+    return [AffirmShippingDetail shippingDetailWithName:@"Test Tester" addressWithLine1:@"325 Pacific Ave." line2:@"" city:@"San Francisco" state:@"CA" zipCode:@"94111" countryCode:@"USA"];
 }
 
 + (AffirmDiscount *)discount {
@@ -24,15 +20,15 @@
 }
 
 + (AffirmItem *)item {
-    return [AffirmItem itemWithName:@"Affirm Test Item" SKU:@"test_item" unitPrice:[NSDecimalNumber decimalNumberWithString:@"15.00"] quantity:1 URL:[NSURL URLWithString:@"http://sandbox.affirm.com/item"] imageURL:[NSURL URLWithString:@"http://sandbox.affirm.com/image.png"]];
+    return [AffirmItem itemWithName:@"Affirm Test Item" SKU:@"test_item" unitPrice:[NSDecimalNumber decimalNumberWithString:@"15.00"] quantity:1 URL:[NSURL URLWithString:@"http://sandbox.affirm.com/item"]];
 }
 
 + (AffirmCheckout *)checkout {
-    return [AffirmCheckout checkoutWithItems:@[[self item]] shipping:[self contact] taxAmount:[NSDecimalNumber decimalNumberWithString:@"1.00"] shippingAmount:[NSDecimalNumber decimalNumberWithString:@"5.00"] billing:[self contact] discounts:@[[self discount]] metadata:nil];
+    return [AffirmCheckout checkoutWithItems:@[[self item]] shipping:[self shippingDetails] taxAmount:[NSDecimalNumber decimalNumberWithString:@"1.00"] shippingAmount:[NSDecimalNumber decimalNumberWithString:@"5.00"]];
 }
 
 + (AffirmConfiguration *)configuration {
-    return [AffirmConfiguration configurationWithAffirmDomain:@"sandbox.affirm.com" publicAPIKey:@"public_api_key"];
+    return [AffirmConfiguration configurationWithPublicAPIKey:@"public_api_key" environment:AffirmEnvironmentSandbox];
 }
 
 + (AffirmPricing *)pricing {
@@ -41,16 +37,18 @@
 
 @end
 
-
 @implementation AffirmDummyCheckoutDelegate
 
-- (void)checkoutCompleteWithToken:(NSString *)checkoutToken {
+- (void)checkoutReadyToPresent:(AffirmCheckoutViewController *)checkoutVC {
 }
 
-- (void)checkoutCancelled {
+- (void)checkout:(AffirmCheckoutViewController *)checkoutVC completedWithToken:(NSString *)checkoutToken {
 }
 
-- (void)checkoutCreationFailedWithError:(NSError *)error {
+- (void)checkoutCancelled:(AffirmCheckoutViewController *)checkoutVC {
+}
+
+- (void)checkout:(AffirmCheckoutViewController *)checkoutVC creationFailedWithError:(NSError *)error {
 }
 
 @end

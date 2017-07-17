@@ -11,12 +11,11 @@
 #import "AffirmCheckoutData+Protected.h"
 #import "AffirmCheckoutDelegate.h"
 #import "AffirmConfiguration+Protected.h"
-
+#import "AffirmAsLowAsData.h"
 
 @interface AffirmTestData : NSObject
 
-+ (AffirmAddress *)address;
-+ (AffirmContact *)contact;
++ (AffirmShippingDetail *)shippingDetails;
 + (AffirmDiscount *)discount;
 + (AffirmItem *)item;
 + (AffirmCheckout *)checkout;

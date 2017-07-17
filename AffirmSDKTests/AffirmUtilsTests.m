@@ -39,7 +39,8 @@
 
 - (void)testCheckNotNil {
     XCTAssertNoThrow([AffirmValidationUtils checkNotNil:@"Not nil!" name:@"var name"]);
-    XCTAssertThrowsSpecificNamed([AffirmValidationUtils checkNotNil:nil name:@"var name"], NSException, NSInvalidArgumentException);
+    NSString *thisisNil = nil;
+    XCTAssertThrowsSpecificNamed([AffirmValidationUtils checkNotNil:thisisNil name:@"var name"], NSException, NSInvalidArgumentException);
 }
 
 - (void)testCheckNotNegative {

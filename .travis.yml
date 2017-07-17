@@ -7,4 +7,6 @@ before_install:
   - gem uninstall cocoapods -a
   - gem install cocoapods -v 1.2.0 # Since Travis is not always on latest version
   - pod install --project-directory=AffirmSDKDemo --repo-update
-script: xcodebuild -workspace AffirmSDKDemo/AffirmSDKDemo.xcworkspace -scheme AffirmSDKUITests -sdk iphonesimulator -destination 'platform=iOS Simulator,name=iPhone 7' test CODE_SIGNING_REQUIRED=NO 
+script: 
+- xcodebuild -workspace AffirmSDKDemo/AffirmSDKDemo.xcworkspace -scheme AffirmSDKUITests -sdk iphonesimulator -destination 'platform=iOS Simulator,name=iPhone 7' test CODE_SIGNING_REQUIRED=NO # UI Tests 
+- xcodebuild -project AffirmSDK.xcodeproj -scheme AffirmSDKTests -sdk iphonesimulator -destination 'platform=iOS Simulator,name=iPhone 7' test CODE_SIGNING_REQUIRED=NO # Unit Tests

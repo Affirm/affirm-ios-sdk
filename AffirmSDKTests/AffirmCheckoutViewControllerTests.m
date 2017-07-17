@@ -11,7 +11,7 @@
 
 #import "AffirmTestData.h"
 #import "AffirmCheckoutViewController+Protected.h"
-#import "AffirmSDKConfiguration.h"
+#import "AffirmConfiguration.h"
 
 
 @interface AffirmCheckoutViewControllerTests : XCTestCase
@@ -24,7 +24,7 @@
 
 - (void)setUp {
     [super setUp];
-    self.viewController = [AffirmCheckoutViewController checkoutControllerWithDelegate:[AffirmDummyCheckoutDelegate alloc] configuration:[AffirmTestData configuration] checkout:[AffirmTestData checkout]];
+    self.viewController = [AffirmCheckoutViewController startCheckout:[AffirmTestData checkout] checkoutType:AffirmCheckoutTypeAutomatic delegate:[AffirmDummyCheckoutDelegate alloc]];
 }
 
 - (void)testCheckoutData {
@@ -33,12 +33,9 @@
     
     NSDictionary *rendered = @{
                                @"merchant": @{
-                                       @"public_api_key": @"public_api_key",
+                                       @"public_api_key": @"G0IWVIM1N4U785G1",
                                        @"user_confirmation_url": @"affirm://checkout/confirmed",
                                        @"user_cancel_url": @"affirm://checkout/cancelled"
-                                       },
-                               @"config": @{
-                                       @"financial_product_key": @"financial_product_key"
                                        },
                                @"items": @{
                                        @"test_item": @{
@@ -47,13 +44,6 @@
                                                @"unit_price": @1500,
                                                @"qty": @1,
                                                @"item_url": @"http://sandbox.affirm.com/item",
-                                               @"item_image_url": @"http://sandbox.affirm.com/image.png"
-                                               }
-                                       },
-                               @"discounts": @{
-                                       @"Affirm Test Discount": @{
-                                               @"discount_display_name": @"Affirm Test Discount",
-                                               @"discount_amount": @300
                                                }
                                        },
                                @"billing": @{
@@ -82,7 +72,7 @@
                                        },
                                @"shipping_amount": @500,
                                @"tax_amount": @100,
-                               @"total": @1800,
+                               @"total": @2100,
                                @"api_version": @"v2"
                                };
     XCTAssertEqualObjects(dataDict, @{@"checkout": rendered});
@@ -94,7 +84,7 @@
     XCTAssertEqualObjects([request valueForHTTPHeaderField:@"Accept"], @"application/json");
     XCTAssertEqualObjects([request valueForHTTPHeaderField:@"Content-Type"], @"application/json");
     XCTAssertEqualObjects([request valueForHTTPHeaderField:@"Affirm-User-Agent"], @"Affirm-iOS-SDK");
-    XCTAssertEqualObjects([request valueForHTTPHeaderField:@"Affirm-User-Agent-Version"], [AffirmSDKConfiguration sharedInstance].versionNumber);
+    XCTAssertEqualObjects([request valueForHTTPHeaderField:@"Affirm-User-Agent-Version"], [AffirmConfiguration affirmSDKVersion]);
     XCTAssertEqualObjects(request.HTTPBody, [self.viewController getCheckoutData]);
 }
 
