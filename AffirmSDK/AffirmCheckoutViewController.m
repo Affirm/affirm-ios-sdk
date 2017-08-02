@@ -48,7 +48,8 @@
                                              @"merchant": @{
                                                      @"public_api_key": self.configuration.publicAPIKey,
                                                      @"user_confirmation_url": AFFIRM_CHECKOUT_CONFIRMATION_URL,
-                                                     @"user_cancel_url": AFFIRM_CHECKOUT_CANCELLATION_URL
+                                                     @"user_cancel_url": AFFIRM_CHECKOUT_CANCELLATION_URL,
+                                                     @"user_confirmation_url_action": @"GET"
                                                      }}];
     NSError *error;
     return [NSJSONSerialization dataWithJSONObject:@{@"checkout": checkoutDict} options:0 error:&error];;
@@ -133,7 +134,7 @@
             }
         }
         [self.delegate checkout:self completedWithToken:checkoutToken];
-        [AffirmLogger logEvent:@"Checkout completed" info:@{@"checkout_ari": self.checkoutARI}];
+        [AffirmLogger logEvent:@"Checkout completed" info:@{@"checkout_ari": self.checkoutARI, @"checkout_token_received": checkoutToken != nil ? @"true" : @"false"}];
         decisionHandler(WKNavigationActionPolicyCancel);
         return;
     }

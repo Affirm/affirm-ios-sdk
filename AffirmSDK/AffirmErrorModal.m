@@ -10,7 +10,7 @@
 #import <CoreText/CoreText.h>
 
 static const CGFloat ERROR_MODAL_WIDTH = 240;
-static const CGFloat ERROR_MODAL_HEIGHT = 170;
+static const CGFloat ERROR_MODAL_HEIGHT = 184;
 
 @interface AffirmErrorModal ()
 
@@ -65,42 +65,42 @@ static const CGFloat ERROR_MODAL_HEIGHT = 170;
     CGFloat currentY = 2 * labelPadding;
     [self _loadCustomFont];
     
-    self.layer.cornerRadius = 7.0f;
+    self.layer.cornerRadius = 8.0f;
     self.layer.masksToBounds = YES;
     self.backgroundColor = [UIColor colorWithRed:1 green:1 blue:1 alpha:1];
     
-    UILabel *errorTitleLabel = [[UILabel alloc] initWithFrame:CGRectMake(labelPadding, currentY, 210, 40)];
+    UILabel *errorTitleLabel = [[UILabel alloc] initWithFrame:CGRectMake(labelPadding, currentY, 210, 32)];
     errorTitleLabel.numberOfLines = 2;
     errorTitleLabel.text = self.errorTitle;
     errorTitleLabel.textAlignment = NSTextAlignmentCenter;
-    errorTitleLabel.textColor = [UIColor colorWithRed:59/255.0 green:59/255.0 blue:59/255.0 alpha:1];
-    errorTitleLabel.font = [UIFont fontWithName:@"HelveticaNeue-Medium" size:14];
+    errorTitleLabel.textColor = [UIColor colorWithRed:55/255.0 green:62/255.0 blue:71/255.0 alpha:1];
+    errorTitleLabel.font = [UIFont fontWithName:@"ProximaNova-Bold" size:14];
     errorTitleLabel.center = CGPointMake(self.center.x, errorTitleLabel.center.y);
     [errorTitleLabel setAdjustsFontSizeToFitWidth:YES];
     [self addSubview:errorTitleLabel];
     
     currentY += errorTitleLabel.frame.size.height + 4;
     
-    UILabel *errorDescriptionLabel = [[UILabel alloc] initWithFrame:CGRectMake(labelPadding, currentY, 210, 65)];
+    UILabel *errorDescriptionLabel = [[UILabel alloc] initWithFrame:CGRectMake(labelPadding, currentY, 210, 72)];
     errorDescriptionLabel.numberOfLines = 0;
     errorDescriptionLabel.text = self.errorDescription;
     errorDescriptionLabel.textAlignment = NSTextAlignmentCenter;
-    errorDescriptionLabel.font = [UIFont fontWithName:@"ProximaNova-Light" size:14];
-    errorDescriptionLabel.textColor = [UIColor colorWithRed:149/255.0 green:149/255.0 blue:157/255.0 alpha:1];
+    errorDescriptionLabel.font = [UIFont fontWithName:@"ProximaNova-Regular" size:14];
+    errorDescriptionLabel.textColor = [UIColor colorWithRed:55/255.0 green:62/255.0 blue:71/255.0 alpha:1];
     errorDescriptionLabel.center = CGPointMake(self.center.x, errorDescriptionLabel.center.y);
     [errorDescriptionLabel setAdjustsFontSizeToFitWidth:YES];
     [self addSubview:errorDescriptionLabel];
     
     currentY += errorDescriptionLabel.frame.size.height + labelPadding;
     
-    UIButton *errorCloseButton = [[UIButton alloc] initWithFrame:CGRectMake(labelPadding, currentY, 210, 30)];
+    UIButton *errorCloseButton = [[UIButton alloc] initWithFrame:CGRectMake(labelPadding, currentY, 210, 42)];
     [errorCloseButton addTarget:self action:@selector(_closeErrorModal) forControlEvents:UIControlEventTouchUpInside];
-    NSAttributedString *closeButtonTitle = [[NSAttributedString alloc] initWithString:@"RETURN TO MERCHANT" attributes:@{NSFontAttributeName: [UIFont fontWithName:@"HelveticaNeue-Medium" size:10]}];
+    NSAttributedString *closeButtonTitle = [[NSAttributedString alloc] initWithString:@"Return to merchant" attributes:@{NSFontAttributeName: [UIFont fontWithName:@"ProximaNova-Bold" size:14]}];
     [errorCloseButton setAttributedTitle:closeButtonTitle forState:UIControlStateNormal];
-    [errorCloseButton setBackgroundColor:[UIColor colorWithRed:0/255.0 green:200/255.0 blue:229/255.0 alpha: 1.0]];
+    [errorCloseButton setBackgroundColor:[UIColor colorWithRed:25/255.0 green:160/255.0 blue:234/255.0 alpha: 1.0]];
     errorCloseButton.titleLabel.textAlignment = NSTextAlignmentCenter;
     errorCloseButton.titleLabel.textColor = [UIColor whiteColor];
-    errorCloseButton.layer.cornerRadius = 14.0f;
+    errorCloseButton.layer.cornerRadius = 8.0f;
     errorCloseButton.layer.masksToBounds = YES;
     errorCloseButton.center = CGPointMake(self.center.x, errorCloseButton.center.y);
     [self addSubview:errorCloseButton];
@@ -121,17 +121,20 @@ static const CGFloat ERROR_MODAL_HEIGHT = 170;
 
 - (void)_loadCustomFont {
     NSBundle *sdkBundle = [NSBundle bundleWithPath:[[NSBundle bundleForClass:[self class]] pathForResource:@"AffirmSDK" ofType:@"bundle"]];
-    NSString *fontPath = [sdkBundle pathForResource:@"Proxima Nova Light" ofType:@"ttf"];
-    NSData *inData = [NSData dataWithContentsOfFile:fontPath];
-    CFErrorRef error;
-    CGDataProviderRef provider = CGDataProviderCreateWithCFData((__bridge CFDataRef)inData);
-    CGFontRef font = CGFontCreateWithDataProvider(provider);
-    if (!CTFontManagerRegisterGraphicsFont(font, &error)) {
-        CFStringRef errorDescription = CFErrorCopyDescription(error);
-        CFRelease(errorDescription);
+    NSArray *fontNames = @[@"Proxima Nova Bold", @"Proxima Nova Regular"];
+    for (NSString *fontName in fontNames) {
+        NSString *fontPath = [sdkBundle pathForResource:fontName ofType:@"ttf"];
+        NSData *inData = [NSData dataWithContentsOfFile:fontPath];
+        CFErrorRef error;
+        CGDataProviderRef provider = CGDataProviderCreateWithCFData((__bridge CFDataRef)inData);
+        CGFontRef font = CGFontCreateWithDataProvider(provider);
+        if (!CTFontManagerRegisterGraphicsFont(font, &error)) {
+            CFStringRef errorDescription = CFErrorCopyDescription(error);
+            CFRelease(errorDescription);
+        }
+        CFRelease(font);
+        CFRelease(provider);
     }
-    CFRelease(font);
-    CFRelease(provider);
 }
 
 @end

@@ -8,7 +8,7 @@
 
 #import <Foundation/Foundation.h>
 
-static NSString *kibana_url = @"https://tracker.affirm-stage.com/collect";
+static NSString *kibana_url = @"https://tracker.affirm.com/collect";
 
 @interface AffirmLogger : NSObject
 
