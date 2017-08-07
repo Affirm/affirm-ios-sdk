@@ -1,6 +1,9 @@
 # Affirm iOS SDK Changelog
 All notable changes to the SDK will be documented in this file.
 
+## Version 4.0.6 (August 7, 2017)
+- Internal bug fix
+
 ## Version 4.0.5 (August 7, 2017)
 - Internal changes to ALA
 - Added ALA tests
