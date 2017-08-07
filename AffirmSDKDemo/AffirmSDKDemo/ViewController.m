@@ -21,11 +21,12 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     [self setupView];
+    self.textField.accessibilityLabel = @"price field";
     self.textField.delegate = self;
     
     CGRect frame = CGRectMake(0, 0, self.view.frame.size.width - 40, 40);
     self.alaButton = [AffirmAsLowAsButton createButtonWithPromoID:@"promo_set_ios" presentingViewController:self frame:frame];
-    self.alaButton.center = CGPointMake(self.view.center.x, self.textField.frame.origin.y - 60);
+    self.alaButton.center = CGPointMake(self.view.center.x, self.textField.frame.origin.y - 70);
     [self.view addSubview:self.alaButton];
     
     [self reloadAffirmAsLowAs];
@@ -38,6 +39,10 @@
     toolBar.items = @[ flexibleItem, doneItem ];
     [toolBar sizeToFit];
     self.textField.inputAccessoryView = toolBar;
+}
+
+- (void)textFieldDidBeginEditing:(UITextField *)textField {
+    self.textField.text = @"";
 }
 
 - (void)textFieldDidEndEditing:(UITextField *)textField {

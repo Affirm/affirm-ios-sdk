@@ -140,8 +140,8 @@ static AffirmConfiguration *sharedInstance = nil;
     return [sdkBundle objectForInfoDictionaryKey:(NSString *)kCFBundleVersionKey];
 }
 
-- (NSURL *)affirmAsLowAsURLWithAPR:(NSString *)apr
-                            termLength:(NSString *)termLength
+- (NSURL *)affirmAsLowAsURLWithAPR:(NSDecimalNumber *)apr
+                        termLength:(NSDecimalNumber *)termLength
                             amount:(NSDecimalNumber *)amount {
     NSString *baseURL = [NSString stringWithFormat:@"/promos/payment_estimate_path/%@/%@/%@/%@",
                          self.publicAPIKey, apr, [AffirmNumberUtils decimalDollarsToIntegerCents:amount], termLength];

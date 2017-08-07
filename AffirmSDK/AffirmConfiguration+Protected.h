@@ -41,8 +41,8 @@ static NSString *AFFIRM_ALA_SANDBOX_DOMAIN = @"cdn1-sandbox.affirm.com";
 /// @param termLength Number of termLength to use in the calculation
 /// @param amount Amount to use in the calculation
 /// @return URL to use to calculate the monthly payments
-- (NSURL *)affirmAsLowAsURLWithAPR:(NSString *)apr
-                        termLength:(NSString *)termLength
+- (NSURL *)affirmAsLowAsURLWithAPR:(NSDecimalNumber *)apr
+                        termLength:(NSDecimalNumber *)termLength
                             amount:(NSDecimalNumber *)amount;
 
 /// The URL for loading as low as pricing.

@@ -16,6 +16,10 @@
     return @([[decimalNumber decimalNumberByMultiplyingByPowerOf10:2 withBehavior:round] longLongValue]);
 }
 
++ (NSDecimalNumber *)dollarsByRemovingIntegerCents:(NSNumber *)decimalNumber {
+    return [NSDecimalNumber decimalNumberWithDecimal:[[NSNumber numberWithUnsignedLong: decimalNumber.floatValue / 100] decimalValue]];
+}
+
 + (NSDecimalNumber *)integerQuantityToDecimalNumber:(NSUInteger)quantity {
     return [NSDecimalNumber decimalNumberWithDecimal:[[NSNumber numberWithUnsignedLong:quantity] decimalValue]];
 }

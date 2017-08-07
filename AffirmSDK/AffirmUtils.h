@@ -21,6 +21,11 @@ NS_ASSUME_NONNULL_BEGIN
 /// @return The price in integer cents.
 + (NSNumber *)decimalDollarsToIntegerCents:(NSDecimalNumber *)decimalNumber;
 
+/// The SDK accepts prices as dollars with integer cents, but for simplicity we convert the price to include only the dollars. This utility method converts from one format to the other.
+/// @param decimalNumber The price in integer dollars with integer cents.
+/// @return The price without integer cents.
++ (NSNumber *)dollarsByRemovingIntegerCents:(NSNumber *)decimalNumber;
+
 /// Convert an integer quantity to a decimal number. This is helpful when multiplying certain quantities together.
 /// @param quantity The integer quantity
 /// @return The quantity converted to a decimal

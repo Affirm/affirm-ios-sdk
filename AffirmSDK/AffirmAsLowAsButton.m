@@ -42,6 +42,7 @@
     
     [AffirmAsLowAs getAffirmAsLowAsForAmount:amount promoId:self.promoID affirmLogoType:affirmLogoType affirmColor:affirmColor callback:^(NSString *asLowAsText, UIImage *logo, NSError *error, BOOL success) {
         [self setAttributedTitle:[AffirmAsLowAs appendLogo:logo toText:asLowAsText font:maxFontSize logoType:affirmLogoType] forState:UIControlStateNormal];
+        [self setAccessibilityLabel:asLowAsText];
         [self layoutIfNeeded];
         callback(success, error);
     }];

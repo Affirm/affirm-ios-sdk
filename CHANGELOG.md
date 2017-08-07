@@ -1,6 +1,10 @@
 # Affirm iOS SDK Changelog
 All notable changes to the SDK will be documented in this file.
 
+## Version 4.0.5 (August 7, 2017)
+- Internal changes to ALA
+- Added ALA tests
+
 ## Version 4.0.4 (August 1, 2017)
 - Minor internal updates to checkout and error modal
 - Fixed tracker domain

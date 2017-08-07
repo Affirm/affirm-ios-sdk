@@ -54,6 +54,58 @@ typedef NS_ENUM(NSInteger, AffirmColorType) {
 
 @end
 
+/// An AffirmLoanTerm object represents terms of a monthly payment option.
+@interface AffirmLoanTerm: NSObject
+
+/// Interest rate. Required.
+@property(nonatomic, copy, readonly) NSDecimalNumber *apr;
+
+/// Minimum loan amount. Required.
+@property(nonatomic, copy, readonly) NSDecimalNumber *minimumLoanAmount;
+
+/// Term length of the loan in months. Required.
+@property(nonatomic, copy, readonly) NSDecimalNumber *termLength;
+
+/// Pricing template for the ALA text. Required.
+@property(nonatomic, copy, readonly) NSString *pricingTemplate;
+
+/// Default message to display in case requested loan amount does not exceed loan term's minimum loan amount. Required.
+@property(nonatomic, copy, readonly) NSString *defaultMessage;
+
+/// Convenience constructor. Creates a loan term object with the following properties.
+/// @param apr Interest rate
+/// @param termLength Term length of the loan in months.
+/// @param pricingTemplate ALA template.
+/// @param defaultMessage Default text to display for invalid loan amount.
+/// @return A Loan term object
++ (AffirmLoanTerm *)loanTermWithMinAmount:(NSNumber *)minLoanAmount
+                                      apr:(NSDecimalNumber *)apr
+                               termLength:(NSDecimalNumber *)termLength
+                          pricingTemplate:(NSString *)pricingTemplate
+                           defaultMessage:(NSString *)defaultMessage;
+
+/// Initializer. Creates a loan term object with the following properties.
+/// @param apr Interest rate
+/// @param termLength Term length of the loan in months.
+/// @param pricingTemplate ALA template.
+/// @param defaultMessage Default text to display for invalid loan amount.
+/// @return A Loan term object
+- (instancetype)initWithMinLoanAmount:(NSNumber *)minLoanAmount
+                                  apr:(NSDecimalNumber *)apr
+                           termLength:(NSDecimalNumber *)termLength
+                      pricingTemplate:(NSString *)pricingTemplate
+                       defaultMessage:(NSString *)defaultMessage;
+
+/// Constructor that creates an AffirmLoanTerm object from a dictionary containing info about an ALA term length interval.
+/// @param data ALA Term length interval dictionary
+/// @param pricingTemplate ALA template
+/// @param defaultMessage Default text to display for invalid loan amount
++ (AffirmLoanTerm *)loanTermWithDictionary:(NSDictionary *)data
+                           pricingTemplate:(NSString *)pricingTemplate
+                            defaultMessage:(NSString *)defaultMessage;
+
+@end
+
 /// An AffirmPricing object represents a customer's possible monthly payments.
 @interface AffirmPricing : NSObject
 

@@ -36,12 +36,57 @@
     XCTAssert(!self.app.buttons[@"Promo Modal"].exists);
     
     NSPredicate *existsPredicate = [NSPredicate predicateWithFormat:@"exists == 1"];
-    [self expectationForPredicate:existsPredicate evaluatedWithObject:self.app.staticTexts[@"close"] handler:nil];
+    [self expectationForPredicate:existsPredicate evaluatedWithObject:self.app.staticTexts[@"Make easy monthly payments over 3, 6, or 12 months"] handler:nil];
     [self waitForExpectationsWithTimeout:8 handler:nil];
     
     [self.app.staticTexts[@"close"] tap];
     
     [self expectationForPredicate:existsPredicate evaluatedWithObject:self.app.buttons[@"Promo Modal"] handler:nil];
+    [self waitForExpectationsWithTimeout:3 handler:nil];
+}
+
+- (void)testAsLowAsButton {
+    NSPredicate *existsPredicate = [NSPredicate predicateWithFormat:@"exists == 1"];
+    XCUIElement *alaButton = self.app.buttons[@"As low as $44/month with Affirm"];
+    [self expectationForPredicate:existsPredicate evaluatedWithObject:alaButton handler:nil];
+    [self waitForExpectationsWithTimeout:4 handler:nil];
+
+    [self.app.textFields[@"price field"] tap];
+    [self.app typeText:@"40"];
+    [self.app.buttons[@"Done"] tap];
+
+    XCUIElement *updatedALAButton = self.app.buttons[@"Buy in monthly payments with Affirm"];
+    [self expectationForPredicate:existsPredicate evaluatedWithObject:updatedALAButton handler:nil];
+    [self waitForExpectationsWithTimeout:2 handler:nil];
+    [updatedALAButton tap];
+
+    [self expectationForPredicate:existsPredicate evaluatedWithObject:self.app.staticTexts[@"Make easy monthly payments over 3, 6, or 12 months"] handler:nil];
+    [self waitForExpectationsWithTimeout:8 handler:nil];
+
+    XCTAssertTrue(self.app.staticTexts[@"Rates from 10–30% APR."].exists);
+
+    [self.app.staticTexts[@"close"] tap];
+
+    [self.app.textFields[@"price field"] tap];
+    [self.app typeText:@"75"];
+    [self.app.buttons[@"Done"] tap];
+
+    updatedALAButton = self.app.buttons[@"As low as $13/month with Affirm"];
+    [self expectationForPredicate:existsPredicate evaluatedWithObject:updatedALAButton handler:nil];
+    [self waitForExpectationsWithTimeout:4 handler:nil];
+
+    [updatedALAButton tap];
+
+    [self expectationForPredicate:existsPredicate evaluatedWithObject:self.app.staticTexts[@"Make easy monthly payments over 3, 6, or 12 months"] handler:nil];
+    [self waitForExpectationsWithTimeout:4 handler:nil];
+
+    XCTAssertFalse(self.app.staticTexts[@"Rates from 10–30% APR."].exists);
+    NSPredicate *pricingPrediacte = [NSPredicate predicateWithFormat:@"label CONTAINS 'based on a purchase price of $75.00 at 10% APR for 6 months.'"];
+    XCTAssertTrue([self.app.staticTexts elementMatchingPredicate:pricingPrediacte].exists);
+
+    [self.app.staticTexts[@"close"] tap];
+
+    [self expectationForPredicate:existsPredicate evaluatedWithObject:updatedALAButton handler:nil];
     [self waitForExpectationsWithTimeout:3 handler:nil];
 }
 
@@ -99,7 +144,7 @@
     XCUICoordinate *coord = [normalizedCoord coordinateWithOffset:CGVectorMake(15, agreementText.frame.origin.y)];
     [coord tap];
     
-    [self.app.staticTexts[@"No, not now"] tap];
+    [self.app.buttons[@"NO, NOT NOW"] tap];
     [confirmLoanButton tap];
     
     [self expectationForPredicate:[NSPredicate predicateWithFormat:@"exists == 0"] evaluatedWithObject:self.app.webViews.element handler:nil];
@@ -119,8 +164,8 @@
     [self expectationForPredicate:existsPredicate evaluatedWithObject:errorText handler:nil];
     [self waitForExpectationsWithTimeout:10 handler:nil];
     
-    XCTAssert(self.app.buttons[@"RETURN TO MERCHANT"]);
-    [self.app.buttons[@"RETURN TO MERCHANT"] tap];
+    XCTAssert(self.app.buttons[@"Return to merchant"]);
+    [self.app.buttons[@"Return to merchant"] tap];
     
     XCTAssert(self.app.buttons[@"Buy with Affirm"].exists);
 }

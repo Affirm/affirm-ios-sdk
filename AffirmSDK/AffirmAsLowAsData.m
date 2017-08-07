@@ -10,7 +10,6 @@
 #import "AffirmJSONifiable.h"
 #import "AffirmUtils.h"
 
-static const CGFloat ALAMinAmount = 50;
 static const CGFloat ALAMaxAmount = 17500;
 
 static NSString *defaultALATemplate = @"Buy in monthly payments with Affirm";
@@ -19,7 +18,7 @@ static NSString *defaultALATemplate = @"Buy in monthly payments with Affirm";
 
 + (NSURLRequest *)getPromoConfigurationURLForId:(NSString *)promoId {
     [AffirmValidationUtils checkNotNil:[AffirmConfiguration sharedConfiguration]];
-    
+
     NSURL *url = [[AffirmConfiguration sharedConfiguration] affirmAsLowAsURLWithPromoId:promoId];
     NSMutableURLRequest *request = [[NSMutableURLRequest alloc] initWithURL:url];
     [request setHTTPMethod:@"GET"];
@@ -31,19 +30,14 @@ static NSString *defaultALATemplate = @"Buy in monthly payments with Affirm";
 }
 
 + (void) getPromoDetailsForId:(NSString *)promoId
-                     callback:(void (^)(NSDictionary *alaDic, NSError *error, BOOL success))callback {
+                       amount:(NSDecimalNumber *)amount
+                     callback:(void (^)(AffirmLoanTerm *minLoanTerm, NSError *error, BOOL success))callback {
     NSURLRequest *request = [self getPromoConfigurationURLForId:promoId];
     [AffirmNetworkUtils performNetworkRequest:request withCompletion:^(NSDictionary *result, NSHTTPURLResponse *response, NSError *error) {
         if (response.statusCode == 200 && result[@"asLowAs"]) {
-            NSDictionary *asLowAsDic = result[@"asLowAs"];
-            if (asLowAsDic[@"termLengthIntervals"]) {
-                NSMutableDictionary *lowestPaymentPlan = [[self getLowestPaymentPlanFromTermIntervals:asLowAsDic[@"termLengthIntervals"]] mutableCopy];
-                lowestPaymentPlan[@"defaultMessage"] = asLowAsDic[@"defaultMessage"];
-                lowestPaymentPlan[@"pricingTemplate"] = asLowAsDic[@"pricingTemplate"];
-                callback(lowestPaymentPlan, nil, lowestPaymentPlan != nil);
-            } else {
-                callback(asLowAsDic, nil, true);
-            }
+            NSDictionary *asLowAsData = result[@"asLowAs"];
+            AffirmLoanTerm *minLoanTerm = [self getMinLoanTermForAmount:amount fromALAData:asLowAsData];
+            callback(minLoanTerm, nil, minLoanTerm != nil);
         } else {
             callback(nil, [AffirmErrorUtils errorFromInfo:result], false);
         }
@@ -51,22 +45,27 @@ static NSString *defaultALATemplate = @"Buy in monthly payments with Affirm";
 }
 
 
-+ (NSDictionary *)getLowestPaymentPlanFromTermIntervals:(NSArray <NSDictionary *> *)termIntervals {
-    for (NSDictionary *term in termIntervals) {
-        NSInteger minLoanAmount = [term[@"minimumLoanAmount"] integerValue];
-        BOOL promoPlanInRange = minLoanAmount >= ALAMinAmount && minLoanAmount < ALAMaxAmount;
++ (AffirmLoanTerm *)getMinLoanTermForAmount:(NSDecimalNumber *)amount fromALAData:(NSDictionary *)asLowAsData {
+    NSString *pricingTemplate = asLowAsData[@"pricingTemplate"];
+    NSString *defaultMessage = asLowAsData[@"defaultMessage"];
+
+    NSArray <NSDictionary *> *loanTermIntervals = asLowAsData[@"termLengthIntervals"];
+    loanTermIntervals = [[loanTermIntervals reverseObjectEnumerator] allObjects];
+    for (NSDictionary *loanTermInterval in loanTermIntervals) {
+        AffirmLoanTerm *loanTerm = [AffirmLoanTerm loanTermWithDictionary:loanTermInterval pricingTemplate:pricingTemplate defaultMessage:defaultMessage];
+        BOOL promoPlanInRange = loanTerm.minimumLoanAmount.floatValue <= amount.floatValue && amount.floatValue < ALAMaxAmount;
         if (promoPlanInRange) {
-            return term;
+            return loanTerm;
         }
     }
     return nil;
 }
 
 + (NSURLRequest *)createAsLowAsRequest:(NSDecimalNumber *)amount
-                                   apr:(NSString *)apr
-                            termLength:(NSString *)termLength {
+                                   apr:(NSDecimalNumber *)apr
+                            termLength:(NSDecimalNumber *)termLength {
     [AffirmValidationUtils checkNotNil:[AffirmConfiguration sharedConfiguration]];
-    
+
     NSURL *url = [[AffirmConfiguration sharedConfiguration] affirmAsLowAsURLWithAPR:apr termLength:termLength amount:amount];
     NSMutableURLRequest *request = [[NSMutableURLRequest alloc] initWithURL:url];
     [request setHTTPMethod:@"GET"];
@@ -78,15 +77,14 @@ static NSString *defaultALATemplate = @"Buy in monthly payments with Affirm";
 }
 
 + (void)sendPricingRequest:(NSDecimalNumber *)amount
-                    promoId:(NSString *)promoId
-                 promoData:(NSDictionary *)promoData
-                   callback:(void (^)(NSError *error, AffirmPricing *pricing, NSString *template, BOOL success))callback {
-    NSURLRequest *request = [self createAsLowAsRequest:amount apr:[promoData objectForKey:@"apr"] termLength:[promoData objectForKey:@"termLength"]];
+                  loanTerm:(AffirmLoanTerm *)loanTerm
+                  callback:(void (^)(AffirmPricing *pricing, NSError *error, BOOL success))callback {
+    NSURLRequest *request = [self createAsLowAsRequest:amount apr:loanTerm.apr termLength:loanTerm.termLength];
     [AffirmNetworkUtils performNetworkRequest:request withCompletion:^(NSDictionary *result, NSHTTPURLResponse *response, NSError *error) {
         if (response.statusCode == 200) {
-            callback(nil, [AffirmPricing pricingWithDictionary:result], [promoData objectForKey:@"pricingTemplate"], true);
+            callback([AffirmPricing pricingWithDictionary:result], nil, true);
         } else {
-            callback([AffirmErrorUtils errorFromInfo:result], nil, nil, false);
+            callback(nil, [AffirmErrorUtils errorFromInfo:result], false);
         }
     }];
 }
@@ -94,11 +92,11 @@ static NSString *defaultALATemplate = @"Buy in monthly payments with Affirm";
 + (void)getALAPromoTemplateForAmount:(NSDecimalNumber *)amount
                              promoID:(NSString *)promoID
                             callback:(void (^)(NSString *promoTemplate, NSError *error, BOOL success))callback {
-    [self getPromoDetailsForId:promoID callback:^(NSDictionary *promoData, NSError *error, BOOL success) {
-        NSString *promoDefaultTemplate = promoData[@"defaultMessage"] ? promoData[@"defaultMessage"] : defaultALATemplate;
+    [self getPromoDetailsForId:promoID amount:amount callback:^(AffirmLoanTerm *minLoanTerm, NSError *error, BOOL success) {
+        NSString *promoDefaultTemplate = minLoanTerm.defaultMessage ? minLoanTerm.defaultMessage : defaultALATemplate;
         if (success) {
-            [self sendPricingRequest:amount promoId:promoID promoData:promoData callback:^(NSError *error, AffirmPricing *pricing, NSString *pricingTemplate, BOOL pricingSuccess) {
-                NSString *template = (pricingSuccess) ? [pricingTemplate stringByReplacingOccurrencesOfString:@"{payment}" withString:[NSString stringWithFormat:@"$%@", [pricing paymentString]]] : promoDefaultTemplate;
+            [self sendPricingRequest:amount loanTerm:minLoanTerm callback:^(AffirmPricing *pricing, NSError *error, BOOL pricingSuccess) {
+                NSString *template = (pricingSuccess) ? [minLoanTerm.pricingTemplate stringByReplacingOccurrencesOfString:@"{payment}" withString:[NSString stringWithFormat:@"$%@", pricing.paymentString]] : promoDefaultTemplate;
                 template = [template stringByReplacingOccurrencesOfString:@"{affirm_logo}" withString:@"Affirm"];
                 callback(template, error, pricingSuccess);
             }];
@@ -114,13 +112,13 @@ static NSString *defaultALATemplate = @"Buy in monthly payments with Affirm";
                        affirmColor:(AffirmColorType)affirmColor
                           callback:(void (^)(NSString *asLowAsText, UIImage *logo, NSError *error, BOOL success))callback {
     [AffirmValidationUtils checkNotNil:promoId name:@"promoId"];
-    
+    [AffirmValidationUtils checkNotNil:amount name:@"amount"];
+
     [AffirmAsLowAs getALAPromoTemplateForAmount:amount promoID:promoId callback:^(NSString *promoTemplate, NSError *error, BOOL success) {
         dispatch_async(dispatch_get_main_queue(), ^{
             if (affirmLogoType == AffirmLogoTypeText) {
                 callback(promoTemplate, nil, error, success);
-            }
-            else {
+            } else {
                 UIImage *logo = [AffirmAsLowAs getAffirmDisplayForLogoType:affirmLogoType colorType:affirmColor];
                 callback(promoTemplate, logo, error, success);
             }
@@ -163,9 +161,9 @@ static NSString *defaultALATemplate = @"Buy in monthly payments with Affirm";
 }
 
 + (NSString *) formatAffirmTypeToString:(AffirmLogoType)affirmType {
-    
+
     NSString *result = nil;
-    
+
     switch(affirmType) {
         case AffirmLogoTypeName:
             result = @"logo";
@@ -182,15 +180,15 @@ static NSString *defaultALATemplate = @"Buy in monthly payments with Affirm";
         default:
             result = @"logo";
     }
-    
+
     return result;
-    
+
 }
 
 + (NSString *)formatAffirmColorToString:(AffirmColorType)colorType {
-    
+
     NSString *result = nil;
-    
+
     switch(colorType) {
         case AffirmColorTypeBlue:
             result = @"blue";
@@ -204,9 +202,9 @@ static NSString *defaultALATemplate = @"Buy in monthly payments with Affirm";
         default:
             result = @"blue";
     }
-    
+
     return result;
-    
+
 }
 
 + (NSString *)formatBoolToString:(BOOL)value {
@@ -219,6 +217,64 @@ static NSString *defaultALATemplate = @"Buy in monthly payments with Affirm";
     NSBundle *sdkBundle = [NSBundle bundleWithPath:[[NSBundle bundleForClass:[self class]] pathForResource:@"AffirmSDK" ofType:@"bundle"]];
     UIImage *image = [UIImage imageNamed:file inBundle:sdkBundle compatibleWithTraitCollection:nil];
     return image;
+}
+
+@end
+
+@interface AffirmLoanTerm() <AffirmJSONifiable, NSCopying>
+@end
+
+@implementation AffirmLoanTerm
+
++ (AffirmLoanTerm *)loanTermWithMinAmount:(NSDecimalNumber *)minLoanAmount
+                                      apr:(NSDecimalNumber *)apr
+                               termLength:(NSDecimalNumber *)termLength
+                          pricingTemplate:(NSString *)pricingTemplate
+                           defaultMessage:(NSString *)defaultMessage {
+    return [[self alloc] initWithMinLoanAmount:minLoanAmount apr:apr termLength:termLength pricingTemplate:pricingTemplate defaultMessage:defaultMessage];
+}
+
+- (instancetype)initWithMinLoanAmount:(NSDecimalNumber *)minLoanAmount
+                                  apr:(NSDecimalNumber *)apr
+                           termLength:(NSDecimalNumber *)termLength
+                      pricingTemplate:(NSString *)pricingTemplate
+                       defaultMessage:(NSString *)defaultMessage {
+    [AffirmValidationUtils checkNotNil:minLoanAmount name:@"minimumLoanAmount"];
+    [AffirmValidationUtils checkNotNil:apr name:@"apr"];
+    [AffirmValidationUtils checkNotNil:termLength name:@"termLength"];
+
+    if (self = [super init]) {
+        _minimumLoanAmount = minLoanAmount;
+        _apr = apr;
+        _termLength = termLength;
+        _pricingTemplate = pricingTemplate;
+        _defaultMessage = defaultMessage;
+    }
+    return self;
+}
+
++ (AffirmLoanTerm *)loanTermWithDictionary:(NSDictionary *)data
+                           pricingTemplate:(NSString *)pricingTemplate
+                            defaultMessage:(NSString *)defaultMessage {
+    NSDecimalNumber *apr = data[@"apr"];
+    NSNumber *minAmt = data[@"minimumLoanAmount"];
+    NSDecimalNumber *formattedMinAmount = [NSDecimalNumber decimalNumberWithDecimal:[[AffirmNumberUtils dollarsByRemovingIntegerCents:minAmt] decimalValue]];
+    NSDecimalNumber *termLength = data[@"termLength"];
+    return [self loanTermWithMinAmount:formattedMinAmount apr:apr termLength:termLength pricingTemplate:pricingTemplate defaultMessage:defaultMessage];
+}
+
+- (NSDictionary *)toJSONDictionary {
+    return @{
+             @"apr": self.apr,
+             @"minimumLoanAmount": self.minimumLoanAmount,
+             @"termLength": self.termLength,
+             @"pricingTemplate": self.pricingTemplate,
+             @"defaultMessage": self.defaultMessage
+             };
+}
+
+- (id)copyWithZone:(NSZone *)zone {
+    return [[self class] loanTermWithMinAmount:self.minimumLoanAmount apr:self.apr termLength:self.termLength pricingTemplate:self.pricingTemplate defaultMessage:self.defaultMessage];
 }
 
 @end
@@ -236,13 +292,13 @@ static NSString *defaultALATemplate = @"Buy in monthly payments with Affirm";
     [AffirmValidationUtils checkNotNil:paymentString name:@"paymentString"];
     [AffirmValidationUtils checkNotNil:termLength name:@"termLength"];
     [AffirmValidationUtils checkNotNil:disclosure name:@"disclosure"];
-    
+
     if (self = [super init]) {
         _payment = [payment copy];
         _paymentString = [paymentString copy];
         _termLength = [termLength copy];
         _disclosure = [disclosure copy];
-        
+
     }
     return self;
 }
@@ -259,7 +315,7 @@ static NSString *defaultALATemplate = @"Buy in monthly payments with Affirm";
     NSDecimalNumber *termLength = [data objectForKey:@"months"];
     NSString *paymentString = [data objectForKey:@"payment_string"];
     NSDecimalNumber *payment = [data objectForKey:@"payment"];
-    
+
     return [[self alloc] initWithPayment:payment paymentString:paymentString termLength:termLength disclosure:disclosure];
 }
 

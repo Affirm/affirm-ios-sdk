@@ -33,9 +33,10 @@
     
     NSDictionary *rendered = @{
                                @"merchant": @{
-                                       @"public_api_key": @"G0IWVIM1N4U785G1",
+                                       @"public_api_key": @"PKNCHBIVYOT8JSOZ",
                                        @"user_confirmation_url": @"affirm://checkout/confirmed",
-                                       @"user_cancel_url": @"affirm://checkout/cancelled"
+                                       @"user_cancel_url": @"affirm://checkout/cancelled",
+                                       @"user_confirmation_url_action": @"GET"
                                        },
                                @"items": @{
                                        @"test_item": @{

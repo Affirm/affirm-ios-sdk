@@ -123,6 +123,26 @@
 
 @end
 
+@interface AffirmLoanTermTests : XCTestCase
+@end
+
+
+@implementation AffirmLoanTermTests
+
+- (void)testLowestLoanTerm {
+    NSDictionary *rendered = @{
+                               @"apr": @0.1,
+                               @"minimumLoanAmount": @5000,
+                               @"termLength": @6
+                               };
+    AffirmLoanTerm *loanTerm = [AffirmLoanTerm loanTermWithDictionary:rendered pricingTemplate:@"As low as {payment}/month with {affirm_logo}" defaultMessage:@"Buy in monthly payments with {affirm_logo} on orders over $50"];
+    XCTAssertEqual(loanTerm.apr.doubleValue, 0.1);
+    XCTAssertEqual(loanTerm.minimumLoanAmount.integerValue, 50);
+    XCTAssertEqual(loanTerm.termLength.integerValue, 6);
+}
+
+@end
+
 @interface AffirmPricingTests : XCTestCase
 @end
 
@@ -135,23 +155,6 @@
                                @"disclosure": @"my disclosure"
                                };
     XCTAssertEqualObjects([[AffirmTestData pricing] toJSONDictionary], rendered);
-}
-@end
-
-@interface AffirmAsLowAsTests : XCTestCase
-@end
-
-@implementation AffirmAsLowAsTests
-
-- (void) testCalculatePrice {
-    AffirmConfiguration *config = [AffirmConfiguration configurationWithPublicAPIKey:@"G0IWVIM1N4U785G1" environment:AffirmEnvironmentSandbox];
-    [AffirmConfiguration setSharedConfiguration:config];
-    
-    [AffirmAsLowAs getAffirmAsLowAsForAmount:[NSDecimalNumber decimalNumberWithString:@"500"] promoId:@"A1A7H0XHUV9JTEHJ" affirmLogoType:AffirmLogoTypeSymbol affirmColor:AffirmColorTypeBlue callback:^(NSString *asLowAsText, UIImage *logo, NSError *error, BOOL success) {
-        XCTAssertNotNil(logo);
-        XCTAssertNil(error);
-        XCTAssertEqualObjects(asLowAsText, @"As low as $86/month with Affirm");
-    }];
 }
 
 @end
