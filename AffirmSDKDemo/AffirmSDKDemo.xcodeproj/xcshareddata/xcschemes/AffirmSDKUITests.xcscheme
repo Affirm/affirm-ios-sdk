@@ -16,10 +16,10 @@
             skipped = "NO">
             <BuildableReference
                BuildableIdentifier = "primary"
-               BlueprintIdentifier = "4E704B661F16CE5F000FDFBB"
-               BuildableName = "AffirmUITests.xctest"
-               BlueprintName = "AffirmUITests"
-               ReferencedContainer = "container:AffirmSDK.xcodeproj">
+               BlueprintIdentifier = "4E704B721F16CF25000FDFBB"
+               BuildableName = "AffirmSDKUITests.xctest"
+               BlueprintName = "AffirmSDKUITests"
+               ReferencedContainer = "container:AffirmSDKDemo.xcodeproj">
             </BuildableReference>
          </TestableReference>
       </Testables>
