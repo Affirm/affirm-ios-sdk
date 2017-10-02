@@ -33,7 +33,6 @@
 
 - (void)testPromoModal {
     [self.app.buttons[@"Promo Modal"] tap];
-    XCTAssert(!self.app.buttons[@"Promo Modal"].exists);
     
     NSPredicate *existsPredicate = [NSPredicate predicateWithFormat:@"exists == 1"];
     [self expectationForPredicate:existsPredicate evaluatedWithObject:self.app.staticTexts[@"Make easy monthly payments over 3, 6, or 12 months"] handler:nil];
@@ -93,39 +92,33 @@
 - (void)testCheckout {
     [self.app.buttons[@"Buy with Affirm"] tap];
     
-    XCUIElement *affirmElement = self.app.staticTexts[@"Sign in"];
+    XCUIElement *affirmElement = self.app.textFields[@"Your mobile number"];
     NSPredicate *existsPredicate = [NSPredicate predicateWithFormat:@"exists == 1"];
     [self expectationForPredicate:existsPredicate evaluatedWithObject:affirmElement handler:nil];
-    
     [self waitForExpectationsWithTimeout:10 handler:nil];
-    XCTAssert(!self.app.buttons[@"Buy with Affirm"].exists);
-    
-    [self.app.links[@"Sign in"] tap];
-    XCTAssert(self.app.staticTexts[@"Create an account"]);
-    
     [self.app.textFields[@"Your mobile number"] tap];
     [self.app typeText:@"4085100442"];
     [self.app.buttons[@"Done"] tap];
-    [self.app.buttons[@"SIGN IN"] tap];
+    [self.app.buttons[@"Continue"] tap];
     
-    XCUIElement *enterPinField = self.app.textFields[@"Enter your pin"];
+    XCUIElement *enterPinField = self.app.textFields[@"0000"];
     [self expectationForPredicate:existsPredicate evaluatedWithObject:enterPinField handler:nil];
     
     [self waitForExpectationsWithTimeout:5 handler:nil];
     [enterPinField tap];
     [self.app typeText:@"1234"];
-    [self.app.buttons[@"SIGN IN"] tap];
+    [self.app.buttons[@"Done"] tap];
+    [self.app.buttons[@"Sign In"] tap];
     
-    [self expectationForPredicate:existsPredicate evaluatedWithObject:self.app.buttons[@"$169.41 /mo for 3 months"] handler:nil];
+    [self expectationForPredicate:existsPredicate evaluatedWithObject:self.app.buttons[@"$169.45 /mo for\n3 months. INTEREST ( 10 % APR) $8.35"] handler:nil];
     
     [self waitForExpectationsWithTimeout:15 handler:nil];
     XCTAssert(!self.app.buttons[@"SIGN IN"].exists);
     
-    XCTAssert(self.app.buttons[@"$169.41 /mo for 3 months"].exists);
-    [self.app.buttons[@"$169.41 /mo for 3 months"] tap];
-    [self.app.buttons[@"CONTINUE"] tap];
+    XCTAssert(self.app.buttons[@"$169.45 /mo for\n3 months. INTEREST ( 10 % APR) $8.35"].exists);
+    [self.app.buttons[@"$169.45 /mo for\n3 months. INTEREST ( 10 % APR) $8.35"] tap];
     
-    XCUIElement *confirmLoanButton = self.app.buttons[@"CONFIRM LOAN"];
+    XCUIElement *confirmLoanButton = self.app.buttons[@"Confirm Loan"];
     [self expectationForPredicate:existsPredicate evaluatedWithObject:confirmLoanButton handler:nil];
     
     [self waitForExpectationsWithTimeout:5 handler:nil];
@@ -144,7 +137,7 @@
     XCUICoordinate *coord = [normalizedCoord coordinateWithOffset:CGVectorMake(15, agreementText.frame.origin.y)];
     [coord tap];
     
-    [self.app.buttons[@"NO, NOT NOW"] tap];
+    [self.app.buttons[@"No, not now"] tap];
     [confirmLoanButton tap];
     
     [self expectationForPredicate:[NSPredicate predicateWithFormat:@"exists == 0"] evaluatedWithObject:self.app.webViews.element handler:nil];
