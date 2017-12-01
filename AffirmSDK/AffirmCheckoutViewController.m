@@ -150,8 +150,10 @@
             [AffirmLogger logEvent:@"External link selected from checkout" info:@{@"checkout_ari": self.checkoutARI, @"selected_link": URL.absoluteString}];
             decisionHandler(WKNavigationActionPolicyCancel);
         }
+        else {
+            decisionHandler(WKNavigationActionPolicyAllow);
+        }
     }];
-    decisionHandler(WKNavigationActionPolicyAllow);
 }
 
 - (void)webView:(WKWebView *)webView checkIfURL:(NSString *)URLString isPopupWithCompletion:(void(^)(BOOL isPopup))completion {
