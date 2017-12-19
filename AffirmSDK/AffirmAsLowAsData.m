@@ -96,9 +96,14 @@ static NSString *defaultALATemplate = @"Buy in monthly payments with Affirm";
         NSString *promoDefaultTemplate = minLoanTerm.defaultMessage ? minLoanTerm.defaultMessage : defaultALATemplate;
         if (success) {
             [self sendPricingRequest:amount loanTerm:minLoanTerm callback:^(AffirmPricing *pricing, NSError *error, BOOL pricingSuccess) {
-                NSString *template = (pricingSuccess) ? [minLoanTerm.pricingTemplate stringByReplacingOccurrencesOfString:@"{payment}" withString:[NSString stringWithFormat:@"$%@", pricing.paymentString]] : promoDefaultTemplate;
-                template = [template stringByReplacingOccurrencesOfString:@"{affirm_logo}" withString:@"Affirm"];
-                callback(template, error, pricingSuccess);
+                if (![minLoanTerm.pricingTemplate isEqual:[NSNull null]]) {
+                    NSString *template = (pricingSuccess) ? [minLoanTerm.pricingTemplate stringByReplacingOccurrencesOfString:@"{payment}" withString:[NSString stringWithFormat:@"$%@", pricing.paymentString]] : promoDefaultTemplate;
+                    template = [template stringByReplacingOccurrencesOfString:@"{affirm_logo}" withString:@"Affirm"];
+                    callback(template, error, pricingSuccess);
+                }
+                else {
+                    callback(promoDefaultTemplate, error, success);
+                }
             }];
         } else {
             callback(promoDefaultTemplate, error, success);
