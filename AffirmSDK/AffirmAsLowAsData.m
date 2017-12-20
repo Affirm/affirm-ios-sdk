@@ -9,6 +9,7 @@
 #import "AffirmAsLowAsData.h"
 #import "AffirmJSONifiable.h"
 #import "AffirmUtils.h"
+#import "NSString+AffirmUtils.h"
 
 static const CGFloat ALAMaxAmount = 17500;
 
@@ -92,16 +93,27 @@ static NSString *defaultALATemplate = @"Buy in monthly payments with Affirm";
 + (void)getALAPromoTemplateForAmount:(NSDecimalNumber *)amount
                              promoID:(NSString *)promoID
                             callback:(void (^)(NSString *promoTemplate, NSError *error, BOOL success))callback {
-    [self getPromoDetailsForId:promoID amount:amount callback:^(AffirmLoanTerm *minLoanTerm, NSError *error, BOOL success) {
-        NSString *promoDefaultTemplate = minLoanTerm.defaultMessage ? minLoanTerm.defaultMessage : defaultALATemplate;
-        if (success) {
-            [self sendPricingRequest:amount loanTerm:minLoanTerm callback:^(AffirmPricing *pricing, NSError *error, BOOL pricingSuccess) {
-                NSString *template = (pricingSuccess) ? [minLoanTerm.pricingTemplate stringByReplacingOccurrencesOfString:@"{payment}" withString:[NSString stringWithFormat:@"$%@", pricing.paymentString]] : promoDefaultTemplate;
-                template = [template stringByReplacingOccurrencesOfString:@"{affirm_logo}" withString:@"Affirm"];
-                callback(template, error, pricingSuccess);
+    [self getPromoDetailsForId:promoID amount:amount callback:^(AffirmLoanTerm *minLoanTerm, NSError *promoError, BOOL promoSuccess) {
+        NSString *defaultMessage = minLoanTerm.defaultMessage.AF_nonEmptyValue ?: defaultALATemplate;
+        
+        NSString *pricingTemplate = minLoanTerm.pricingTemplate.AF_nonEmptyValue;
+        
+        if (pricingTemplate != nil) {
+            [self sendPricingRequest:amount loanTerm:minLoanTerm callback:^(AffirmPricing *pricing, NSError *pricingError, BOOL pricingSuccess) {
+                NSString *paymentString = pricing.paymentString.AF_nonEmptyValue;
+                
+                if (paymentString != nil) {
+                    NSString *template = [pricingTemplate stringByReplacingOccurrencesOfString:@"{payment}" withString:[NSString stringWithFormat:@"$%@", paymentString]];
+                    template = [template stringByReplacingOccurrencesOfString:@"{affirm_logo}" withString:@"Affirm"];
+                    callback(template, pricingError, pricingSuccess);
+                }
+                else {
+                    callback(defaultMessage, pricingError, pricingSuccess);
+                }
             }];
-        } else {
-            callback(promoDefaultTemplate, error, success);
+        }
+        else {
+            callback(defaultMessage, promoError, promoSuccess);
         }
     }];
 }

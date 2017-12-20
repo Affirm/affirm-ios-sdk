@@ -7,7 +7,7 @@
 //
 
 #import "AffirmUtils.h"
-
+#import "NSJSONSerialization+RemovingNulls.h"
 
 @implementation AffirmNumberUtils
 
@@ -83,7 +83,7 @@
 + (void) performNetworkRequest:(NSURLRequest *)request withCompletion:(AffirmNetworkCompletion)completion {
     NSURLSession *session = [NSURLSession sharedSession];
     NSURLSessionDataTask *dataTask = [session dataTaskWithRequest:request completionHandler:^(NSData *_data, NSURLResponse *_response, NSError *error) {
-        NSDictionary *data = _data ? [NSJSONSerialization JSONObjectWithData:_data options:NSJSONReadingMutableContainers error:nil] : nil;
+        NSDictionary *data = _data ? [NSJSONSerialization AF_JSONObjectWithData:_data options:NSJSONReadingMutableContainers error:nil removingNulls:YES ignoreArrays:NO] : nil;
         NSHTTPURLResponse *response = (NSHTTPURLResponse *)_response;
         completion(data, response, error);
     }];

@@ -71,6 +71,13 @@
 		AFAC22C91B3B720B00BFBB18 /* AffirmTestData.m in Sources */ = {isa = PBXBuildFile; fileRef = AFAC22C81B3B720B00BFBB18 /* AffirmTestData.m */; };
 		AFAC22CB1B3B7B4F00BFBB18 /* AffirmCheckoutViewControllerTests.m in Sources */ = {isa = PBXBuildFile; fileRef = AFAC22CA1B3B7B4F00BFBB18 /* AffirmCheckoutViewControllerTests.m */; };
 		AFAC22D11B41EC6D00BFBB18 /* AffirmConfigurationTests.m in Sources */ = {isa = PBXBuildFile; fileRef = AFAC22D01B41EC6D00BFBB18 /* AffirmConfigurationTests.m */; };
+		F68360031FEAC5A700C6FC0C /* NSJSONSerialization+RemovingNulls.h in Headers */ = {isa = PBXBuildFile; fileRef = F68360011FEAC5A700C6FC0C /* NSJSONSerialization+RemovingNulls.h */; };
+		F68360041FEAC5A700C6FC0C /* NSJSONSerialization+RemovingNulls.m in Sources */ = {isa = PBXBuildFile; fileRef = F68360021FEAC5A700C6FC0C /* NSJSONSerialization+RemovingNulls.m */; };
+		F68360061FEAC88700C6FC0C /* NSJSONSerialization+RemovingNullsTests.m in Sources */ = {isa = PBXBuildFile; fileRef = F68360051FEAC88700C6FC0C /* NSJSONSerialization+RemovingNullsTests.m */; };
+		F68360071FEAC8DE00C6FC0C /* NSJSONSerialization+RemovingNulls.m in Sources */ = {isa = PBXBuildFile; fileRef = F68360021FEAC5A700C6FC0C /* NSJSONSerialization+RemovingNulls.m */; };
+		F683600A1FEAE28A00C6FC0C /* NSString+AffirmUtils.h in Headers */ = {isa = PBXBuildFile; fileRef = F68360081FEAE28A00C6FC0C /* NSString+AffirmUtils.h */; };
+		F683600B1FEAE28A00C6FC0C /* NSString+AffirmUtils.m in Sources */ = {isa = PBXBuildFile; fileRef = F68360091FEAE28A00C6FC0C /* NSString+AffirmUtils.m */; };
+		F683600C1FEAE29500C6FC0C /* NSString+AffirmUtils.m in Sources */ = {isa = PBXBuildFile; fileRef = F68360091FEAE28A00C6FC0C /* NSString+AffirmUtils.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -116,6 +123,11 @@
 		AFAC22C81B3B720B00BFBB18 /* AffirmTestData.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AffirmTestData.m; sourceTree = "<group>"; };
 		AFAC22CA1B3B7B4F00BFBB18 /* AffirmCheckoutViewControllerTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AffirmCheckoutViewControllerTests.m; sourceTree = "<group>"; };
 		AFAC22D01B41EC6D00BFBB18 /* AffirmConfigurationTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AffirmConfigurationTests.m; sourceTree = "<group>"; };
+		F68360011FEAC5A700C6FC0C /* NSJSONSerialization+RemovingNulls.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "NSJSONSerialization+RemovingNulls.h"; sourceTree = "<group>"; };
+		F68360021FEAC5A700C6FC0C /* NSJSONSerialization+RemovingNulls.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = "NSJSONSerialization+RemovingNulls.m"; sourceTree = "<group>"; };
+		F68360051FEAC88700C6FC0C /* NSJSONSerialization+RemovingNullsTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = "NSJSONSerialization+RemovingNullsTests.m"; sourceTree = "<group>"; };
+		F68360081FEAE28A00C6FC0C /* NSString+AffirmUtils.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "NSString+AffirmUtils.h"; sourceTree = "<group>"; };
+		F68360091FEAE28A00C6FC0C /* NSString+AffirmUtils.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = "NSString+AffirmUtils.m"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -171,6 +183,10 @@
 				4E078C071F168A5400395ECE /* AffirmSDK.h */,
 				4E078B121F1044DA00395ECE /* AffirmUtils.h */,
 				4E078B131F1044DA00395ECE /* AffirmUtils.m */,
+				F68360011FEAC5A700C6FC0C /* NSJSONSerialization+RemovingNulls.h */,
+				F68360021FEAC5A700C6FC0C /* NSJSONSerialization+RemovingNulls.m */,
+				F68360081FEAE28A00C6FC0C /* NSString+AffirmUtils.h */,
+				F68360091FEAE28A00C6FC0C /* NSString+AffirmUtils.m */,
 			);
 			path = AffirmSDK;
 			sourceTree = "<group>";
@@ -203,6 +219,7 @@
 				AFAC22CA1B3B7B4F00BFBB18 /* AffirmCheckoutViewControllerTests.m */,
 				AFAC22D01B41EC6D00BFBB18 /* AffirmConfigurationTests.m */,
 				AFA815CD1B83FFB800A06A34 /* AffirmUtilsTests.m */,
+				F68360051FEAC88700C6FC0C /* NSJSONSerialization+RemovingNullsTests.m */,
 				AF9426001B26610000D45762 /* Supporting Files */,
 			);
 			path = AffirmSDKTests;
@@ -231,6 +248,7 @@
 				4E078BA81F14334600395ECE /* AffirmConfiguration.h in Headers */,
 				4E704B7E1F16DF6B000FDFBB /* AffirmCheckoutViewController+Protected.h in Headers */,
 				4E078BA51F14334600395ECE /* AffirmCheckoutData.h in Headers */,
+				F683600A1FEAE28A00C6FC0C /* NSString+AffirmUtils.h in Headers */,
 				4E078BA91F14334600395ECE /* AffirmErrorModal.h in Headers */,
 				4E704B801F16DF7E000FDFBB /* AffirmConfiguration+Protected.h in Headers */,
 				4E078BA31F14334600395ECE /* AffirmAsLowAsData.h in Headers */,
@@ -241,6 +259,7 @@
 				4E078BAB1F14334600395ECE /* AffirmLogger.h in Headers */,
 				4E078BAC1F14334600395ECE /* AffirmPopupViewController.h in Headers */,
 				4E078BA41F14334600395ECE /* AffirmBaseModalViewController.h in Headers */,
+				F68360031FEAC5A700C6FC0C /* NSJSONSerialization+RemovingNulls.h in Headers */,
 				4E078BA61F14334600395ECE /* AffirmCheckoutDelegate.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -365,7 +384,9 @@
 			files = (
 				4E078BFB1F1689FC00395ECE /* AffirmActivityIndicator.m in Sources */,
 				4E078BFC1F1689FC00395ECE /* AffirmAsLowAsButton.m in Sources */,
+				F683600B1FEAE28A00C6FC0C /* NSString+AffirmUtils.m in Sources */,
 				4E078BFD1F1689FC00395ECE /* AffirmAsLowAsData.m in Sources */,
+				F68360041FEAC5A700C6FC0C /* NSJSONSerialization+RemovingNulls.m in Sources */,
 				4E078BFE1F1689FC00395ECE /* AffirmBaseModalViewController.m in Sources */,
 				4E078BFF1F1689FC00395ECE /* AffirmCheckoutData.m in Sources */,
 				4E078C001F1689FC00395ECE /* AffirmCheckoutViewController.m in Sources */,
@@ -384,11 +405,14 @@
 			files = (
 				AFAC22D11B41EC6D00BFBB18 /* AffirmConfigurationTests.m in Sources */,
 				AFAC22C61B3B5A7000BFBB18 /* AffirmCheckoutDataTests.m in Sources */,
+				F68360061FEAC88700C6FC0C /* NSJSONSerialization+RemovingNullsTests.m in Sources */,
+				F68360071FEAC8DE00C6FC0C /* NSJSONSerialization+RemovingNulls.m in Sources */,
 				4E078B3A1F1044DA00395ECE /* AffirmPromoModalViewController.m in Sources */,
 				AFAC22C91B3B720B00BFBB18 /* AffirmTestData.m in Sources */,
 				4E078B291F1044DA00395ECE /* AffirmCheckoutViewController.m in Sources */,
 				4E078B3E1F1044DA00395ECE /* AffirmUtils.m in Sources */,
 				4E078B301F1044DA00395ECE /* AffirmErrorModal.m in Sources */,
+				F683600C1FEAE29500C6FC0C /* NSString+AffirmUtils.m in Sources */,
 				4E078B161F1044DA00395ECE /* AffirmActivityIndicator.m in Sources */,
 				AFA815CE1B83FFB800A06A34 /* AffirmUtilsTests.m in Sources */,
 				4EF6085C1F33A002004A0EFB /* AffirmAsLowAsTests.m in Sources */,
