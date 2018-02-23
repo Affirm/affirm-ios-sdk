@@ -46,7 +46,7 @@
 
 - (void)testAsLowAsButton {
     NSPredicate *existsPredicate = [NSPredicate predicateWithFormat:@"exists == 1"];
-    XCUIElement *alaButton = self.app.buttons[@"As low as $44/month with Affirm"];
+    XCUIElement *alaButton = self.app.buttons[@"As low as $44/month at 10% APR with Affirm"];
     [self expectationForPredicate:existsPredicate evaluatedWithObject:alaButton handler:nil];
     [self waitForExpectationsWithTimeout:4 handler:nil];
 
@@ -70,7 +70,7 @@
     [self.app typeText:@"75"];
     [self.app.buttons[@"Done"] tap];
 
-    updatedALAButton = self.app.buttons[@"As low as $13/month with Affirm"];
+    updatedALAButton = self.app.buttons[@"As low as $13/month at 10% APR with Affirm"];
     [self expectationForPredicate:existsPredicate evaluatedWithObject:updatedALAButton handler:nil];
     [self waitForExpectationsWithTimeout:4 handler:nil];
 

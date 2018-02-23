@@ -87,15 +87,17 @@
             }
         } else {
             NSString *redirect_url = [result objectForKey:@"redirect_url"];
-            if (redirect_url) {
-                [self.webView loadRequest:[NSURLRequest requestWithURL:[NSURL URLWithString:redirect_url]]];
-                [self.delegate checkoutReadyToPresent:self];
-                self.checkoutARI = [redirect_url lastPathComponent];
-                [AffirmLogger logEvent:@"Checkout ready to present" info:@{@"checkout_ari": self.checkoutARI}];
-            } else {
-                [AffirmLogger logEvent:@"Checkout redirect missing"];
-                [self.delegate checkout:self creationFailedWithError:[NSError errorWithDomain:self.configuration.affirmDomain code:-1 userInfo:result]];
-            }
+            dispatch_async(dispatch_get_main_queue(), ^{
+                if (redirect_url) {
+                    [self.webView loadRequest:[NSURLRequest requestWithURL:[NSURL URLWithString:redirect_url]]];
+                    [self.delegate checkoutReadyToPresent:self];
+                    self.checkoutARI = [redirect_url lastPathComponent];
+                    [AffirmLogger logEvent:@"Checkout ready to present" info:@{@"checkout_ari": self.checkoutARI}];
+                } else {
+                    [AffirmLogger logEvent:@"Checkout redirect missing"];
+                    [self.delegate checkout:self creationFailedWithError:[NSError errorWithDomain:self.configuration.affirmDomain code:-1 userInfo:result]];
+                }
+            });
         }
     }];
 }
