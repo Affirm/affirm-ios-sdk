@@ -44,7 +44,7 @@
     [self waitForExpectationsWithTimeout:3 handler:nil];
 }
 
-- (void)testAsLowAsButton {
+- (void)X_testAsLowAsButton {
     NSPredicate *existsPredicate = [NSPredicate predicateWithFormat:@"exists == 1"];
     XCUIElement *alaButton = self.app.buttons[@"As low as $44/month at 10% APR with Affirm"];
     [self expectationForPredicate:existsPredicate evaluatedWithObject:alaButton handler:nil];
@@ -89,7 +89,7 @@
     [self waitForExpectationsWithTimeout:3 handler:nil];
 }
 
-- (void)testCheckout {
+- (void)X_testCheckout {
     [self.app.buttons[@"Buy with Affirm"] tap];
     
     XCUIElement *affirmElement = self.app.textFields[@"Mobile Number"];
