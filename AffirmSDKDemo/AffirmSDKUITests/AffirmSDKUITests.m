@@ -92,11 +92,11 @@
 - (void)testCheckout {
     [self.app.buttons[@"Buy with Affirm"] tap];
     
-    XCUIElement *affirmElement = self.app.textFields[@"Your mobile number"];
+    XCUIElement *affirmElement = self.app.textFields[@"Mobile Number"];
     NSPredicate *existsPredicate = [NSPredicate predicateWithFormat:@"exists == 1"];
     [self expectationForPredicate:existsPredicate evaluatedWithObject:affirmElement handler:nil];
     [self waitForExpectationsWithTimeout:10 handler:nil];
-    [self.app.textFields[@"Your mobile number"] tap];
+    [affirmElement tap];
     [self.app typeText:@"4085100442"];
     [self.app.buttons[@"Done"] tap];
     [self.app.buttons[@"Continue"] tap];
