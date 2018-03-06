@@ -1,6 +1,9 @@
 # Affirm iOS SDK Changelog
 All notable changes to the SDK will be documented in this file.
 
+## Version 4.0.9 (March 5, 2018)
+- Fixed Carthage issue
+
 ## Version 4.0.7 (February 23, 2018)
 - Removed CFBundleExecutable key from Info.plist
 - Fixed AsLowAs lowest_apr parsing
