@@ -44,13 +44,20 @@
 
 - (NSData *)getCheckoutData {
     NSMutableDictionary *checkoutDict = [self.checkout toJSONDictionary];
+    NSDictionary *data = [checkoutDict objectForKey: @"metadata"];
+    NSMutableDictionary *metaData = data ? [data mutableCopy] : [[NSMutableDictionary alloc] init];
+    [metaData setValue:@"Affirm iOS SDK" forKey:@"platform_type"];
+    NSString *sdkVersion = [[NSBundle mainBundle] objectForInfoDictionaryKey:@"CFBundleShortVersionString"];
+    [metaData setValue:sdkVersion forKey:@"platform_affirm"];
     [checkoutDict addEntriesFromDictionary:@{
                                              @"merchant": @{
                                                      @"public_api_key": self.configuration.publicAPIKey,
                                                      @"user_confirmation_url": AFFIRM_CHECKOUT_CONFIRMATION_URL,
                                                      @"user_cancel_url": AFFIRM_CHECKOUT_CANCELLATION_URL,
                                                      @"user_confirmation_url_action": @"GET"
-                                                     }}];
+                                                     },
+                                             @"metadata": metaData
+                                             }];
     NSError *error;
     return [NSJSONSerialization dataWithJSONObject:@{@"checkout": checkoutDict} options:0 error:&error];;
 }
