@@ -1,6 +1,10 @@
 # Affirm iOS SDK Changelog
 All notable changes to the SDK will be documented in this file.
 
+## Version 4.0.10 (May 30, 2018)
+- Fix for rare NSNull exception
+- Add Platform Type & Version to checkout
+
 ## Version 4.0.9 (March 5, 2018)
 - Fixed Carthage issue
 
