@@ -46,8 +46,8 @@ static NSString *defaultALATemplate = @"Buy in monthly payments with Affirm";
 
 
 + (AffirmLoanTerm *)getMinLoanTermForAmount:(NSDecimalNumber *)amount fromALAData:(NSDictionary *)asLowAsData {
-    NSString *pricingTemplate = asLowAsData[@"pricingTemplate"];
-    NSString *defaultMessage = asLowAsData[@"defaultMessage"];
+    NSString *pricingTemplate = [asLowAsData[@"pricingTemplate"] isKindOfClass:[NSString class]] ? asLowAsData[@"pricingTemplate"] : nil;
+    NSString *defaultMessage = [asLowAsData[@"defaultMessage"] isKindOfClass:[NSString class]] ? asLowAsData[@"defaultMessage"] : nil;
 
     NSArray <NSDictionary *> *loanTermIntervals = asLowAsData[@"termLengthIntervals"];
     loanTermIntervals = [[loanTermIntervals reverseObjectEnumerator] allObjects];
@@ -97,7 +97,7 @@ static NSString *defaultALATemplate = @"Buy in monthly payments with Affirm";
         if (success) {
             [self sendPricingRequest:amount loanTerm:minLoanTerm callback:^(AffirmPricing *pricing, NSError *error, BOOL pricingSuccess) {
                 NSString *template = promoDefaultTemplate;
-                if (pricingSuccess) {
+                if (pricingSuccess && [minLoanTerm.pricingTemplate isKindOfClass:[NSString class]]) {
                     template = [minLoanTerm.pricingTemplate stringByReplacingOccurrencesOfString:@"{payment}" withString:[NSString stringWithFormat:@"$%@", pricing.paymentString]];
                     template = [template stringByReplacingOccurrencesOfString:@"{lowest_apr}" withString:[NSString stringWithFormat:@"%@", @(minLoanTerm.apr.floatValue * 100)]];
                 }
