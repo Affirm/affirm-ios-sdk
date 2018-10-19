@@ -42,6 +42,7 @@
     [self.view addConstraints:@[top, bottom, left, right]];
     
     self.loadingIndicator.center = self.view.center;
+    self.loadingIndicator.autoresizingMask = UIViewAutoresizingFlexibleTopMargin | UIViewAutoresizingFlexibleBottomMargin | UIViewAutoresizingFlexibleLeftMargin | UIViewAutoresizingFlexibleRightMargin;
     self.loadingIndicator.indicatorColor = [UIColor colorWithRed:16/255.0 green:160/255.0 blue:234/255.0 alpha: 1.0];
     self.loadingIndicator.indicatorPathColor = [UIColor colorWithRed:246/255.0 green:248/255.0 blue:252/255.0 alpha:1.0];
     self.loadingIndicator.indicatorLineWidth = 1.5;
