@@ -31,15 +31,16 @@ static NSString *defaultALATemplate = @"Buy in monthly payments with Affirm";
 
 + (void) getPromoDetailsForId:(NSString *)promoId
                        amount:(NSDecimalNumber *)amount
-                     callback:(void (^)(AffirmLoanTerm *minLoanTerm, NSError *error, BOOL success))callback {
+                     callback:(void (^)(AffirmLoanTerm *minLoanTerm, BOOL promoPrequalEnabled, NSError *error, BOOL success))callback {
     NSURLRequest *request = [self getPromoConfigurationURLForId:promoId];
     [AffirmNetworkUtils performNetworkRequest:request withCompletion:^(NSDictionary *result, NSHTTPURLResponse *response, NSError *error) {
         if (response.statusCode == 200 && result[@"asLowAs"]) {
+            BOOL promoPrequalEnabled = [result[@"promo_prequal_enabled"] boolValue];
             NSDictionary *asLowAsData = result[@"asLowAs"];
             AffirmLoanTerm *minLoanTerm = [self getMinLoanTermForAmount:amount fromALAData:asLowAsData];
-            callback(minLoanTerm, nil, minLoanTerm != nil);
+            callback(minLoanTerm, promoPrequalEnabled, nil, minLoanTerm != nil);
         } else {
-            callback(nil, [AffirmErrorUtils errorFromInfo:result], false);
+            callback(nil, NO, [AffirmErrorUtils errorFromInfo:result], false);
         }
     }];
 }
@@ -91,8 +92,8 @@ static NSString *defaultALATemplate = @"Buy in monthly payments with Affirm";
 
 + (void)getALAPromoTemplateForAmount:(NSDecimalNumber *)amount
                              promoID:(NSString *)promoID
-                            callback:(void (^)(NSString *promoTemplate, NSError *error, BOOL success))callback {
-    [self getPromoDetailsForId:promoID amount:amount callback:^(AffirmLoanTerm *minLoanTerm, NSError *error, BOOL success) {
+                            callback:(void (^)(NSString *promoTemplate, BOOL promoPrequalEnabled, NSError *error, BOOL success))callback {
+    [self getPromoDetailsForId:promoID amount:amount callback:^(AffirmLoanTerm *minLoanTerm, BOOL promoPrequalEnabled, NSError *error, BOOL success) {
         NSString *promoDefaultTemplate = minLoanTerm.defaultMessage ? minLoanTerm.defaultMessage : defaultALATemplate;
         if (success) {
             [self sendPricingRequest:amount loanTerm:minLoanTerm callback:^(AffirmPricing *pricing, NSError *error, BOOL pricingSuccess) {
@@ -103,10 +104,10 @@ static NSString *defaultALATemplate = @"Buy in monthly payments with Affirm";
                 }
 
                 template = [template stringByReplacingOccurrencesOfString:@"{affirm_logo}" withString:@"Affirm"];
-                callback(template, error, pricingSuccess);
+                callback(template, promoPrequalEnabled, error, pricingSuccess);
             }];
         } else {
-            callback(promoDefaultTemplate, error, success);
+            callback(promoDefaultTemplate, promoPrequalEnabled, error, success);
         }
     }];
 }
@@ -115,17 +116,17 @@ static NSString *defaultALATemplate = @"Buy in monthly payments with Affirm";
                            promoId:(NSString *)promoId
                     affirmLogoType:(AffirmLogoType)affirmLogoType
                        affirmColor:(AffirmColorType)affirmColor
-                          callback:(void (^)(NSString *asLowAsText, UIImage *logo, NSError *error, BOOL success))callback {
+                          callback:(void (^)(NSString *asLowAsText, UIImage *logo, BOOL promoPrequalEnabled, NSError *error, BOOL success))callback {
     [AffirmValidationUtils checkNotNil:promoId name:@"promoId"];
     [AffirmValidationUtils checkNotNil:amount name:@"amount"];
 
-    [AffirmAsLowAs getALAPromoTemplateForAmount:amount promoID:promoId callback:^(NSString *promoTemplate, NSError *error, BOOL success) {
+    [AffirmAsLowAs getALAPromoTemplateForAmount:amount promoID:promoId callback:^(NSString *promoTemplate, BOOL promoPrequalEnabled, NSError *error, BOOL success) {
         dispatch_async(dispatch_get_main_queue(), ^{
             if (affirmLogoType == AffirmLogoTypeText) {
-                callback(promoTemplate, nil, error, success);
+                callback(promoTemplate, nil, promoPrequalEnabled, error, success);
             } else {
                 UIImage *logo = [AffirmAsLowAs getAffirmDisplayForLogoType:affirmLogoType colorType:affirmColor];
-                callback(promoTemplate, logo, error, success);
+                callback(promoTemplate, logo, promoPrequalEnabled, error, success);
             }
         });
     }];

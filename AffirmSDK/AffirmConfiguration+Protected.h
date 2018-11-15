@@ -25,6 +25,9 @@ static NSString *AFFIRM_ALA_SANDBOX_DOMAIN = @"cdn1-sandbox.affirm.com";
 /// The Affirm domain which hosts the API. Points to the appropriate (production/sandbox) domain depending on the configured environment.
 @property(nonatomic, copy, readonly) NSString *affirmDomain;
 
+/// The URL for prequal
+@property(readonly) NSString *affirmPrequalURL;
+
 /// The URL for creating or viewing a checkout.
 @property(readonly) NSURL *affirmCheckoutURL;
 

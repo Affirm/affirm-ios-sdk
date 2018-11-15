@@ -39,7 +39,7 @@ typedef NS_ENUM(NSInteger, AffirmColorType) {
                            promoId:(NSString *)promoId
                     affirmLogoType:(AffirmLogoType)affirmLogoType
                        affirmColor:(AffirmColorType)affirmColor
-                          callback:(void (^)(NSString *asLowAsText, UIImage *logo, NSError *error, BOOL success))callback;
+                          callback:(void (^)(NSString *asLowAsText, UIImage *logo, BOOL promoPrequalEnabled, NSError *error, BOOL success))callback;
 
 /// Inserts the Affirm logo into the asLowAs text to display in your label
 /// @param logo The Affirm logo image
