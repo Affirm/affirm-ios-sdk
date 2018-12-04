@@ -123,6 +123,10 @@ static AffirmConfiguration *sharedInstance = nil;
     return [NSURL URLWithString:path relativeToURL:urlComponents.URL];
 }
 
+- (NSString *)affirmPrequalURL {
+    return [[self affirmURLWithString:@"/apps/prequal/"] absoluteString];
+}
+
 - (NSURL *)affirmCheckoutURL {
     return [self affirmURLWithString:@"/api/v2/checkout/"];
 }
