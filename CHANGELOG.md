@@ -1,6 +1,10 @@
 # Affirm iOS SDK Changelog
 All notable changes to the SDK will be documented in this file.
 
+## Version 4.0.11 (Dec 13, 2018)
+- Prequal support added
+- Affirm logos updated
+
 ## Version 4.0.10 (May 30, 2018)
 - Fixed a crash when pricingTemplate was NSNull
 - Added platform_type to metadata
