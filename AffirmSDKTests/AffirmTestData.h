@@ -20,7 +20,6 @@
 + (AffirmItem *)item;
 + (AffirmCheckout *)checkout;
 + (AffirmConfiguration *)configuration;
-+ (AffirmPricing *)pricing;
 
 @end
 

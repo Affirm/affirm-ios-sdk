@@ -64,7 +64,7 @@
 #pragma mark - Affirm
 
 - (void)reloadAffirmAsLowAs {
-    NSDecimalNumber *price = [NSDecimalNumber decimalNumberWithString:self.textField.text];
+    NSDecimalNumber *price = [[NSDecimalNumber decimalNumberWithString:self.textField.text] decimalNumberByMultiplyingBy:[NSDecimalNumber decimalNumberWithString:@"100"]];
     [self.alaButton configureWithAmount:price affirmLogoType:AffirmLogoTypeName affirmColor:AffirmColorTypeBlue maxFontSize:18 callback:^(BOOL alaEnabled, NSError *error) {
         //alaButton successfully configured
     }];

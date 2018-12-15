@@ -122,39 +122,3 @@
 }
 
 @end
-
-@interface AffirmLoanTermTests : XCTestCase
-@end
-
-
-@implementation AffirmLoanTermTests
-
-- (void)testLowestLoanTerm {
-    NSDictionary *rendered = @{
-                               @"apr": @0.1,
-                               @"minimumLoanAmount": @5000,
-                               @"termLength": @6
-                               };
-    AffirmLoanTerm *loanTerm = [AffirmLoanTerm loanTermWithDictionary:rendered pricingTemplate:@"As low as {payment}/month with {affirm_logo}" defaultMessage:@"Buy in monthly payments with {affirm_logo} on orders over $50"];
-    XCTAssertEqual(loanTerm.apr.doubleValue, 0.1);
-    XCTAssertEqual(loanTerm.minimumLoanAmount.integerValue, 50);
-    XCTAssertEqual(loanTerm.termLength.integerValue, 6);
-}
-
-@end
-
-@interface AffirmPricingTests : XCTestCase
-@end
-
-@implementation AffirmPricingTests
-- (void) testToJSONDictionary {
-    NSDictionary *rendered = @{
-                               @"payment": @10.00,
-                               @"paymentString": @"payment_string",
-                               @"termLength": @12,
-                               @"disclosure": @"my disclosure"
-                               };
-    XCTAssertEqualObjects([[AffirmTestData pricing] toJSONDictionary], rendered);
-}
-
-@end
