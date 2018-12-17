@@ -41,6 +41,7 @@ static NSString *AFFIRM_ALA_SANDBOX_DOMAIN = @"cdn1-sandbox.affirm.com";
 
 /// The URL for loading as low as pricing.
 /// @param promoId Promo ID to use in the calculation
+/// @param amount Optional amount to use in calculation
 /// @return URL to use to get the configuration to use to calculate the monthly payments
 - (NSURL *)affirmAsLowAsURLWithPromoId:(NSString *)promoId withAmount:(NSDecimalNumber *)amount;
 
