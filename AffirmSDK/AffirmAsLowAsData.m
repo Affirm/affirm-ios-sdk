@@ -49,7 +49,8 @@ static NSString *defaultALATemplate = @"Buy in monthly payments with Affirm";
             ala = [ala stringByReplacingOccurrencesOfString:@"{affirm_logo}" withString:@"Affirm"];
             
             NSString *style = [result[@"promo"][@"config"][@"promo_style"] copy];
-            callback(ala, [style isEqualToString:@"fast"], error, success);
+            BOOL showPrequal = ![style isEqualToString:@"fast"];
+            callback(ala, showPrequal, error, success);
         } else {
             callback(defaultALATemplate, YES, error, success);
         }
@@ -62,7 +63,6 @@ static NSString *defaultALATemplate = @"Buy in monthly payments with Affirm";
                        affirmColor:(AffirmColorType)affirmColor
                           callback:(void (^)(NSString *asLowAsText, UIImage *logo, BOOL promoPrequalEnabled, NSError *error, BOOL success))callback {
     [AffirmValidationUtils checkNotNil:promoId name:@"promoId"];
-    [AffirmValidationUtils checkNotNil:amount name:@"amount"];
 
     [AffirmAsLowAs getALAPromoTemplateForAmount:amount promoID:promoId callback:^(NSString *ala, BOOL showPrequal, NSError *error, BOOL success) {
         dispatch_async(dispatch_get_main_queue(), ^{
