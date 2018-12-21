@@ -1,7 +1,7 @@
 # Affirm iOS SDK Changelog
 All notable changes to the SDK will be documented in this file.
 
-## Version 4.0.11 (Dec 13, 2018)
+## Version 4.0.12 (Dec 21, 2018)
 - Prequal support added
 - Affirm logos updated
 
