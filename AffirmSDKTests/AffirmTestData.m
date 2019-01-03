@@ -31,10 +31,6 @@
     return [AffirmConfiguration configurationWithPublicAPIKey:@"public_api_key" environment:AffirmEnvironmentSandbox];
 }
 
-+ (AffirmPricing *)pricing {
-    return [AffirmPricing pricingWithPayment:[NSDecimalNumber decimalNumberWithString:@"10.00"] paymentString:@"payment_string" termLength:[NSDecimalNumber decimalNumberWithString:@"12"] disclosure:@"my disclosure"];
-}
-
 @end
 
 @implementation AffirmDummyCheckoutDelegate

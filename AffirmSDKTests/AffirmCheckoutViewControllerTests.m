@@ -47,6 +47,9 @@
                                                @"item_url": @"http://sandbox.affirm.com/item",
                                                }
                                        },
+                               @"metadata": @{
+                                       @"platform_type": @"Affirm iOS SDK",
+                               },
                                @"billing": @{
                                        @"name": @{@"full": @"Test Tester"},
                                        @"address":
