@@ -17,8 +17,8 @@ static NSString *AFFIRM_CHECKOUT_CANCELLATION_URL = @"affirm://checkout/cancelle
 static NSString *AFFIRM_PRODUCTION_DOMAIN = @"api.affirm.com";
 static NSString *AFFIRM_SANDBOX_DOMAIN = @"sandbox.affirm.com";
 
-static NSString *AFFIRM_ALA_PRODUCTION_DOMAIN = @"cdn1.affirm.com";
-static NSString *AFFIRM_ALA_SANDBOX_DOMAIN = @"cdn1-sandbox.affirm.com";
+static NSString *AFFIRM_ALA_PRODUCTION_DOMAIN = @"affirm.com";
+static NSString *AFFIRM_ALA_SANDBOX_DOMAIN = @"sandbox.affirm.com";
 
 @interface AffirmConfiguration () <NSCopying>
 
