@@ -6,19 +6,12 @@
 //  Copyright © 2017 Affirm. All rights reserved.
 //
 
-#define AMOUNT_FIELD_TAG 1
-#define PROMO_ID_FIELD_TAG 2
-#define PUBLIC_API_KEY_FIELD_TAG 3
-
 #import "ViewController.h"
 #import <AffirmSDK/AffirmSDK.h>
 
 @interface ViewController () <AffirmCheckoutDelegate>
 
-@property (weak, nonatomic) IBOutlet UILabel *titleLabel;
-@property (weak, nonatomic) IBOutlet UITextField *amountField;
-@property (weak, nonatomic) IBOutlet UITextField *promoIDField;
-@property (weak, nonatomic) IBOutlet UITextField *publicAPIKeyField;
+@property (weak, nonatomic) IBOutlet UITextField *textField;
 @property (nonatomic, strong) AffirmAsLowAsButton *alaButton;
 
 @end
@@ -28,37 +21,31 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     [self setupView];
+    self.textField.accessibilityLabel = @"price field";
+    self.textField.delegate = self;
     
     CGRect frame = CGRectMake(0, 0, self.view.frame.size.width - 40, 40);
-    self.alaButton = [AffirmAsLowAsButton createButtonWithPromoID:self.promoIDField.text presentingViewController:self frame:frame];
-    self.alaButton.center = CGPointMake(self.view.center.x, self.titleLabel.frame.origin.y - 80);
+    self.alaButton = [AffirmAsLowAsButton createButtonWithPromoID:@"promo_set_ios" presentingViewController:self frame:frame];
+    self.alaButton.center = CGPointMake(self.view.center.x, self.textField.frame.origin.y - 70);
     [self.view addSubview:self.alaButton];
     
     [self reloadAffirmAsLowAs];
-    [self setAPIKey];
 }
 
 - (void)setupView {
-    [self configureTextField:self.amountField withLabel:@"price input" andTag:AMOUNT_FIELD_TAG];
-    [self configureTextField:self.promoIDField withLabel:@"promo ID input" andTag:PROMO_ID_FIELD_TAG];
-    [self configureTextField:self.publicAPIKeyField withLabel:@"public API key input" andTag:PUBLIC_API_KEY_FIELD_TAG];
+    UIToolbar *toolBar = [UIToolbar new];
+    UIBarButtonItem *flexibleItem = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemFlexibleSpace target:nil action:nil];
+    UIBarButtonItem *doneItem = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemDone target:self.textField action:@selector(resignFirstResponder)];
+    toolBar.items = @[ flexibleItem, doneItem ];
+    [toolBar sizeToFit];
+    self.textField.inputAccessoryView = toolBar;
 }
 
-- (BOOL)textFieldShouldReturn:(UITextField *)textField {
-    return [textField resignFirstResponder];
+- (void)textFieldDidBeginEditing:(UITextField *)textField {
+    self.textField.text = @"";
 }
 
 - (void)textFieldDidEndEditing:(UITextField *)textField {
-    switch (textField.tag) {
-        case AMOUNT_FIELD_TAG:
-            break;
-        case PROMO_ID_FIELD_TAG:
-            self.alaButton.promoID = [textField.text copy];
-            break;
-        case PUBLIC_API_KEY_FIELD_TAG:
-            [self setAPIKey];
-            break;
-    }
     [self reloadAffirmAsLowAs];
 }
 
@@ -76,34 +63,15 @@
 
 #pragma mark - Affirm
 
-- (void)configureTextField:(UITextField *)target withLabel:(NSString *)label andTag:(NSInteger)tag {
-    UIToolbar *amountToolBar = [UIToolbar new];
-    UIBarButtonItem *flexibleItem = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemFlexibleSpace target:nil action:nil];
-    UIBarButtonItem *doneItem = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemDone target:target action:@selector(resignFirstResponder)];
-    amountToolBar.items = @[ flexibleItem, doneItem ];
-    [amountToolBar sizeToFit];
-    target.inputAccessoryView = amountToolBar;
-
-    target.tag = tag;
-    target.accessibilityLabel = label;
-    target.delegate = self;
-}
-
 - (void)reloadAffirmAsLowAs {
-    NSDecimalNumber *price = [NSDecimalNumber decimalNumberWithString:self.amountField.text];
+    NSDecimalNumber *price = [NSDecimalNumber decimalNumberWithString:self.textField.text];
     [self.alaButton configureWithAmount:price affirmLogoType:AffirmLogoTypeName affirmColor:AffirmColorTypeBlue maxFontSize:18 callback:^(BOOL alaEnabled, NSError *error) {
         //alaButton successfully configured
     }];
 }
 
-- (void)setAPIKey {
-    AffirmConfiguration *config = [AffirmConfiguration configurationWithPublicAPIKey:self.publicAPIKeyField.text environment:AffirmEnvironmentSandbox];
-    //set the configuration as the shared configuration to be used across your app
-    [AffirmConfiguration setSharedConfiguration:config];
-}
-
 - (IBAction)checkout:(id)sender {
-    NSDecimalNumber *price = [NSDecimalNumber decimalNumberWithString:self.amountField.text];
+    NSDecimalNumber *price = [NSDecimalNumber decimalNumberWithString:self.textField.text];
     AffirmItem *item = [AffirmItem itemWithName:@"Affirm Test Item" SKU:@"test_item" unitPrice:price quantity:1 URL:[NSURL URLWithString:@"http://sandbox.affirm.com/item"]];
     AffirmShippingDetail *shipping = [AffirmShippingDetail shippingDetailWithName:@"Chester Cheetah" addressWithLine1:@"633 Folsom Street" line2:@"" city:@"San Francisco" state:@"CA" zipCode:@"94107" countryCode:@"USA"];
     AffirmCheckout *checkout = [AffirmCheckout checkoutWithItems:@[item] shipping:shipping taxAmount:[NSDecimalNumber zero] shippingAmount:[NSDecimalNumber zero]];
@@ -113,8 +81,14 @@
     [self presentViewController:checkoutVC animated:true completion:nil];
 }
 
+- (IBAction)showPromoModal:(id)sender {
+    NSDecimalNumber *price = [NSDecimalNumber decimalNumberWithString:self.textField.text];
+    AffirmPromoModalViewController *vc = [AffirmPromoModalViewController promoModalControllerWithModalId:@"promo_set_ios" amount:price];
+    [self presentViewController:vc animated:YES completion:nil];
+}
+
 - (IBAction)showFailedCheckout:(id)sender {
-    NSDecimalNumber *price = [NSDecimalNumber decimalNumberWithString:self.amountField.text];
+    NSDecimalNumber *price = [NSDecimalNumber decimalNumberWithString:self.textField.text];
     AffirmItem *item = [AffirmItem itemWithName:@"Affirm Test Item" SKU:@"test_item" unitPrice:price quantity:1 URL:[NSURL URLWithString:@"http://sandbox.affirm.com/item"]];
     AffirmShippingDetail *shipping = [AffirmShippingDetail shippingDetailWithName:@"Test Tester" email:@"testtester@test.com" phoneNumber:@"1111111111" addressWithLine1:@"633 Folsom Street" line2:@"" city:@"San Francisco" state:@"CA" zipCode:@"94107" countryCode:@"USA"];
     AffirmCheckout *checkout = [AffirmCheckout checkoutWithItems:@[item] shipping:shipping taxAmount:[NSDecimalNumber zero] shippingAmount:[NSDecimalNumber zero]];
