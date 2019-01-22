@@ -14,7 +14,6 @@ NS_ASSUME_NONNULL_BEGIN
 @interface AffirmAsLowAsButton : UIButton
 
 @property (nonatomic, weak) id presentingViewController;
-@property (nonatomic, strong) NSString *promoID;
 
 /// Convenience constructor that creates an as low as button
 /// @param promoID Promo ID to use when getting terms (provided by Affirm)
