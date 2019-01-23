@@ -71,10 +71,11 @@
 }
 
 - (IBAction)checkout:(id)sender {
-    NSDecimalNumber *price = [NSDecimalNumber decimalNumberWithString:self.textField.text];
-    AffirmItem *item = [AffirmItem itemWithName:@"Affirm Test Item" SKU:@"test_item" unitPrice:price quantity:1 URL:[NSURL URLWithString:@"http://sandbox.affirm.com/item"]];
+    NSDecimalNumber *dollarPrice = [NSDecimalNumber decimalNumberWithString:self.textField.text];
+    NSNumber *centsPrice = [AffirmNumberUtils decimalDollarsToIntegerCents:dollarPrice];
+    AffirmItem *item = [AffirmItem itemWithName:@"Affirm Test Item" SKU:@"test_item" unitPrice:dollarPrice quantity:1 URL:[NSURL URLWithString:@"http://sandbox.affirm.com/item"]];
     AffirmShippingDetail *shipping = [AffirmShippingDetail shippingDetailWithName:@"Chester Cheetah" addressWithLine1:@"633 Folsom Street" line2:@"" city:@"San Francisco" state:@"CA" zipCode:@"94107" countryCode:@"USA"];
-    AffirmCheckout *checkout = [AffirmCheckout checkoutWithItems:@[item] shipping:shipping taxAmount:[NSDecimalNumber zero] shippingAmount:[NSDecimalNumber zero]];
+    AffirmCheckout *checkout = [AffirmCheckout checkoutWithItems:@[item] shipping:shipping totalAmount:centsPrice];
     
     // Initializes a checkout view controller and starts the checkout process
     AffirmCheckoutViewController *checkoutVC = [AffirmCheckoutViewController startCheckout:checkout checkoutType:AffirmCheckoutTypeAutomatic delegate:self];
@@ -88,10 +89,11 @@
 }
 
 - (IBAction)showFailedCheckout:(id)sender {
-    NSDecimalNumber *price = [NSDecimalNumber decimalNumberWithString:self.textField.text];
-    AffirmItem *item = [AffirmItem itemWithName:@"Affirm Test Item" SKU:@"test_item" unitPrice:price quantity:1 URL:[NSURL URLWithString:@"http://sandbox.affirm.com/item"]];
+    NSDecimalNumber *dollarPrice = [NSDecimalNumber decimalNumberWithString:self.textField.text];
+    NSNumber *centsPrice = [AffirmNumberUtils decimalDollarsToIntegerCents:dollarPrice];
+    AffirmItem *item = [AffirmItem itemWithName:@"Affirm Test Item" SKU:@"test_item" unitPrice:dollarPrice quantity:1 URL:[NSURL URLWithString:@"http://sandbox.affirm.com/item"]];
     AffirmShippingDetail *shipping = [AffirmShippingDetail shippingDetailWithName:@"Test Tester" email:@"testtester@test.com" phoneNumber:@"1111111111" addressWithLine1:@"633 Folsom Street" line2:@"" city:@"San Francisco" state:@"CA" zipCode:@"94107" countryCode:@"USA"];
-    AffirmCheckout *checkout = [AffirmCheckout checkoutWithItems:@[item] shipping:shipping taxAmount:[NSDecimalNumber zero] shippingAmount:[NSDecimalNumber zero]];
+    AffirmCheckout *checkout = [AffirmCheckout checkoutWithItems:@[item] shipping:shipping totalAmount:centsPrice];
     
     // Initializes a checkout view controller and starts the checkout process
     AffirmCheckoutViewController *checkoutVC = [AffirmCheckoutViewController startCheckout:checkout checkoutType:AffirmCheckoutTypeAutomatic delegate:self];

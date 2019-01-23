@@ -121,4 +121,45 @@
     XCTAssertEqualObjects([[AffirmTestData checkout] toJSONDictionary], rendered);
 }
 
+- (void)testToJSONDictionaryWithAmount {
+    NSDictionary *rendered = @{
+                               @"items": @{
+                                       @"test_item": @{
+                                               @"display_name": @"Affirm Test Item",
+                                               @"sku": @"test_item",
+                                               @"unit_price": @1500,
+                                               @"qty": @1,
+                                               @"item_url": @"http://sandbox.affirm.com/item",
+                                               }
+                                       },
+                               @"billing": @{
+                                       @"name": @{@"full": @"Test Tester"},
+                                       @"address":
+                                           @{
+                                               @"line1": @"325 Pacific Ave.",
+                                               @"line2": @"",
+                                               @"city": @"San Francisco",
+                                               @"state": @"CA",
+                                               @"zipcode": @"94111",
+                                               @"country": @"USA"
+                                               }
+                                       },
+                               @"shipping": @{
+                                       @"name": @{@"full": @"Test Tester"},
+                                       @"address":
+                                           @{
+                                               @"line1": @"325 Pacific Ave.",
+                                               @"line2": @"",
+                                               @"city": @"San Francisco",
+                                               @"state": @"CA",
+                                               @"zipcode": @"94111",
+                                               @"country": @"USA"
+                                               }
+                                       },
+                               @"total": @5000,
+                               @"api_version": @"v2"
+                               };
+    XCTAssertEqualObjects([[AffirmTestData checkoutWithAmount] toJSONDictionary], rendered);
+}
+
 @end

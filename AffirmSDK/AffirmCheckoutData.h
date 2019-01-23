@@ -190,10 +190,10 @@ NS_ASSUME_NONNULL_BEGIN
 /// The shipping contact object must contain a non-nil name and address.
 @property(nonatomic, copy, readonly) AffirmShippingDetail *shipping;
 
-/// Tax amount in USD. Cannot be negative. Required.
+/// Tax amount in USD. Cannot be negative. Required if total amount isn't passed.
 @property(nonatomic, copy, readonly) NSDecimalNumber *taxAmount;
 
-/// Shipping amount in USD. Cannot be negative. Required.
+/// Shipping amount in USD. Cannot be negative. Required if total amount isn't passed.
 @property(nonatomic, copy, readonly) NSDecimalNumber *shippingAmount;
 
 /// A list of discounts. Optional.
@@ -204,6 +204,9 @@ NS_ASSUME_NONNULL_BEGIN
 
 /// The total purchase amount. Dynamically computed from the other properties of the checkout.
 @property(nonatomic, copy, readonly) NSDecimalNumber *total;
+
+/// The total purchase amount, in cents. Can be passed in directly, instead of passing in shipping/tax/discount data.
+@property(nonatomic, copy, readonly, nullable) NSNumber *totalAmount;
 
 /// Any financing program that should be applied (see https://docs.affirm.com/Integrate_Affirm/Multiple_Financing_Programs)
 @property(nonatomic, copy, readonly, nullable) NSString *financingProgram;
@@ -252,6 +255,15 @@ NS_ASSUME_NONNULL_BEGIN
 /// Convenience constructor. See properties for more details.
 /// @param items List of purchased items.
 /// @param shipping Shipping contact.
+/// @param totalAmount Total amount, in cents, of the transaction.
+/// @return The newly created checkout.
++ (AffirmCheckout *)checkoutWithItems:(NSArray <AffirmItem *>*)items
+                             shipping:(AffirmShippingDetail *)shipping
+                          totalAmount:(NSNumber *)totalAmount;
+
+/// Convenience constructor. See properties for more details.
+/// @param items List of purchased items.
+/// @param shipping Shipping contact.
 /// @param taxAmount Tax amount.
 /// @param shippingAmount Shipping amount.
 /// @param discounts List of discounts.
@@ -264,6 +276,25 @@ NS_ASSUME_NONNULL_BEGIN
                             discounts:(nullable NSArray <AffirmDiscount *>*)discounts
                              metadata:(nullable NSDictionary *)metadata;
 
+/// Convenience constructor. See properties for more details.
+/// @param items List of purchased items.
+/// @param shipping Shipping contact.
+/// @param taxAmount Tax amount.
+/// @param shippingAmount Shipping amount.
+/// @param discounts List of discounts.
+/// @param metadata Additional metadata.
+/// @param financingProgram Financing Program to be applied
+/// @param totalAmount Total amount of the checkout
+/// @return The newly created checkout.
++ (AffirmCheckout *)checkoutWithItems:(NSArray <AffirmItem *>*)items
+                             shipping:(AffirmShippingDetail *)shipping
+                            taxAmount:(NSDecimalNumber *)taxAmount
+                       shippingAmount:(NSDecimalNumber *)shippingAmount
+                            discounts:(NSArray <AffirmDiscount *>*)discounts
+                             metadata:(NSDictionary *)metadata
+                     financingProgram:(NSString *)financingProgram
+                          totalAmount:(NSNumber *)totalAmount;
+
 // Initializer. See properties for more details.
 /// @param items List of purchased items.
 /// @param shipping Shipping contact.
@@ -272,14 +303,16 @@ NS_ASSUME_NONNULL_BEGIN
 /// @param discounts List of discounts.
 /// @param metadata Additional metadata.
 /// @param financingProgram Financing Program to be applied
+/// @param totalAmount Total amount of the checkout
 /// @return The initialized checkout.
 - (instancetype)initWithItems:(NSArray <AffirmItem *>*)items
                      shipping:(AffirmShippingDetail *)shipping
-                    taxAmount:(NSDecimalNumber *)taxAmount
-               shippingAmount:(NSDecimalNumber *)shippingAmount
+                    taxAmount:(nullable NSDecimalNumber *)taxAmount
+               shippingAmount:(nullable NSDecimalNumber *)shippingAmount
                     discounts:(nullable NSArray <AffirmDiscount *>*)discounts
                      metadata:(nullable NSDictionary *)metadata
-             financingProgram:(nullable NSString *)financingProgram;
+             financingProgram:(nullable NSString *)financingProgram
+                  totalAmount:(nullable NSNumber *)totalAmount;
 
 @end
 
