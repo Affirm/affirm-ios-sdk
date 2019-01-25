@@ -27,6 +27,10 @@
     return [AffirmCheckout checkoutWithItems:@[[self item]] shipping:[self shippingDetails] taxAmount:[NSDecimalNumber decimalNumberWithString:@"1.00"] shippingAmount:[NSDecimalNumber decimalNumberWithString:@"5.00"]];
 }
 
++ (AffirmCheckout *)checkoutWithAmount {
+    return [AffirmCheckout checkoutWithItems:@[[self item]] shipping:[self shippingDetails] totalAmount:[NSDecimalNumber decimalNumberWithString:@"5000"]];
+}
+
 + (AffirmConfiguration *)configuration {
     return [AffirmConfiguration configurationWithPublicAPIKey:@"public_api_key" environment:AffirmEnvironmentSandbox];
 }

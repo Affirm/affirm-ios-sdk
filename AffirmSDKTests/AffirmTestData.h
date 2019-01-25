@@ -19,6 +19,7 @@
 + (AffirmDiscount *)discount;
 + (AffirmItem *)item;
 + (AffirmCheckout *)checkout;
++ (AffirmCheckout *)checkoutWithAmount;
 + (AffirmConfiguration *)configuration;
 
 @end

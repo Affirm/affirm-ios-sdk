@@ -199,6 +199,7 @@
     [AffirmValidationUtils checkNotNil:items name:@"items"];
     [AffirmValidationUtils checkNotNil:shipping name:@"shipping"];
     [AffirmValidationUtils checkNotNil:shipping.name name:@"shipping.name"];
+    
     [AffirmValidationUtils checkNotNil:taxAmount name:@"taxAmount"];
     [AffirmValidationUtils checkNotNegative:taxAmount name:@"taxAmount"];
     [AffirmValidationUtils checkNotNil:shippingAmount name:@"shippingAmount"];
@@ -250,7 +251,31 @@
     return [[self alloc] initWithItems:items shipping:shipping taxAmount:taxAmount shippingAmount:shippingAmount discounts:discounts metadata:metadata financingProgram:nil];
 }
 
++ (AffirmCheckout *)checkoutWithItems:(NSArray <AffirmItem *>*)items
+                             shipping:(AffirmShippingDetail *)shipping
+                          totalAmount:(NSNumber *)totalAmount {
+    return [[self alloc] initWithItems:items shipping:shipping discounts:nil metadata:nil financingProgram:nil totalAmount:totalAmount];
+}
+
+- (instancetype)initWithItems:(NSArray <AffirmItem *>*)items
+                     shipping:(AffirmShippingDetail *)shipping
+                    discounts:(NSArray <AffirmDiscount *>*)discounts
+                     metadata:(NSDictionary *)metadata
+             financingProgram:(NSString *)financingProgram
+                  totalAmount:(nullable NSNumber *)totalAmount {
+    self = [self initWithItems:items shipping:shipping taxAmount:nil shippingAmount:nil discounts:discounts metadata:metadata financingProgram:financingProgram];
+    if (self) {
+        [AffirmValidationUtils checkNotNil:totalAmount name:@"totalAmount"];
+        [AffirmValidationUtils checkNotNegative:[NSDecimalNumber decimalNumberWithDecimal:[totalAmount decimalValue]] name:@"totalAmount"];
+        self.totalAmount = totalAmount;
+    }
+    return self;
+}
+
 - (NSDecimalNumber *)total {
+    [AffirmValidationUtils checkNotNil:self.taxAmount name:@"taxAmount"];
+    [AffirmValidationUtils checkNotNil:self.shippingAmount name:@"shippingAmount"];
+    
     NSDecimalNumber *total = [self.taxAmount decimalNumberByAdding:self.shippingAmount];
     for (AffirmItem *item in self.items) {
         total = [total decimalNumberByAdding:[item.unitPrice decimalNumberByMultiplyingBy:[AffirmNumberUtils integerQuantityToDecimalNumber:item.quantity]]];
@@ -269,13 +294,19 @@
     
     NSMutableDictionary *dict = [@{
                                    @"items": items,
-                                   @"shipping_amount": [AffirmNumberUtils decimalDollarsToIntegerCents:self.shippingAmount],
-                                   @"tax_amount": [AffirmNumberUtils decimalDollarsToIntegerCents:self.taxAmount],
-                                   @"total": [AffirmNumberUtils decimalDollarsToIntegerCents:[self total]],
+                                   @"total": (self.totalAmount) ? self.totalAmount : [AffirmNumberUtils decimalDollarsToIntegerCents:[self total]],
                                    @"api_version" :@"v2"
                                    } mutableCopy];
     
     [dict addEntriesFromDictionary:[self.shipping toJSONDictionary]];
+    
+    if (self.shippingAmount != nil) {
+        [dict setValue:[AffirmNumberUtils decimalDollarsToIntegerCents:self.shippingAmount] forKey:@"shipping_amount"];
+    }
+    
+    if (self.taxAmount != nil) {
+        [dict setValue:[AffirmNumberUtils decimalDollarsToIntegerCents:self.taxAmount] forKey:@"tax_amount"];
+    }
     
     if (self.discounts != nil) {
         NSMutableDictionary *discounts = [[NSMutableDictionary alloc] init];
@@ -297,7 +328,13 @@
 }
 
 - (id) copyWithZone:(NSZone *)zone {
-    return [[self class] checkoutWithItems:self.items shipping:self.shipping taxAmount:self.taxAmount shippingAmount:self.shippingAmount discounts:self.discounts metadata:self.metadata financingProgram:self.financingProgram];
+    AffirmCheckout *output = [[self class] checkoutWithItems:self.items shipping:self.shipping taxAmount:self.taxAmount shippingAmount:self.shippingAmount discounts:self.discounts metadata:self.metadata financingProgram:self.financingProgram];
+
+    if (self.totalAmount) {
+        output.totalAmount = self.totalAmount;
+    }
+    
+    return output;
 }
 
 @end
