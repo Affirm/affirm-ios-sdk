@@ -264,7 +264,7 @@
              financingProgram:(NSString *)financingProgram
                   totalAmount:(nullable NSNumber *)totalAmount {
     self = [self initWithItems:items shipping:shipping taxAmount:nil shippingAmount:nil discounts:discounts metadata:metadata financingProgram:financingProgram];
-    if (self && totalAmount) {
+    if (self) {
         [AffirmValidationUtils checkNotNil:totalAmount name:@"totalAmount"];
         [AffirmValidationUtils checkNotNegative:[NSDecimalNumber decimalNumberWithDecimal:[totalAmount decimalValue]] name:@"totalAmount"];
         self.totalAmount = totalAmount;
