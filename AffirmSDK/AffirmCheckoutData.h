@@ -278,8 +278,8 @@ NS_ASSUME_NONNULL_BEGIN
 /// @return The initialized checkout.
 - (instancetype)initWithItems:(NSArray <AffirmItem *>*)items
                      shipping:(AffirmShippingDetail *)shipping
-                    taxAmount:(nullable NSDecimalNumber *)taxAmount
-               shippingAmount:(nullable NSDecimalNumber *)shippingAmount
+                    taxAmount:(NSDecimalNumber *)taxAmount
+               shippingAmount:(NSDecimalNumber *)shippingAmount
                     discounts:(nullable NSArray <AffirmDiscount *>*)discounts
                      metadata:(nullable NSDictionary *)metadata
              financingProgram:(nullable NSString *)financingProgram;

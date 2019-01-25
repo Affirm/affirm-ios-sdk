@@ -200,19 +200,16 @@
     [AffirmValidationUtils checkNotNil:shipping name:@"shipping"];
     [AffirmValidationUtils checkNotNil:shipping.name name:@"shipping.name"];
     
-    if (shippingAmount) {
-        [AffirmValidationUtils checkNotNegative:taxAmount name:@"taxAmount"];
-    }
-    
-    if (taxAmount) {
-        [AffirmValidationUtils checkNotNegative:shippingAmount name:@"shippingAmount"];
-    }
+    [AffirmValidationUtils checkNotNil:taxAmount name:@"taxAmount"];
+    [AffirmValidationUtils checkNotNegative:taxAmount name:@"taxAmount"];
+    [AffirmValidationUtils checkNotNil:shippingAmount name:@"shippingAmount"];
+    [AffirmValidationUtils checkNotNegative:shippingAmount name:@"shippingAmount"];
     
     if (self = [super init]) {
         _items = [[NSArray alloc] initWithArray:items copyItems:YES];
         _shipping = [shipping copy];
-        _taxAmount = (taxAmount) ? [taxAmount copy] : nil;
-        _shippingAmount = (shippingAmount) ? [shippingAmount copy] : nil;
+        _taxAmount = [taxAmount copy];
+        _shippingAmount = [shippingAmount copy];
         _discounts = (discounts) ? [[NSArray alloc] initWithArray:discounts copyItems:YES] : nil;
         _metadata = (metadata) ? [[NSDictionary alloc] initWithDictionary:metadata copyItems:YES] : nil;
         _financingProgram = (financingProgram) ? [financingProgram copy] : nil;
