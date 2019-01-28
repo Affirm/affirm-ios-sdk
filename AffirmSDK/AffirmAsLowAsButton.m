@@ -15,7 +15,6 @@
 @interface AffirmAsLowAsButton()
 
 @property (nonatomic, strong) NSDecimalNumber *amount;
-@property (nonatomic, strong) NSString *promoID;
 @property (nonatomic, assign) BOOL showPrequal;
 @end
 
