@@ -1,6 +1,12 @@
 # Affirm iOS SDK Changelog
 All notable changes to the SDK will be documented in this file.
 
+## Version 4.0.14 (Jan 28, 2019)
+- Updated the demo application
+- Added total amount as an input parameter
+- Added total amount tests
+- Fixed ALA test and updated CDN endpoints
+
 ## Version 4.0.13 (Jan 3, 2019)
 - Promo end point updated
 
