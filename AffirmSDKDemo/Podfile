@@ -6,6 +6,6 @@ target 'AffirmSDKDemo' do
   # use_frameworks!
 
   # Pods for AffirmSDKDemo
-  pod 'AffirmSDK'
+  pod 'AffirmSDK', :path => '../'
 
 end
