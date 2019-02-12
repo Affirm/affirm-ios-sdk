@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<head>
+    <script>
+        window.onload = function go() {
+            var url = "{{URL}}";
+            var postMessageId = "{{JS_CALLBACK_ID}}";
+            var confirmCbUrl = "{{CONFIRM_CB_URL}}";
+            var cancelledCbUrl = "{{CANCELLED_CB_URL}}";
+
+            function baseUrl(url) {
+                var pathArray = url.split('/');
+                var host = pathArray[2];
+                return 'https://' + host;
+            }
+
+            function encodeData(data) {
+                return encodeURIComponent(JSON.stringify(data));
+            }
+
+            var interval;
+
+            window.addEventListener('message', function () {
+                console.log(event.data);
+
+                var data;
+                var receiver = document.getElementById('receiver').contentWindow;
+
+                try {
+                    data = JSON.parse(event.data);
+                } catch (e) {
+                }
+
+                if (data && data.name === 'AFFIRM_CHECKOUT_INIT' && interval) {
+                    window.clearInterval(interval)
+                    return;
+                }
+
+                if (!data || (data && data.ack || [postMessageId, 'AFFIRM_FRAME_MESSAGES'].indexOf(data.id) === -1)) {
+                    return;
+                }
+
+                if (data.name === 'iframe-ready' || data.name === 'iframe-dimensions') {
+                    if (!interval) {
+                        interval = window.setInterval(function () {
+                            console.log('sending to popup');
+                            receiver.postMessage(JSON.stringify({ id: postMessageId }), baseUrl(url));
+                        }, 500);
+                    }
+                } else if (data.name === 'AFFIRM_CHECKOUT_CLOSE') {
+                    if (data.success) {
+                        window.location.href = confirmCbUrl + '?data=' + encodeData(data.data);
+                    } else {
+                        window.location.href = cancelledCbUrl;
+                    }
+                }
+            }, false);
+        };
+    </script>
+    <meta charset=utf-8>
+    <meta http-equiv=X-UA-Compatible content="IE=edge,chrome=1">
+    <meta name=description content="">
+    <meta name=viewport content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no,minimal-ui">
+    <link href="https://cdn1-sandbox.affirm.com/products/checkout/master/dist/index-4c0d80a8935aa2e8c9af.css" rel="stylesheet">
+</head>
+
+<body>
+    <div id=wrapper>
+        <div id=view-container autoscroll=true>
+            <div loading-indicator id="route_changing " ng-show=route_change>
+                <div class=loading-wrapper>
+                    <div class=loader>
+                        <div class=dots>
+                            <div class="dot dot-a"></div>
+                            <div class="dot dot-b"></div>
+                            <div class="dot dot-c"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <iframe
+            id="receiver"
+            style="position: absolute; height: 100%; width: 100%; border: none; top: 0; left: 0;"
+            src="{{URL2}}">
+    </iframe>
+</body>
+
+</html>

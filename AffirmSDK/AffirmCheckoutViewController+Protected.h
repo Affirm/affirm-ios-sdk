@@ -25,6 +25,9 @@ NS_ASSUME_NONNULL_BEGIN
 /// The checkout identifier.
 @property (nonatomic, strong) NSString *checkoutARI;
 
+/// Use VCN Checkout
+@property BOOL useVCN;
+
 /// Initializer. See properties for more details.
 /// @param delegate Delegate for checkout events.
 /// @param checkout Checkout.
