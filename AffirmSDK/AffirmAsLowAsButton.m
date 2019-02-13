@@ -60,8 +60,14 @@
     if (self.showPrequal) {
         NSString *prequalURL = [AffirmConfiguration sharedConfiguration].affirmPrequalURL;
         NSString *url = [NSString stringWithFormat:@"%@?public_api_key=%@&unit_price=%@&promo_external_id=%@&isSDK=true&use_promo=True", prequalURL, [AffirmConfiguration sharedConfiguration].publicAPIKey, self.amount, self.promoID];
-        SFSafariViewController *vc = [[SFSafariViewController alloc] initWithURL:[NSURL URLWithString:url]];
-        [self.presentingViewController presentViewController:vc animated:true completion:nil];
+        if (@available(iOS 9.0, *)) {
+            SFSafariViewController *vc = [[SFSafariViewController alloc] initWithURL:[NSURL URLWithString:url]];
+            [self.presentingViewController presentViewController:vc animated:true completion:nil];
+        } else {
+            if ([[UIApplication sharedApplication] canOpenURL:[NSURL URLWithString:url]]) {
+                [[UIApplication sharedApplication] openURL:[NSURL URLWithString:url]];
+            }
+        }
     } else {
         AffirmPromoModalViewController *promoModal = [AffirmPromoModalViewController promoModalControllerWithModalId:self.promoID amount:self.amount];
         [self.presentingViewController presentViewController:promoModal animated:true completion:nil];

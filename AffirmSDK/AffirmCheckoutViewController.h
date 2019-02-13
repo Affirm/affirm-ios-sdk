@@ -34,6 +34,7 @@ typedef NS_ENUM(NSInteger, AffirmCheckoutType) {
 /// @return The newly created checkout view controller.
 + (AffirmCheckoutViewController *)startCheckout:(AffirmCheckout *)checkout
                                    checkoutType:(AffirmCheckoutType)checkoutType
+                                         useVCN:(BOOL)useVCN
                                        delegate:(id<AffirmCheckoutDelegate>)delegate;
 
 /// This method logs the current user out.
