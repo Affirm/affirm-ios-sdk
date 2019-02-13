@@ -97,7 +97,6 @@
             }
         } else {
             NSString *redirect_url = [result objectForKey:@"redirect_url"];
-            
             dispatch_async(dispatch_get_main_queue(), ^{
                 if (redirect_url) {
                     [self loadWebView:result];
@@ -117,11 +116,9 @@
     NSString *redirect_url = [result objectForKey:@"redirect_url"];
     if (_useVCN) {
         NSString *jsCallbackId = [result objectForKey:@"js_callback_id"];
-        
         NSBundle *sdkBundle = [NSBundle bundleWithPath:[[NSBundle bundleForClass:[self class]] pathForResource:@"AffirmSDK" ofType:@"bundle"]];
         NSString *filePath = [sdkBundle pathForResource:@"vcn_checkout" ofType:@"html"];
         __block NSString *rawContent = [NSString stringWithContentsOfFile:filePath encoding:NSUTF8StringEncoding error:nil];
-        
         [@{@"{{URL}}": redirect_url,
            @"{{URL2}}": redirect_url,
            @"{{JS_CALLBACK_ID}}": jsCallbackId,
@@ -133,10 +130,8 @@
                                                                    options:NSLiteralSearch
                                                                      range:[rawContent rangeOfString:key]];
         }];
-        
         NSURLComponents *urlComponents = [[NSURLComponents alloc] initWithString:redirect_url];
         NSString *baseUrl = [NSString stringWithFormat:@"https://%@", urlComponents.host];
-        
         if (@available(iOS 9.0, *)) {
             [self.webView loadData:[rawContent dataUsingEncoding:NSUTF8StringEncoding] MIMEType:@"text/html" characterEncodingName:@"utf-8" baseURL:[NSURL URLWithString: baseUrl]];
         } else {
