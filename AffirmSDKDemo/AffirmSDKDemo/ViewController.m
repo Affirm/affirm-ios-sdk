@@ -15,6 +15,7 @@
 
 @interface ViewController () <AffirmCheckoutDelegate>
 
+@property (weak, nonatomic) IBOutlet UIStackView *stackView;
 @property (weak, nonatomic) IBOutlet UILabel *titleLabel;
 @property (weak, nonatomic) IBOutlet UITextField *amountField;
 @property (weak, nonatomic) IBOutlet UITextField *promoIDField;
@@ -29,14 +30,7 @@
     [super viewDidLoad];
     [self setDefaultValues];
     [self setAPIKey];
-
     [self setupView];
-    
-    CGRect frame = CGRectMake(0, 0, self.view.frame.size.width - 40, 40);
-    self.alaButton = [AffirmAsLowAsButton createButtonWithPromoID:self.promoIDField.text presentingViewController:self frame:frame];
-    self.alaButton.center = CGPointMake(self.view.center.x, self.titleLabel.frame.origin.y - 80);
-    [self.view addSubview:self.alaButton];
-    
     [self reloadAffirmAsLowAs];
 }
 
@@ -44,6 +38,9 @@
     [self configureTextField:self.amountField withLabel:@"price input" andTag:AMOUNT_FIELD_TAG];
     [self configureTextField:self.promoIDField withLabel:@"promo ID input" andTag:PROMO_ID_FIELD_TAG];
     [self configureTextField:self.publicAPIKeyField withLabel:@"public API key input" andTag:PUBLIC_API_KEY_FIELD_TAG];
+
+    self.alaButton = [AffirmAsLowAsButton createButtonWithPromoID:self.promoIDField.text presentingViewController:self frame:CGRectMake(0, 0, self.view.frame.size.width - 40, 40)];
+    [self.stackView insertArrangedSubview:self.alaButton atIndex:0];
 }
 
 - (void)setDefaultValues {
@@ -156,13 +153,14 @@
 - (void)checkout:(AffirmCheckoutViewController *)checkoutVC completedWithToken:(NSString *)checkoutToken {
     // The user has completed the checkout and created a checkout token.
     // This token should be forwarded to your server, which should then authorize it with Affirm and create a charge.
-    // For more information about the server integration, see https://docs.affirm.com/v2/api/charges
     NSLog(@"Received token %@", checkoutToken);
     [self dismissViewControllerAnimated:true completion:nil];
     [self showAlert:@"Checkout completed"];
 }
 
 - (void)vcnCheckout:(AffirmCheckoutViewController *)checkoutVC completedWithCardInfo:(NSString *)cardInfo {
+    // The user has completed the checkout and returned card details.
+    // All charge actions are done using your existing payment gateway and debit card processor
     NSLog(@"Received card info %@", cardInfo);
     [self dismissViewControllerAnimated:true completion:nil];
     [self showAlert:@"Checkout completed"];
