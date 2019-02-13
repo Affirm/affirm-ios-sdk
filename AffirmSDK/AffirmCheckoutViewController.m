@@ -169,23 +169,21 @@
     NSString *strippedURL = [NSString stringWithFormat:@"%@://%@%@", URL.scheme, URL.host, URL.path];
     if ([strippedURL isEqualToString:AFFIRM_CHECKOUT_CONFIRMATION_URL]) {
         NSURLComponents *urlComponents = [[NSURLComponents alloc] initWithString:URL.absoluteString];
-        NSString *checkoutData;
         for(NSURLQueryItem *item in urlComponents.queryItems) {
             if (_useVCN) {
                 if([item.name isEqualToString:@"data"]) {
-                    checkoutData = item.value;
-                    [self.delegate vcnCheckout:self completedWithCardInfo:checkoutData];
+                    [self.delegate vcnCheckout:self completedWithCardInfo:item.value];
+                    [AffirmLogger logEvent:@"Checkout completed" info:@{@"checkout_ari": self.checkoutARI, @"checkout_data_received": item.value != nil ? @"true" : @"false"}];
                     break;
                 }
             } else {
                 if([item.name isEqualToString:@"checkout_token"]) {
-                    checkoutData = item.value;
-                    [self.delegate checkout:self completedWithToken:checkoutData];
+                    [self.delegate checkout:self completedWithToken:item.value];
+                    [AffirmLogger logEvent:@"Checkout completed" info:@{@"checkout_ari": self.checkoutARI, @"checkout_token_received": item.value != nil ? @"true" : @"false"}];
                     break;
                 }
             }
         }
-        [AffirmLogger logEvent:@"Checkout completed" info:@{@"checkout_ari": self.checkoutARI, @"checkout_data_received": checkoutData != nil ? @"true" : @"false"}];
         decisionHandler(WKNavigationActionPolicyCancel);
         return;
     }
