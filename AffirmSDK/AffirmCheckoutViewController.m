@@ -133,10 +133,10 @@
         NSURLComponents *urlComponents = [[NSURLComponents alloc] initWithString:redirect_url];
         NSString *baseUrl = [NSString stringWithFormat:@"https://%@", urlComponents.host];
         if (@available(iOS 9.0, *)) {
-            [self.webView loadData:[rawContent dataUsingEncoding:NSUTF8StringEncoding] MIMEType:@"text/html" characterEncodingName:@"utf-8" baseURL:[NSURL URLWithString: baseUrl]];
+            [self.webView loadData:[rawContent dataUsingEncoding:NSUTF8StringEncoding] MIMEType:@"text/html" characterEncodingName:@"utf-8" baseURL:[NSURL URLWithString:baseUrl]];
         } else {
             // Fallback on earlier versions
-            [self.webView loadHTMLString:rawContent baseURL:[NSURL URLWithString: baseUrl]];
+            [self.webView loadHTMLString:rawContent baseURL:[NSURL URLWithString:baseUrl]];
         }
     } else {
         [self.webView loadRequest:[NSURLRequest requestWithURL:[NSURL URLWithString:redirect_url]]];
