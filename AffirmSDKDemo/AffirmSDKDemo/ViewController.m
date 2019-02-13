@@ -27,6 +27,9 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+    [self setDefaultValues];
+    [self setAPIKey];
+
     [self setupView];
     
     CGRect frame = CGRectMake(0, 0, self.view.frame.size.width - 40, 40);
@@ -35,13 +38,18 @@
     [self.view addSubview:self.alaButton];
     
     [self reloadAffirmAsLowAs];
-    [self setAPIKey];
 }
 
 - (void)setupView {
     [self configureTextField:self.amountField withLabel:@"price input" andTag:AMOUNT_FIELD_TAG];
     [self configureTextField:self.promoIDField withLabel:@"promo ID input" andTag:PROMO_ID_FIELD_TAG];
     [self configureTextField:self.publicAPIKeyField withLabel:@"public API key input" andTag:PUBLIC_API_KEY_FIELD_TAG];
+}
+
+- (void)setDefaultValues {
+    self.amountField.text = @"500";
+    self.promoIDField.text = PROMO_ID;
+    self.publicAPIKeyField.text = PUBLIC_API_KEY;
 }
 
 - (BOOL)textFieldShouldReturn:(UITextField *)textField {
