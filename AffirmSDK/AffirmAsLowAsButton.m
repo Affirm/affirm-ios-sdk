@@ -64,12 +64,8 @@
             SFSafariViewController *vc = [[SFSafariViewController alloc] initWithURL:[NSURL URLWithString:url]];
             [self.presentingViewController presentViewController:vc animated:true completion:nil];
         } else {
-            if (@available(iOS 10.0, *)) {
-                [[UIApplication sharedApplication] openURL:[NSURL URLWithString:url] options:@{} completionHandler:nil];
-            } else {
-                if ([[UIApplication sharedApplication] canOpenURL:[NSURL URLWithString:url]]) {
-                    [[UIApplication sharedApplication] openURL:[NSURL URLWithString:url]];
-                }
+            if ([[UIApplication sharedApplication] canOpenURL:[NSURL URLWithString:url]]) {
+                [[UIApplication sharedApplication] openURL:[NSURL URLWithString:url]];
             }
         }
     } else {
