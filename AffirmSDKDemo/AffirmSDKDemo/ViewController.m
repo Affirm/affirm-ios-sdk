@@ -110,7 +110,7 @@
     AffirmCheckout *checkout = [AffirmCheckout checkoutWithItems:@[item] shipping:shipping totalAmount:centsPrice];
     
     // Initializes a checkout view controller and starts the checkout process
-    AffirmCheckoutViewController *checkoutVC = [AffirmCheckoutViewController startCheckout:checkout checkoutType:AffirmCheckoutTypeAutomatic delegate:self];
+    AffirmCheckoutViewController *checkoutVC = [AffirmCheckoutViewController startCheckout:checkout checkoutType:AffirmCheckoutTypeAutomatic useVCN:NO delegate:self];
     [self presentViewController:checkoutVC animated:true completion:nil];
 }
 
@@ -122,7 +122,19 @@
     AffirmCheckout *checkout = [AffirmCheckout checkoutWithItems:@[item] shipping:shipping totalAmount:centsPrice];
     
     // Initializes a checkout view controller and starts the checkout process
-    AffirmCheckoutViewController *checkoutVC = [AffirmCheckoutViewController startCheckout:checkout checkoutType:AffirmCheckoutTypeAutomatic delegate:self];
+    AffirmCheckoutViewController *checkoutVC = [AffirmCheckoutViewController startCheckout:checkout checkoutType:AffirmCheckoutTypeAutomatic useVCN:NO delegate:self];
+    [self presentViewController:checkoutVC animated:true completion:nil];
+}
+
+- (IBAction)vcnCheckout:(UIButton *)sender {
+    NSDecimalNumber *dollarPrice = [NSDecimalNumber decimalNumberWithString:self.amountField.text];
+    NSNumber *centsPrice = [AffirmNumberUtils decimalDollarsToIntegerCents:dollarPrice];
+    AffirmItem *item = [AffirmItem itemWithName:@"Affirm Test Item" SKU:@"test_item" unitPrice:dollarPrice quantity:1 URL:[NSURL URLWithString:@"http://sandbox.affirm.com/item"]];
+    AffirmShippingDetail *shipping = [AffirmShippingDetail shippingDetailWithName:@"Chester Cheetah" addressWithLine1:@"633 Folsom Street" line2:@"" city:@"San Francisco" state:@"CA" zipCode:@"94107" countryCode:@"USA"];
+    AffirmCheckout *checkout = [AffirmCheckout checkoutWithItems:@[item] shipping:shipping totalAmount:centsPrice];
+    
+    // Initializes a checkout view controller and starts the checkout process
+    AffirmCheckoutViewController *checkoutVC = [AffirmCheckoutViewController startCheckout:checkout checkoutType:AffirmCheckoutTypeAutomatic useVCN:YES delegate:self];
     [self presentViewController:checkoutVC animated:true completion:nil];
 }
 
@@ -138,6 +150,12 @@
     // This token should be forwarded to your server, which should then authorize it with Affirm and create a charge.
     // For more information about the server integration, see https://docs.affirm.com/v2/api/charges
     NSLog(@"Received token %@", checkoutToken);
+    [self dismissViewControllerAnimated:true completion:nil];
+    [self showAlert:@"Checkout completed"];
+}
+
+- (void)vcnCheckout:(AffirmCheckoutViewController *)checkoutVC completedWithCardInfo:(NSString *)cardInfo {
+    NSLog(@"Received card info %@", cardInfo);
     [self dismissViewControllerAnimated:true completion:nil];
     [self showAlert:@"Checkout completed"];
 }

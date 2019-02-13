@@ -19,7 +19,7 @@
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                         <subviews>
                             <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="10" translatesAutoresizingMaskIntoConstraints="NO" id="Yaq-Yz-8R1" userLabel="ButtonStack">
-                                <rect key="frame" x="0.0" y="460.33333333333331" width="414" height="69.999999999999943"/>
+                                <rect key="frame" x="0.0" y="460.33333333333326" width="414" height="110"/>
                                 <subviews>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="48k-tS-5yi">
                                         <rect key="frame" x="0.0" y="0.0" width="414" height="30"/>
@@ -35,6 +35,13 @@
                                         <state key="normal" title="Failed Checkout"/>
                                         <connections>
                                             <action selector="showFailedCheckout:" destination="BYZ-38-t0r" eventType="touchUpInside" id="ZJQ-VO-gqb"/>
+                                        </connections>
+                                    </button>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="IEQ-VC-jKd">
+                                        <rect key="frame" x="0.0" y="80.000000000000057" width="414" height="30"/>
+                                        <state key="normal" title="VCN Checkout"/>
+                                        <connections>
+                                            <action selector="vcnCheckout:" destination="BYZ-38-t0r" eventType="touchUpInside" id="MK5-qi-NKK"/>
                                         </connections>
                                     </button>
                                 </subviews>

@@ -7,7 +7,7 @@ Pod::Spec.new do |spec|
     spec.license                = { :type => "BSD-3-Clause", :file => "LICENSE.txt" }
     spec.source                 = { :git => "https://github.com/Affirm/affirm-ios-sdk.git", :tag => spec.version }
     spec.source_files           = "AffirmSDK/*.{h,m}"
-    spec.platform               = :ios, "7.0"
-    spec.ios.deployment_target  = "7.0"
+    spec.platform               = :ios, "8.0"
+    spec.ios.deployment_target  = "8.0"
     spec.resource               = "AffirmSDK/AffirmSDK.bundle"
 end
