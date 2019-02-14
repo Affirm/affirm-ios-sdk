@@ -1,6 +1,9 @@
 # Affirm iOS SDK Changelog
 All notable changes to the SDK will be documented in this file.
 
+## Version 4.0.15 (Feb 14, 2019)
+- BUg fix for nil check for Tax and Shipping
+ 
 ## Version 4.0.14 (Jan 28, 2019)
 - Updated the demo application
 - Added total amount as an input parameter

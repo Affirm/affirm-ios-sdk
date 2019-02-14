@@ -156,6 +156,8 @@
                                                @"country": @"USA"
                                                }
                                        },
+                               @"shipping_amount": @0,
+                               @"tax_amount": @0,
                                @"total": @5000,
                                @"api_version": @"v2"
                                };
