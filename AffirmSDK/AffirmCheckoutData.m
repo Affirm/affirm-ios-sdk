@@ -262,7 +262,7 @@
                      metadata:(NSDictionary *)metadata
              financingProgram:(NSString *)financingProgram
                   totalAmount:(nullable NSNumber *)totalAmount {
-    self = [self initWithItems:items shipping:shipping taxAmount:NSDecimalNumber.zero shippingAmount:NSDecimalNumber.zero discounts:discounts metadata:metadata financingProgram:financingProgram];
+    self = [self initWithItems:items shipping:shipping taxAmount:[NSDecimalNumber zero] shippingAmount:[NSDecimalNumber zero] discounts:discounts metadata:metadata financingProgram:financingProgram];
     if (self) {
         [AffirmValidationUtils checkNotNil:totalAmount name:@"totalAmount"];
         [AffirmValidationUtils checkNotNegative:[NSDecimalNumber decimalNumberWithDecimal:[totalAmount decimalValue]] name:@"totalAmount"];
