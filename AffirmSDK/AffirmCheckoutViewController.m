@@ -14,6 +14,7 @@
 #import "AffirmErrorModal.h"
 #import "AffirmUtils.h"
 #import "AffirmLogger.h"
+#import "AffirmCreditCard.h"
 
 @implementation AffirmCheckoutViewController
 
@@ -172,7 +173,8 @@
         for(NSURLQueryItem *item in urlComponents.queryItems) {
             if (_useVCN) {
                 if([item.name isEqualToString:@"data"]) {
-                    [self.delegate vcnCheckout:self completedWithCardInfo:item.value];
+                    [self.delegate vcnCheckout:self
+                       completedWithCreditCard:[AffirmCreditCard creditCardWithDict:[AffirmJSONConvertUtils dictionaryWithJsonString:item.value]]];
                     [AffirmLogger logEvent:@"Checkout completed" info:@{@"checkout_ari": self.checkoutARI, @"checkout_data_received": item.value != nil ? @"true" : @"false"}];
                     break;
                 }
