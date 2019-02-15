@@ -18,12 +18,15 @@ NS_ASSUME_NONNULL_BEGIN
 
 /// Convenience constructor that creates an as low as button
 /// @param promoID Promo ID to use when getting terms (provided by Affirm)
+/// @param showCTA A boolean to use when getting terms
 /// @param presentingViewController view controller that button is displayed on
 /// @param frame frame to initialize the button
 /// @return an initialized AffirmAsLowAsButton
 + (instancetype)createButtonWithPromoID:(NSString *)promoID
+                                showCTA:(BOOL)showCTA
                presentingViewController:(id)presentingViewController
                                   frame:(CGRect)frame;
+
 
 /// Configures an AffirmAsLowAsButton with the appropriate details
 /// @param amount Amount of the transaction

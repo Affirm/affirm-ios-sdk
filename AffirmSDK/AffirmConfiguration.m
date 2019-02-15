@@ -144,8 +144,8 @@ static AffirmConfiguration *sharedInstance = nil;
     return [sdkBundle objectForInfoDictionaryKey:(NSString *)kCFBundleVersionKey];
 }
 
-- (NSURL *)affirmAsLowAsURLWithPromoId:(NSString *)promoId withAmount:(NSDecimalNumber *)amount {
-    NSString *baseURL = [NSString stringWithFormat:@"/api/promos/v2/%@?promo_external_id=%@&is_sdk=true&field=ala", self.publicAPIKey, promoId];
+- (NSURL *)affirmAsLowAsURLWithPromoId:(NSString *)promoId showCTA:(BOOL)showCTA withAmount:(NSDecimalNumber *)amount {
+    NSString *baseURL = [NSString stringWithFormat:@"/api/promos/v2/%@?promo_external_id=%@&is_sdk=true&field=ala&show_cta=%@", self.publicAPIKey, promoId, showCTA ? @"true" : @"false"];
     
     if (amount) {
         baseURL = [NSString stringWithFormat:[baseURL stringByAppendingString:@"&amount=%@"], amount];

@@ -39,7 +39,7 @@
     [self configureTextField:self.promoIDField withLabel:@"promo ID input" andTag:PROMO_ID_FIELD_TAG];
     [self configureTextField:self.publicAPIKeyField withLabel:@"public API key input" andTag:PUBLIC_API_KEY_FIELD_TAG];
 
-    self.alaButton = [AffirmAsLowAsButton createButtonWithPromoID:self.promoIDField.text presentingViewController:self frame:CGRectMake(0, 0, self.view.frame.size.width - 40, 40)];
+    self.alaButton = [AffirmAsLowAsButton createButtonWithPromoID:self.promoIDField.text showCTA:true presentingViewController:self frame:CGRectMake(0, 0, self.view.frame.size.width - 40, 40)];
     [self.stackView insertArrangedSubview:self.alaButton atIndex:0];
 }
 
