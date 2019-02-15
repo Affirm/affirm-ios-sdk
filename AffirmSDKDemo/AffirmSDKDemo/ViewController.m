@@ -158,10 +158,10 @@
     [self showAlert:@"Checkout completed"];
 }
 
-- (void)vcnCheckout:(AffirmCheckoutViewController *)checkoutVC completedWithCardInfo:(NSString *)cardInfo {
-    // The user has completed the checkout and returned card details.
+- (void)vcnCheckout:(AffirmCheckoutViewController *)checkoutVC completedWithCreditCard:(AffirmCreditCard *)creditCard {
+    // The user has completed the checkout and returned credit card details.
     // All charge actions are done using your existing payment gateway and debit card processor
-    NSLog(@"Received card info %@", cardInfo);
+    NSLog(@"Received credit card %@", creditCard);
     [self dismissViewControllerAnimated:true completion:nil];
     [self showAlert:@"Checkout completed"];
 }

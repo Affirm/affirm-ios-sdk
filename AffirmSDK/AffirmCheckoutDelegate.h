@@ -7,6 +7,7 @@
 //
 
 @class AffirmCheckoutViewController;
+@class AffirmCreditCard;
 
 NS_ASSUME_NONNULL_BEGIN
 
@@ -28,10 +29,10 @@ NS_ASSUME_NONNULL_BEGIN
 
 /// This method is called when the user has completed the vcn checkout.
 /// @param checkoutVC The checkout VC that manages the vcn checkout process.
-/// @param cardInfo This cardInfo represents the completed vcn checkout.
+/// @param creditCard This credit card info represents the completed vcn checkout.
 /// It should use the debit card information to fill out the checkout page and submit.
 /// For more information about the server integration, see https://docs.affirm.com/v2/api/charges
-- (void)vcnCheckout:(AffirmCheckoutViewController *)checkoutVC completedWithCardInfo:(NSString *)cardInfo;
+- (void)vcnCheckout:(AffirmCheckoutViewController *)checkoutVC completedWithCreditCard:(AffirmCreditCard *)creditCard;
 
 /// This method is called when the user has cancelled the checkout.
 /// @param checkoutVC The checkout VC that manages the checkout process.
