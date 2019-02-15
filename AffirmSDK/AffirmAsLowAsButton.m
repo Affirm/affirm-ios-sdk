@@ -7,6 +7,8 @@
 
 @import SafariServices;
 
+static NSString *AFFIRM_PREQUAL_REFERRING_URL = @"https://iossdk/";
+
 #import "AffirmAsLowAsButton.h"
 #import "AffirmPromoModalViewController.h"
 #import "AffirmConfiguration+Protected.h"
@@ -62,7 +64,8 @@
 - (void)_showALAModal {
     if (self.showPrequal) {
         NSString *prequalURL = [AffirmConfiguration sharedConfiguration].affirmPrequalURL;
-        NSString *url = [NSString stringWithFormat:@"%@?public_api_key=%@&unit_price=%@&promo_external_id=%@&isSDK=true&use_promo=true&referring_url=https://iossdk", prequalURL, [AffirmConfiguration sharedConfiguration].publicAPIKey, self.amount, self.promoID];
+        NSString *url = [NSString stringWithFormat:@"%@?public_api_key=%@&unit_price=%@&promo_external_id=%@&isSDK=true&use_promo=true&referring_url=%@",
+                         prequalURL, [AffirmConfiguration sharedConfiguration].publicAPIKey, self.amount, self.promoID, AFFIRM_PREQUAL_REFERRING_URL];
         if (@available(iOS 9.0, *)) {
             SFSafariViewController *vc = [[SFSafariViewController alloc] initWithURL:[NSURL URLWithString:url]];
             vc.delegate = self;
@@ -81,7 +84,7 @@
 #pragma mark - SFSafariViewController delegate
 
 - (void)safariViewController:(SFSafariViewController *)controller initialLoadDidRedirectToURL:(NSURL *)URL API_AVAILABLE(ios(11.0)) {
-    if ([URL.host isEqualToString:@"iossdk"]) {
+    if ([URL.absoluteString isEqualToString:AFFIRM_PREQUAL_REFERRING_URL]) {
         [controller dismissViewControllerAnimated:YES completion:nil];
     }
 }

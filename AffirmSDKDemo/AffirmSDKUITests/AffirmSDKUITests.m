@@ -32,15 +32,15 @@
 }
 
 - (void)testPromoModal {
-    [self.app.buttons[@"Promo Modal"] tap];
+    [self.app.buttons[@"As low as $44/month at 10% APR with Affirm"] tap];
     
     NSPredicate *existsPredicate = [NSPredicate predicateWithFormat:@"exists == 1"];
     [self expectationForPredicate:existsPredicate evaluatedWithObject:self.app.staticTexts[@"Make easy monthly payments over 3, 6, or 12 months"] handler:nil];
-    [self waitForExpectationsWithTimeout:8 handler:nil];
+    [self waitForExpectationsWithTimeout:10 handler:nil];
     
-    [self.app.staticTexts[@"close"] tap];
+    [self.app.buttons[@"Done"] tap];
     
-    [self expectationForPredicate:existsPredicate evaluatedWithObject:self.app.buttons[@"Promo Modal"] handler:nil];
+    [self expectationForPredicate:existsPredicate evaluatedWithObject:self.app.buttons[@"As low as $44/month at 10% APR with Affirm"] handler:nil];
     [self waitForExpectationsWithTimeout:3 handler:nil];
 }
 
