@@ -12,7 +12,7 @@
 #import "AffirmConfiguration+Protected.h"
 #import "AffirmUtils.h"
 
-@interface AffirmAsLowAsButton()
+@interface AffirmAsLowAsButton() <SFSafariViewControllerDelegate>
 
 @property (nonatomic, strong) NSDecimalNumber *amount;
 @property (nonatomic, assign) BOOL showPrequal;
@@ -65,6 +65,7 @@
         NSString *url = [NSString stringWithFormat:@"%@?public_api_key=%@&unit_price=%@&promo_external_id=%@&isSDK=true&use_promo=true&referring_url=https://iossdk", prequalURL, [AffirmConfiguration sharedConfiguration].publicAPIKey, self.amount, self.promoID];
         if (@available(iOS 9.0, *)) {
             SFSafariViewController *vc = [[SFSafariViewController alloc] initWithURL:[NSURL URLWithString:url]];
+            vc.delegate = self;
             [self.presentingViewController presentViewController:vc animated:true completion:nil];
         } else {
             if ([[UIApplication sharedApplication] canOpenURL:[NSURL URLWithString:url]]) {
@@ -74,6 +75,14 @@
     } else {
         AffirmPromoModalViewController *promoModal = [AffirmPromoModalViewController promoModalControllerWithModalId:self.promoID amount:self.amount];
         [self.presentingViewController presentViewController:promoModal animated:true completion:nil];
+    }
+}
+
+#pragma mark - SFSafariViewController delegate
+
+- (void)safariViewController:(SFSafariViewController *)controller initialLoadDidRedirectToURL:(NSURL *)URL API_AVAILABLE(ios(11.0)) {
+    if ([URL.host isEqualToString:@"iossdk"]) {
+        [controller dismissViewControllerAnimated:YES completion:nil];
     }
 }
 
