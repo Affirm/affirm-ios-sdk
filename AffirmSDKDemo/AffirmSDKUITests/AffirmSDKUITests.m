@@ -149,6 +149,53 @@
     XCTAssert(self.app.buttons[@"Buy with Affirm"].exists);
 }
 
+- (void)testVCNCheckout {
+    [self.app.buttons[@"VCN Checkout"] tap];
+    
+    XCUIElement *affirmElement = self.app.textFields[@"Your mobile number"];
+    NSPredicate *existsPredicate = [NSPredicate predicateWithFormat:@"exists == 1"];
+    [self expectationForPredicate:existsPredicate evaluatedWithObject:affirmElement handler:nil];
+    [self waitForExpectationsWithTimeout:10 handler:nil];
+    [affirmElement tap];
+    [self.app typeText:@"3105551001"];
+    [self.app.buttons[@"Done"] tap];
+    [self.app.buttons[@"Continue"] tap];
+    
+    XCUIElement *enterPinField = self.app.textFields[@"0000"];
+    [self expectationForPredicate:existsPredicate evaluatedWithObject:enterPinField handler:nil];
+    
+    [self waitForExpectationsWithTimeout:5 handler:nil];
+    [enterPinField tap];
+    [self.app typeText:@"1234"];
+    
+    [self expectationForPredicate:existsPredicate evaluatedWithObject:[self.app.buttons elementBoundByIndex:2] handler:nil];
+    
+    [self waitForExpectationsWithTimeout:15 handler:nil];
+    
+    XCTAssert([self.app.buttons elementBoundByIndex:2]);
+    [[self.app.buttons elementBoundByIndex:2] tap];
+    
+    [self.app.buttons[@"Continue"] tap];
+    [self.app.buttons[@"No, not now"] tap];
+    
+    XCUIElement *agreementText = self.app.staticTexts[@"I have reviewed and agree to the"];
+    [agreementText tap];
+    
+    [self.app.staticTexts[@"Please review the following information and confirm your loan."] swipeUp];
+    
+    XCUIElement *confirmLoanButton = self.app.buttons[@"Confirm loan"];
+    XCTAssert(confirmLoanButton.exists);
+    [confirmLoanButton tap];
+    
+    [self expectationForPredicate:[NSPredicate predicateWithFormat:@"exists == 0"] evaluatedWithObject:self.app.webViews.element handler:nil];
+    [self waitForExpectationsWithTimeout:10 handler:nil];
+    
+    XCTAssert(self.app.alerts[@"Affirm Checkout"].staticTexts[@"Checkout completed"].exists);
+    [self.app.alerts[@"Affirm Checkout"].buttons[@"OK"] tap];
+    
+    XCTAssert(self.app.buttons[@"VCN Checkout"].exists);
+}
+
 - (void)testCheckoutFailure {
     [self.app.buttons[@"Failed Checkout"] tap];
     
