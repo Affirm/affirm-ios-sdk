@@ -45,6 +45,7 @@ Checkout creation is the process in which a customer uses Affirm to pay for a pu
 
 - An `AffirmCheckout` object which contains details about the purchase itself
 - An `AffirmCheckoutType` which determines whether the checkout flow should use the SDK's built-in loading indicator and error modal to handle loading and error states in the checkout process or if the developer will handle these states manually
+- An `useVCN` which determines whether the checkout flow should use virtual card network to handle, if set YES, it will return card info from this delegate ```- (void)vcnCheckout:(AffirmCheckoutViewController *)checkoutVC completedWithCreditCard:(AffirmCreditCard *)creditCard```, if set NO, it will return token from this delegate ```- (void)checkout:(AffirmCheckoutViewController *)checkoutVC completedWithToken:(NSString *)checkoutToken```
 - An `AffirmCheckoutDelegate` object which receives messages at various stages in the checkout process
 
 Once the AffirmCheckoutViewController has been constructed from the parameters above, you may present it as with any other view controller. This initiates the flow which guides the user through the Affirm checkout process. An example of how this is implemented is provided as follows:
@@ -62,11 +63,11 @@ AffirmCheckout *checkout = [AffirmCheckout checkoutWithItems:@[item] shipping:sh
 AffirmCheckout *checkout = [AffirmCheckout checkoutWithItems:@[item] shipping:shipping totalAmount:price];
 
 // initialize an AffirmCheckoutViewController with the checkout object and present it
-AffirmCheckoutViewController *checkoutVC = [AffirmCheckoutViewController startCheckout:checkout checkoutType:AffirmCheckoutTypeAutomatic delegate:self];
+AffirmCheckoutViewController *checkoutVC = [AffirmCheckoutViewController startCheckout:checkout checkoutType:AffirmCheckoutTypeAutomatic useVCN:NO delegate:self];
 [self presentViewController:checkoutVC animated:true completion:nil];
 ```
 
-The flow ends once the user has successfully confirmed the checkout, canceled the checkout, or encountered an error in the process. In each of these cases, Affirm will send a message to the AffirmCheckoutDelegate along with additional information about the result.
+The flow ends once the user has successfully confirmed the checkout or vcn checkout, canceled the checkout, or encountered an error in the process. In each of these cases, Affirm will send a message to the AffirmCheckoutDelegate along with additional information about the result.
 
 ### Charge authorization
 
