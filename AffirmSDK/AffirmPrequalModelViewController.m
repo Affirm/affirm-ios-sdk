@@ -7,6 +7,7 @@
 //
 
 #import "AffirmPrequalModelViewController.h"
+#import "AffirmAsLowAsButton+Protected.h"
 #import "AffirmConfiguration+Protected.h"
 #import "AffirmUtils.h"
 
@@ -35,18 +36,18 @@
 
 - (void)webView:(WKWebView *)webView decidePolicyForNavigationAction:(WKNavigationAction *)navigationAction decisionHandler:(void (^)(WKNavigationActionPolicy))decisionHandler
 {
-    if (navigationAction.navigationType == WKNavigationTypeOther && navigationAction.request.URL) {
-
+    NSString *urlString = navigationAction.request.URL.absoluteString;
+    if ([urlString isEqualToString:AFFIRM_PREQUAL_REFERRING_URL]) {
+        [self dismissViewControllerAnimated:true completion:nil];
+        decisionHandler(WKNavigationActionPolicyCancel);
+        return;
     }
+    decisionHandler(WKNavigationActionPolicyAllow);
 }
 
 - (void)webView:(WKWebView *)webView decidePolicyForNavigationResponse:(WKNavigationResponse *)navigationResponse decisionHandler:(void (^)(WKNavigationResponsePolicy))decisionHandler
 {
-}
-
-- (void)webView:(WKWebView *)webView didReceiveServerRedirectForProvisionalNavigation:(WKNavigation *)navigation
-{
-    
+    decisionHandler(WKNavigationResponsePolicyAllow);
 }
 
 @end

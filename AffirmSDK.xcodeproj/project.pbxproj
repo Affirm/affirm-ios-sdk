@@ -84,6 +84,7 @@
 		08C57CF7221CF8D7000DED6A /* AffirmPrequalModelViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AffirmPrequalModelViewController.m; sourceTree = "<group>"; };
 		08C57D00221CFFD3000DED6A /* AffirmCreditCard.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AffirmCreditCard.m; sourceTree = "<group>"; };
 		08C57D01221CFFD3000DED6A /* AffirmCreditCard.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AffirmCreditCard.h; sourceTree = "<group>"; };
+		08C57D05221D01F9000DED6A /* AffirmAsLowAsButton+Protected.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "AffirmAsLowAsButton+Protected.h"; sourceTree = "<group>"; };
 		4E078AF51F1044DA00395ECE /* AffirmActivityIndicator.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AffirmActivityIndicator.h; sourceTree = "<group>"; };
 		4E078AF61F1044DA00395ECE /* AffirmActivityIndicator.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AffirmActivityIndicator.m; sourceTree = "<group>"; };
 		4E078AF71F1044DA00395ECE /* AffirmAsLowAsButton.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AffirmAsLowAsButton.h; sourceTree = "<group>"; };
@@ -154,6 +155,7 @@
 				4E078AF61F1044DA00395ECE /* AffirmActivityIndicator.m */,
 				4E078AF71F1044DA00395ECE /* AffirmAsLowAsButton.h */,
 				4E078AF81F1044DA00395ECE /* AffirmAsLowAsButton.m */,
+				08C57D05221D01F9000DED6A /* AffirmAsLowAsButton+Protected.h */,
 				4E078AF91F1044DA00395ECE /* AffirmAsLowAsData.h */,
 				4E078AFA1F1044DA00395ECE /* AffirmAsLowAsData.m */,
 				08C57D01221CFFD3000DED6A /* AffirmCreditCard.h */,

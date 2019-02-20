@@ -7,9 +7,8 @@
 
 @import SafariServices;
 
-static NSString *AFFIRM_PREQUAL_REFERRING_URL = @"https://iossdk/";
-
 #import "AffirmAsLowAsButton.h"
+#import "AffirmAsLowAsButton+Protected.h"
 #import "AffirmPrequalModelViewController.h"
 #import "AffirmPromoModalViewController.h"
 #import "AffirmConfiguration+Protected.h"
