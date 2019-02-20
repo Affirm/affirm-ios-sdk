@@ -24,6 +24,9 @@
 		08C57CF8221CF8D7000DED6A /* AffirmPrequalModelViewController.h in Headers */ = {isa = PBXBuildFile; fileRef = 08C57CF6221CF8D7000DED6A /* AffirmPrequalModelViewController.h */; };
 		08C57CF9221CF8D7000DED6A /* AffirmPrequalModelViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 08C57CF7221CF8D7000DED6A /* AffirmPrequalModelViewController.m */; };
 		08C57CFA221CF8DE000DED6A /* AffirmPrequalModelViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 08C57CF7221CF8D7000DED6A /* AffirmPrequalModelViewController.m */; };
+		08C57D02221CFFD3000DED6A /* AffirmCreditCard.m in Sources */ = {isa = PBXBuildFile; fileRef = 08C57D00221CFFD3000DED6A /* AffirmCreditCard.m */; };
+		08C57D03221CFFD3000DED6A /* AffirmCreditCard.m in Sources */ = {isa = PBXBuildFile; fileRef = 08C57D00221CFFD3000DED6A /* AffirmCreditCard.m */; };
+		08C57D04221CFFD3000DED6A /* AffirmCreditCard.h in Headers */ = {isa = PBXBuildFile; fileRef = 08C57D01221CFFD3000DED6A /* AffirmCreditCard.h */; };
 		4E078B161F1044DA00395ECE /* AffirmActivityIndicator.m in Sources */ = {isa = PBXBuildFile; fileRef = 4E078AF61F1044DA00395ECE /* AffirmActivityIndicator.m */; };
 		4E078B191F1044DA00395ECE /* AffirmAsLowAsButton.m in Sources */ = {isa = PBXBuildFile; fileRef = 4E078AF81F1044DA00395ECE /* AffirmAsLowAsButton.m */; };
 		4E078B1C1F1044DA00395ECE /* AffirmAsLowAsData.m in Sources */ = {isa = PBXBuildFile; fileRef = 4E078AFA1F1044DA00395ECE /* AffirmAsLowAsData.m */; };
@@ -79,6 +82,8 @@
 /* Begin PBXFileReference section */
 		08C57CF6221CF8D7000DED6A /* AffirmPrequalModelViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AffirmPrequalModelViewController.h; sourceTree = "<group>"; };
 		08C57CF7221CF8D7000DED6A /* AffirmPrequalModelViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AffirmPrequalModelViewController.m; sourceTree = "<group>"; };
+		08C57D00221CFFD3000DED6A /* AffirmCreditCard.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AffirmCreditCard.m; sourceTree = "<group>"; };
+		08C57D01221CFFD3000DED6A /* AffirmCreditCard.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AffirmCreditCard.h; sourceTree = "<group>"; };
 		4E078AF51F1044DA00395ECE /* AffirmActivityIndicator.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AffirmActivityIndicator.h; sourceTree = "<group>"; };
 		4E078AF61F1044DA00395ECE /* AffirmActivityIndicator.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AffirmActivityIndicator.m; sourceTree = "<group>"; };
 		4E078AF71F1044DA00395ECE /* AffirmAsLowAsButton.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AffirmAsLowAsButton.h; sourceTree = "<group>"; };
@@ -151,6 +156,8 @@
 				4E078AF81F1044DA00395ECE /* AffirmAsLowAsButton.m */,
 				4E078AF91F1044DA00395ECE /* AffirmAsLowAsData.h */,
 				4E078AFA1F1044DA00395ECE /* AffirmAsLowAsData.m */,
+				08C57D01221CFFD3000DED6A /* AffirmCreditCard.h */,
+				08C57D00221CFFD3000DED6A /* AffirmCreditCard.m */,
 				4E078AFB1F1044DA00395ECE /* AffirmBaseModalViewController+Protected.h */,
 				4E078AFC1F1044DA00395ECE /* AffirmBaseModalViewController.h */,
 				4E078AFD1F1044DA00395ECE /* AffirmBaseModalViewController.m */,
@@ -239,6 +246,7 @@
 				4E704B7E1F16DF6B000FDFBB /* AffirmCheckoutViewController+Protected.h in Headers */,
 				4E078BA51F14334600395ECE /* AffirmCheckoutData.h in Headers */,
 				4E078BA91F14334600395ECE /* AffirmErrorModal.h in Headers */,
+				08C57D04221CFFD3000DED6A /* AffirmCreditCard.h in Headers */,
 				4E704B801F16DF7E000FDFBB /* AffirmConfiguration+Protected.h in Headers */,
 				4E078BA31F14334600395ECE /* AffirmAsLowAsData.h in Headers */,
 				4E078BA21F14334600395ECE /* AffirmAsLowAsButton.h in Headers */,
@@ -376,6 +384,7 @@
 				4E078BFD1F1689FC00395ECE /* AffirmAsLowAsData.m in Sources */,
 				4E078BFE1F1689FC00395ECE /* AffirmBaseModalViewController.m in Sources */,
 				4E078BFF1F1689FC00395ECE /* AffirmCheckoutData.m in Sources */,
+				08C57D02221CFFD3000DED6A /* AffirmCreditCard.m in Sources */,
 				4E078C001F1689FC00395ECE /* AffirmCheckoutViewController.m in Sources */,
 				4E078C011F1689FC00395ECE /* AffirmConfiguration.m in Sources */,
 				4E078C021F1689FC00395ECE /* AffirmErrorModal.m in Sources */,
@@ -410,6 +419,7 @@
 				4E078B241F1044DA00395ECE /* AffirmCheckoutData.m in Sources */,
 				4E078B341F1044DA00395ECE /* AffirmLogger.m in Sources */,
 				4E078B1C1F1044DA00395ECE /* AffirmAsLowAsData.m in Sources */,
+				08C57D03221CFFD3000DED6A /* AffirmCreditCard.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
