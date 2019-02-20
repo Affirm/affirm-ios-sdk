@@ -10,6 +10,7 @@
 static NSString *AFFIRM_PREQUAL_REFERRING_URL = @"https://iossdk/";
 
 #import "AffirmAsLowAsButton.h"
+#import "AffirmPrequalModelViewController.h"
 #import "AffirmPromoModalViewController.h"
 #import "AffirmConfiguration+Protected.h"
 #import "AffirmUtils.h"
@@ -71,9 +72,8 @@ static NSString *AFFIRM_PREQUAL_REFERRING_URL = @"https://iossdk/";
             vc.delegate = self;
             [self.presentingViewController presentViewController:vc animated:true completion:nil];
         } else {
-            if ([[UIApplication sharedApplication] canOpenURL:[NSURL URLWithString:url]]) {
-                [[UIApplication sharedApplication] openURL:[NSURL URLWithString:url]];
-            }
+            AffirmPrequalModelViewController *viewController = [AffirmPrequalModelViewController controllerWithURL:[NSURL URLWithString:url]];
+            [self.presentingViewController presentViewController:viewController animated:YES completion:nil];
         }
     } else {
         AffirmPromoModalViewController *promoModal = [AffirmPromoModalViewController promoModalControllerWithModalId:self.promoID amount:self.amount];
