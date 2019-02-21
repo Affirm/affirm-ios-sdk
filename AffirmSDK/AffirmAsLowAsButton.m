@@ -14,7 +14,7 @@
 #import "AffirmConfiguration+Protected.h"
 #import "AffirmUtils.h"
 
-@interface AffirmAsLowAsButton() <SFSafariViewControllerDelegate>
+@interface AffirmAsLowAsButton()
 
 @property (nonatomic, strong) NSDecimalNumber *amount;
 @property (nonatomic, assign) BOOL showPrequal;
@@ -23,6 +23,10 @@
 @end
 
 @implementation AffirmAsLowAsButton
+
++ (instancetype)createButtonWithPromoID:(NSString *)promoID presentingViewController:(id)presentingViewController frame:(CGRect)frame {
+    return [[self alloc] initWithPromoID:promoID showCTA:YES presentingViewController:presentingViewController frame:frame];
+}
 
 + (instancetype)createButtonWithPromoID:(NSString *)promoID showCTA:(BOOL)showCTA presentingViewController:(id)presentingViewController frame:(CGRect)frame {
     return [[self alloc] initWithPromoID:promoID showCTA:showCTA presentingViewController:presentingViewController frame:frame];
@@ -66,25 +70,12 @@
         NSString *prequalURL = [AffirmConfiguration sharedConfiguration].affirmPrequalURL;
         NSString *url = [NSString stringWithFormat:@"%@?public_api_key=%@&unit_price=%@&promo_external_id=%@&isSDK=true&use_promo=true&referring_url=%@",
                          prequalURL, [AffirmConfiguration sharedConfiguration].publicAPIKey, self.amount, self.promoID, AFFIRM_PREQUAL_REFERRING_URL];
-        if (@available(iOS 9.0, *)) {
-            SFSafariViewController *vc = [[SFSafariViewController alloc] initWithURL:[NSURL URLWithString:url]];
-            vc.delegate = self;
-            [self.presentingViewController presentViewController:vc animated:true completion:nil];
-        } else {
-            AffirmPrequalModelViewController *viewController = [AffirmPrequalModelViewController controllerWithURL:[NSURL URLWithString:url]];
-            [self.presentingViewController presentViewController:viewController animated:YES completion:nil];
-        }
+        AffirmPrequalModelViewController *viewController = [AffirmPrequalModelViewController controllerWithURL:[NSURL URLWithString:url]];
+        UINavigationController *navController = [[UINavigationController alloc] initWithRootViewController:viewController];
+        [self.presentingViewController presentViewController:navController animated:YES completion:nil];
     } else {
         AffirmPromoModalViewController *promoModal = [AffirmPromoModalViewController promoModalControllerWithModalId:self.promoID amount:self.amount];
         [self.presentingViewController presentViewController:promoModal animated:true completion:nil];
-    }
-}
-
-#pragma mark - SFSafariViewController delegate
-
-- (void)safariViewController:(SFSafariViewController *)controller initialLoadDidRedirectToURL:(NSURL *)URL API_AVAILABLE(ios(11.0)) {
-    if ([URL.absoluteString isEqualToString:AFFIRM_PREQUAL_REFERRING_URL]) {
-        [controller dismissViewControllerAnimated:YES completion:nil];
     }
 }
 

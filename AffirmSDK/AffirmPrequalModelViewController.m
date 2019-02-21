@@ -27,9 +27,20 @@
 - (instancetype)initWithURL:(NSURL *)url {
     self = [super init];
     if (self) {
+        self.automaticallyAdjustsScrollViewInsets = NO;
+        self.webView.contentMode = UIViewContentModeScaleAspectFit;
         [self.webView loadRequest:[NSURLRequest requestWithURL:url]];
     }
     return self;
+}
+
+- (void)viewDidLoad {
+    [super viewDidLoad];
+    self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:@"Close" style:UIBarButtonItemStyleDone target:self action:@selector(dismissSelf)];
+}
+
+- (void)dismissSelf {
+    [self dismissViewControllerAnimated:YES completion:nil];
 }
 
 #pragma mark - SFSafariViewController delegate
@@ -38,7 +49,7 @@
 {
     NSString *urlString = navigationAction.request.URL.absoluteString;
     if ([urlString isEqualToString:AFFIRM_PREQUAL_REFERRING_URL]) {
-        [self dismissViewControllerAnimated:true completion:nil];
+        [self dismissSelf];
         decisionHandler(WKNavigationActionPolicyCancel);
         return;
     }

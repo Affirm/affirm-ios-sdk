@@ -36,6 +36,10 @@
     return self;
 }
 
++ (AffirmCheckoutViewController *)startCheckout:(AffirmCheckout *)checkout checkoutType:(AffirmCheckoutType)checkoutType delegate:(nonnull id<AffirmCheckoutDelegate>)delegate {
+    return [[self alloc] initWithDelegate:delegate checkout:checkout useVCN:NO checkoutType:checkoutType];
+}
+
 + (AffirmCheckoutViewController *)startCheckout:(AffirmCheckout *)checkout checkoutType:(AffirmCheckoutType)checkoutType useVCN:(BOOL)useVCN delegate:(nonnull id<AffirmCheckoutDelegate>)delegate {
     return [[self alloc] initWithDelegate:delegate checkout:checkout useVCN:useVCN checkoutType:checkoutType];
 }
@@ -115,8 +119,12 @@
 
 - (void)loadWebView:(NSDictionary *)result {
     NSString *redirect_url = [result objectForKey:@"redirect_url"];
+    NSString *jsCallbackId = [result objectForKey:@"js_callback_id"];
     if (_useVCN) {
-        NSString *jsCallbackId = [result objectForKey:@"js_callback_id"];
+        if (!jsCallbackId || !redirect_url) {
+            return;
+        }
+
         NSBundle *sdkBundle = [NSBundle bundleWithPath:[[NSBundle bundleForClass:[self class]] pathForResource:@"AffirmSDK" ofType:@"bundle"]];
         NSString *filePath = [sdkBundle pathForResource:@"vcn_checkout" ofType:@"html"];
         __block NSString *rawContent = [NSString stringWithContentsOfFile:filePath encoding:NSUTF8StringEncoding error:nil];
@@ -133,13 +141,12 @@
         }];
         NSURLComponents *urlComponents = [[NSURLComponents alloc] initWithString:redirect_url];
         NSString *baseUrl = [NSString stringWithFormat:@"https://%@", urlComponents.host];
-        if (@available(iOS 9.0, *)) {
-            [self.webView loadData:[rawContent dataUsingEncoding:NSUTF8StringEncoding] MIMEType:@"text/html" characterEncodingName:@"utf-8" baseURL:[NSURL URLWithString:baseUrl]];
-        } else {
-            // Fallback on earlier versions
-            [self.webView loadHTMLString:rawContent baseURL:[NSURL URLWithString:baseUrl]];
-        }
+        [self.webView loadData:[rawContent dataUsingEncoding:NSUTF8StringEncoding] MIMEType:@"text/html" characterEncodingName:@"utf-8" baseURL:[NSURL URLWithString:baseUrl]];
     } else {
+        if (!redirect_url) {
+            return;
+        }
+
         [self.webView loadRequest:[NSURLRequest requestWithURL:[NSURL URLWithString:redirect_url]]];
     }
 }
