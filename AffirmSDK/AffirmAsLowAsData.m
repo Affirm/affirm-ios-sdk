@@ -89,7 +89,7 @@ static NSString *defaultALATemplate = @"Buy in monthly payments with Affirm";
     while ([attributedText.mutableString containsString:@"Affirm"]) {
         NSTextAttachment *attachment = [[NSTextAttachment alloc] init];
         attachment.image = logo;
-        CGSize logoSize = [self sizeForLogoType:logoType height:fontSize];
+        CGSize logoSize = [self sizeForLogoType:logoType logoSize:logo.size height:fontSize];
         attachment.bounds = CGRectMake(0, -logoSize.height/5, logoSize.width, logoSize.height);
         NSAttributedString *attributedLogo = [NSAttributedString attributedStringWithAttachment:attachment];
         [attributedText replaceCharactersInRange:[attributedText.mutableString rangeOfString:@"Affirm"] withAttributedString:attributedLogo];
@@ -98,10 +98,11 @@ static NSString *defaultALATemplate = @"Buy in monthly payments with Affirm";
 }
 
 + (CGSize)sizeForLogoType:(AffirmLogoType)logoType
+                 logoSize:(CGSize)logoSize
                    height:(float)height {
     switch(logoType) {
         case AffirmLogoTypeName:
-            return CGSizeMake((925 * height) / 285, height);
+            return CGSizeMake((logoSize.width * height) / logoSize.height, height);
         case AffirmLogoTypeText:
             return CGSizeZero;
         case AffirmLogoTypeSymbol:
@@ -109,7 +110,7 @@ static NSString *defaultALATemplate = @"Buy in monthly payments with Affirm";
         case AffirmLogoTypeSymbolHollow:
             return CGSizeMake(1.25 * height, 1.25 * height);
         default:
-            return CGSizeMake((925 * height) / 285, height);
+            return CGSizeMake((logoSize.width * height) / logoSize.height, height);
     }
 }
 
