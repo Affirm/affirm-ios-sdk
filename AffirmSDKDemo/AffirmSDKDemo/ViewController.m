@@ -155,7 +155,7 @@
     // This token should be forwarded to your server, which should then authorize it with Affirm and create a charge.
     NSLog(@"Received token %@", checkoutToken);
     [self dismissViewControllerAnimated:true completion:nil];
-    [self showAlert:[NSString stringWithFormat:@"Checkout completed \n checkout_token%@", checkoutToken]];
+    [self showAlert:[NSString stringWithFormat:@"Checkout completed \n checkout_token:%@", checkoutToken]];
 }
 
 - (void)vcnCheckout:(AffirmCheckoutViewController *)checkoutVC completedWithCreditCard:(AffirmCreditCard *)creditCard {

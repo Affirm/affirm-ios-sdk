@@ -25,6 +25,8 @@
     //set the configuration as the shared configuration to be used across your app
     [AffirmConfiguration setSharedConfiguration:config];
     
+    [UILabel appearanceWhenContainedInInstancesOfClasses:@[[UIAlertController class]]].lineBreakMode = NSLineBreakByCharWrapping;
+    
     return YES;
 }
 
