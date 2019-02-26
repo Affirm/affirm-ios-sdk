@@ -155,7 +155,7 @@
     // This token should be forwarded to your server, which should then authorize it with Affirm and create a charge.
     NSLog(@"Received token %@", checkoutToken);
     [self dismissViewControllerAnimated:true completion:nil];
-    [self showAlert:@"Checkout completed"];
+    [self showAlert:[NSString stringWithFormat:@"Checkout completed \n checkout_token:%@", checkoutToken]];
 }
 
 - (void)vcnCheckout:(AffirmCheckoutViewController *)checkoutVC completedWithCreditCard:(AffirmCreditCard *)creditCard {
@@ -163,7 +163,7 @@
     // All charge actions are done using your existing payment gateway and debit card processor
     NSLog(@"Received credit card %@", creditCard);
     [self dismissViewControllerAnimated:true completion:nil];
-    [self showAlert:@"Checkout completed"];
+    [self showAlert:[NSString stringWithFormat:@"Checkout completed \n cardholder_name:%@ \n checkout_token:%@ \n cvv:%@ \n expiration:%@ \n number:%@", creditCard.cardholder_name, creditCard.checkout_token, creditCard.cvv, creditCard.expiration, creditCard.number]];
 }
 
 - (void)checkoutCancelled:(AffirmCheckoutViewController *)checkoutVC {

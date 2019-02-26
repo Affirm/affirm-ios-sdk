@@ -32,3 +32,4 @@ FOUNDATION_EXPORT const unsigned char AffirmSDKVersionString[];
 #import <AffirmSDK/AffirmActivityIndicator.h>
 #import <AffirmSDK/AffirmErrorModal.h>
 #import <AffirmSDK/AffirmLogger.h>
+#import <AffirmSDK/AffirmCreditCard.h>
