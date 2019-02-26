@@ -15,6 +15,7 @@
 
 @interface ViewController () <AffirmCheckoutDelegate>
 
+@property (weak, nonatomic) IBOutlet UIStackView *stackView;
 @property (weak, nonatomic) IBOutlet UILabel *titleLabel;
 @property (weak, nonatomic) IBOutlet UITextField *amountField;
 @property (weak, nonatomic) IBOutlet UITextField *promoIDField;
@@ -27,21 +28,25 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    [self setupView];
-    
-    CGRect frame = CGRectMake(0, 0, self.view.frame.size.width - 40, 40);
-    self.alaButton = [AffirmAsLowAsButton createButtonWithPromoID:self.promoIDField.text presentingViewController:self frame:frame];
-    self.alaButton.center = CGPointMake(self.view.center.x, self.titleLabel.frame.origin.y - 80);
-    [self.view addSubview:self.alaButton];
-    
-    [self reloadAffirmAsLowAs];
+    [self setDefaultValues];
     [self setAPIKey];
+    [self setupView];
+    [self reloadAffirmAsLowAs];
 }
 
 - (void)setupView {
     [self configureTextField:self.amountField withLabel:@"price input" andTag:AMOUNT_FIELD_TAG];
     [self configureTextField:self.promoIDField withLabel:@"promo ID input" andTag:PROMO_ID_FIELD_TAG];
     [self configureTextField:self.publicAPIKeyField withLabel:@"public API key input" andTag:PUBLIC_API_KEY_FIELD_TAG];
+
+    self.alaButton = [AffirmAsLowAsButton createButtonWithPromoID:self.promoIDField.text showCTA:true presentingViewController:self frame:CGRectMake(0, 0, self.view.frame.size.width - 40, 40)];
+    [self.stackView insertArrangedSubview:self.alaButton atIndex:0];
+}
+
+- (void)setDefaultValues {
+    self.amountField.text = @"500";
+    self.promoIDField.text = PROMO_ID;
+    self.publicAPIKeyField.text = PUBLIC_API_KEY;
 }
 
 - (BOOL)textFieldShouldReturn:(UITextField *)textField {
@@ -110,7 +115,7 @@
     AffirmCheckout *checkout = [AffirmCheckout checkoutWithItems:@[item] shipping:shipping totalAmount:centsPrice];
     
     // Initializes a checkout view controller and starts the checkout process
-    AffirmCheckoutViewController *checkoutVC = [AffirmCheckoutViewController startCheckout:checkout checkoutType:AffirmCheckoutTypeAutomatic delegate:self];
+    AffirmCheckoutViewController *checkoutVC = [AffirmCheckoutViewController startCheckout:checkout checkoutType:AffirmCheckoutTypeAutomatic useVCN:NO delegate:self];
     [self presentViewController:checkoutVC animated:true completion:nil];
 }
 
@@ -122,7 +127,19 @@
     AffirmCheckout *checkout = [AffirmCheckout checkoutWithItems:@[item] shipping:shipping totalAmount:centsPrice];
     
     // Initializes a checkout view controller and starts the checkout process
-    AffirmCheckoutViewController *checkoutVC = [AffirmCheckoutViewController startCheckout:checkout checkoutType:AffirmCheckoutTypeAutomatic delegate:self];
+    AffirmCheckoutViewController *checkoutVC = [AffirmCheckoutViewController startCheckout:checkout checkoutType:AffirmCheckoutTypeAutomatic useVCN:NO delegate:self];
+    [self presentViewController:checkoutVC animated:true completion:nil];
+}
+
+- (IBAction)vcnCheckout:(UIButton *)sender {
+    NSDecimalNumber *dollarPrice = [NSDecimalNumber decimalNumberWithString:self.amountField.text];
+    NSNumber *centsPrice = [AffirmNumberUtils decimalDollarsToIntegerCents:dollarPrice];
+    AffirmItem *item = [AffirmItem itemWithName:@"Affirm Test Item" SKU:@"test_item" unitPrice:dollarPrice quantity:1 URL:[NSURL URLWithString:@"http://sandbox.affirm.com/item"]];
+    AffirmShippingDetail *shipping = [AffirmShippingDetail shippingDetailWithName:@"Chester Cheetah" addressWithLine1:@"633 Folsom Street" line2:@"" city:@"San Francisco" state:@"CA" zipCode:@"94107" countryCode:@"USA"];
+    AffirmCheckout *checkout = [AffirmCheckout checkoutWithItems:@[item] shipping:shipping totalAmount:centsPrice];
+    
+    // Initializes a checkout view controller and starts the checkout process
+    AffirmCheckoutViewController *checkoutVC = [AffirmCheckoutViewController startCheckout:checkout checkoutType:AffirmCheckoutTypeAutomatic useVCN:YES delegate:self];
     [self presentViewController:checkoutVC animated:true completion:nil];
 }
 
@@ -136,10 +153,17 @@
 - (void)checkout:(AffirmCheckoutViewController *)checkoutVC completedWithToken:(NSString *)checkoutToken {
     // The user has completed the checkout and created a checkout token.
     // This token should be forwarded to your server, which should then authorize it with Affirm and create a charge.
-    // For more information about the server integration, see https://docs.affirm.com/v2/api/charges
     NSLog(@"Received token %@", checkoutToken);
     [self dismissViewControllerAnimated:true completion:nil];
-    [self showAlert:@"Checkout completed"];
+    [self showAlert:[NSString stringWithFormat:@"Checkout completed \n checkout_token:%@", checkoutToken]];
+}
+
+- (void)vcnCheckout:(AffirmCheckoutViewController *)checkoutVC completedWithCreditCard:(AffirmCreditCard *)creditCard {
+    // The user has completed the checkout and returned credit card details.
+    // All charge actions are done using your existing payment gateway and debit card processor
+    NSLog(@"Received credit card %@", creditCard);
+    [self dismissViewControllerAnimated:true completion:nil];
+    [self showAlert:[NSString stringWithFormat:@"Checkout completed \n cardholder_name:%@ \n checkout_token:%@ \n cvv:%@ \n expiration:%@ \n number:%@", creditCard.cardholder_name, creditCard.checkout_token, creditCard.cvv, creditCard.expiration, creditCard.number]];
 }
 
 - (void)checkoutCancelled:(AffirmCheckoutViewController *)checkoutVC {

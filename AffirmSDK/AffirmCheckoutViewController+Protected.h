@@ -25,6 +25,9 @@ NS_ASSUME_NONNULL_BEGIN
 /// The checkout identifier.
 @property (nonatomic, strong) NSString *checkoutARI;
 
+/// Use VCN Checkout
+@property BOOL useVCN;
+
 /// Initializer. See properties for more details.
 /// @param delegate Delegate for checkout events.
 /// @param checkout Checkout.
@@ -32,6 +35,7 @@ NS_ASSUME_NONNULL_BEGIN
 /// @return The initialized checkout view controller.
 - (instancetype)initWithDelegate:(id<AffirmCheckoutDelegate>)delegate
                         checkout:(AffirmCheckout *)checkout
+                          useVCN:(BOOL)useVCN
                     checkoutType:(AffirmCheckoutType)checkoutType;
 
 /// Creates a data blob which can be sent to the Affirm API. This blob contains the checkout object, as well merchant-specific configuration information.

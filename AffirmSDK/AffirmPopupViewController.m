@@ -46,7 +46,12 @@
 - (void) webView:(WKWebView *)webView decidePolicyForNavigationAction:(WKNavigationAction *)navigationAction decisionHandler:(void (^)(WKNavigationActionPolicy))decisionHandler {
     NSURL *url = navigationAction.request.URL;
     if ([url.scheme isEqualToString:@"http"] || [url.scheme isEqualToString:@"mailto"] || [url.scheme isEqualToString:@"tel"]) {
-        [[UIApplication sharedApplication] openURL:url options:@{} completionHandler:nil];
+        if (@available(iOS 10.0, *)) {
+            [[UIApplication sharedApplication] openURL:url options:@{} completionHandler:nil];
+        } else {
+            // Fallback on earlier versions
+            [[UIApplication sharedApplication] openURL:url];
+        }
         decisionHandler(WKNavigationActionPolicyCancel);
         return;
     }

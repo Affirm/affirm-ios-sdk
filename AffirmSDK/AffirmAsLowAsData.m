@@ -14,10 +14,10 @@ static NSString *defaultALATemplate = @"Buy in monthly payments with Affirm";
 
 @implementation AffirmAsLowAs
 
-+ (NSURLRequest *)getPromoRequest:(NSString *)promoId withAmount:(NSDecimalNumber *)amount {
++ (NSURLRequest *)getPromoRequest:(NSString *)promoId showCTA:(BOOL)showCTA withAmount:(NSDecimalNumber *)amount {
     [AffirmValidationUtils checkNotNil:[AffirmConfiguration sharedConfiguration]];
 
-    NSURL *url = [[AffirmConfiguration sharedConfiguration] affirmAsLowAsURLWithPromoId:promoId withAmount:amount];
+    NSURL *url = [[AffirmConfiguration sharedConfiguration] affirmAsLowAsURLWithPromoId:promoId showCTA:showCTA withAmount:amount];
     NSMutableURLRequest *request = [[NSMutableURLRequest alloc] initWithURL:url];
     [request setHTTPMethod:@"GET"];
     [request setValue:@"application/json" forHTTPHeaderField:@"Accept"];
@@ -28,9 +28,10 @@ static NSString *defaultALATemplate = @"Buy in monthly payments with Affirm";
 }
 
 + (void) getPromoDetailsForId:(NSString *)promoId
+                      showCTA:(BOOL)showCTA
                        amount:(NSDecimalNumber *)amount
                      callback:(void (^)(NSDictionary *result, NSError *error, BOOL success))callback {
-    NSURLRequest *request = [self getPromoRequest:promoId withAmount:amount];
+    NSURLRequest *request = [self getPromoRequest:promoId showCTA:(BOOL)showCTA withAmount:amount];
     [AffirmNetworkUtils performNetworkRequest:request withCompletion:^(NSDictionary *result, NSHTTPURLResponse *response, NSError *error) {
         if (response.statusCode == 200 && result[@"promo"] && result[@"promo"] != (id)[NSNull null]) {
             callback(result, nil, YES);
@@ -42,8 +43,9 @@ static NSString *defaultALATemplate = @"Buy in monthly payments with Affirm";
 
 + (void)getALAPromoTemplateForAmount:(NSDecimalNumber *)amount
                              promoID:(NSString *)promoID
+                             showCTA:(BOOL)showCTA
                             callback:(void (^)(NSString *ala, BOOL showPrequal, NSError *error, BOOL success))callback {
-    [self getPromoDetailsForId:promoID amount:amount callback:^(NSDictionary *result, NSError *error, BOOL success) {
+    [self getPromoDetailsForId:promoID showCTA:showCTA amount:amount callback:^(NSDictionary *result, NSError *error, BOOL success) {
         if (success) {
             NSString *ala = [result[@"promo"][@"ala"] copy];
             ala = [ala stringByReplacingOccurrencesOfString:@"{affirm_logo}" withString:@"Affirm"];
@@ -59,12 +61,13 @@ static NSString *defaultALATemplate = @"Buy in monthly payments with Affirm";
 
 + (void) getAffirmAsLowAsForAmount:(NSDecimalNumber *)amount
                            promoId:(NSString *)promoId
+                           showCTA:(BOOL)showCTA
                     affirmLogoType:(AffirmLogoType)affirmLogoType
                        affirmColor:(AffirmColorType)affirmColor
                           callback:(void (^)(NSString *asLowAsText, UIImage *logo, BOOL promoPrequalEnabled, NSError *error, BOOL success))callback {
     [AffirmValidationUtils checkNotNil:promoId name:@"promoId"];
 
-    [AffirmAsLowAs getALAPromoTemplateForAmount:amount promoID:promoId callback:^(NSString *ala, BOOL showPrequal, NSError *error, BOOL success) {
+    [AffirmAsLowAs getALAPromoTemplateForAmount:amount promoID:promoId showCTA:showCTA callback:^(NSString *ala, BOOL showPrequal, NSError *error, BOOL success) {
         dispatch_async(dispatch_get_main_queue(), ^{
             if (affirmLogoType == AffirmLogoTypeText) {
                 callback(ala, nil, showPrequal, error, success);
@@ -86,7 +89,7 @@ static NSString *defaultALATemplate = @"Buy in monthly payments with Affirm";
     while ([attributedText.mutableString containsString:@"Affirm"]) {
         NSTextAttachment *attachment = [[NSTextAttachment alloc] init];
         attachment.image = logo;
-        CGSize logoSize = [self sizeForLogoType:logoType height:fontSize];
+        CGSize logoSize = [self sizeForLogoType:logoType logoSize:logo.size height:fontSize];
         attachment.bounds = CGRectMake(0, -logoSize.height/5, logoSize.width, logoSize.height);
         NSAttributedString *attributedLogo = [NSAttributedString attributedStringWithAttachment:attachment];
         [attributedText replaceCharactersInRange:[attributedText.mutableString rangeOfString:@"Affirm"] withAttributedString:attributedLogo];
@@ -95,10 +98,11 @@ static NSString *defaultALATemplate = @"Buy in monthly payments with Affirm";
 }
 
 + (CGSize)sizeForLogoType:(AffirmLogoType)logoType
+                 logoSize:(CGSize)logoSize
                    height:(float)height {
     switch(logoType) {
         case AffirmLogoTypeName:
-            return CGSizeMake((925 * height) / 285, height);
+            return CGSizeMake((logoSize.width * height) / logoSize.height, height);
         case AffirmLogoTypeText:
             return CGSizeZero;
         case AffirmLogoTypeSymbol:
@@ -106,11 +110,11 @@ static NSString *defaultALATemplate = @"Buy in monthly payments with Affirm";
         case AffirmLogoTypeSymbolHollow:
             return CGSizeMake(1.25 * height, 1.25 * height);
         default:
-            return CGSizeMake((925 * height) / 285, height);
+            return CGSizeMake((logoSize.width * height) / logoSize.height, height);
     }
 }
 
-+ (NSString *) formatAffirmTypeToString:(AffirmLogoType)affirmType {
++ (NSString *)formatAffirmTypeToString:(AffirmLogoType)affirmType {
 
     NSString *result = nil;
 
@@ -157,8 +161,8 @@ static NSString *defaultALATemplate = @"Buy in monthly payments with Affirm";
 
 }
 
-+ (UIImage *) getAffirmDisplayForLogoType:(AffirmLogoType) logoType
-                                colorType:(AffirmColorType) colorType {
++ (UIImage *)getAffirmDisplayForLogoType:(AffirmLogoType)logoType
+                               colorType:(AffirmColorType)colorType {
     NSString *file = [NSString stringWithFormat:@"%@_%@-transparent_bg", [AffirmAsLowAs formatAffirmColorToString:colorType], [AffirmAsLowAs formatAffirmTypeToString:logoType]];
     NSBundle *sdkBundle = [NSBundle bundleWithPath:[[NSBundle bundleForClass:[self class]] pathForResource:@"AffirmSDK" ofType:@"bundle"]];
     UIImage *image = [UIImage imageNamed:file inBundle:sdkBundle compatibleWithTraitCollection:nil];

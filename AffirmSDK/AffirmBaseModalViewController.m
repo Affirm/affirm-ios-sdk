@@ -32,7 +32,6 @@
 - (void)renderWebView {
     [self.view addSubview:self.webView];
     self.webView.translatesAutoresizingMaskIntoConstraints = NO;
-    self.webView.scrollView.bounces = NO;
     [self configureUserAgent];
     [self.webView addObserver:self forKeyPath:NSStringFromSelector(@selector(estimatedProgress)) options:NSKeyValueObservingOptionNew context:NULL];
     NSLayoutConstraint * top = [NSLayoutConstraint constraintWithItem:self.webView attribute:NSLayoutAttributeTop relatedBy:NSLayoutRelationEqual toItem:self.topLayoutGuide attribute:NSLayoutAttributeBottom multiplier:1 constant:0];
