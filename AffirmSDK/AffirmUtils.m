@@ -92,3 +92,21 @@
 }
 
 @end
+
+@implementation AffirmJSONConvertUtils
+
++ (NSDictionary *)dictionaryWithJsonString:(NSString *)jsonString {
+    if (jsonString == nil) {
+        return nil;
+    }
+    NSError *error;
+    NSDictionary *dict = [NSJSONSerialization JSONObjectWithData:[jsonString dataUsingEncoding:NSUTF8StringEncoding]
+                                                         options:0
+                                                           error:&error];
+    if (error) {
+        return nil;
+    }
+    return dict;
+}
+
+@end

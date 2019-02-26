@@ -32,11 +32,13 @@ typedef NS_ENUM(NSInteger, AffirmColorType) {
 /// Calculates the monthly price and updates the content of the Label with the proper text
 /// @param amount Amount of the transaction
 /// @param promoId Promo ID to use when getting terms (provided by Affirm)
+/// @param showCTA A boolean to use when getting terms
 /// @param affirmLogoType type of Affirm logo to display (text, name, symbol)
 /// @param affirmColor color of Affirm to display (blue, black, white) - only applies to logo and symbol affirmType values
 /// @param callback method that can be passed and executed once the calls are completed.
 + (void) getAffirmAsLowAsForAmount:(NSDecimalNumber *)amount
                            promoId:(NSString *)promoId
+                           showCTA:(BOOL)showCTA
                     affirmLogoType:(AffirmLogoType)affirmLogoType
                        affirmColor:(AffirmColorType)affirmColor
                           callback:(void (^)(NSString *asLowAsText, UIImage *logo, BOOL promoPrequalEnabled, NSError *error, BOOL success))callback;

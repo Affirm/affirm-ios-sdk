@@ -16,7 +16,7 @@ NS_ASSUME_NONNULL_BEGIN
 @property (nonatomic, weak) id presentingViewController;
 @property (nonatomic, strong) NSString *promoID;
 
-/// Convenience constructor that creates an as low as button
+/// Convenience constructor that creates an as low as button, showCTA is YES as default
 /// @param promoID Promo ID to use when getting terms (provided by Affirm)
 /// @param presentingViewController view controller that button is displayed on
 /// @param frame frame to initialize the button
@@ -24,6 +24,18 @@ NS_ASSUME_NONNULL_BEGIN
 + (instancetype)createButtonWithPromoID:(NSString *)promoID
                presentingViewController:(id)presentingViewController
                                   frame:(CGRect)frame;
+
+/// Convenience constructor that creates an as low as button
+/// @param promoID Promo ID to use when getting terms (provided by Affirm)
+/// @param showCTA A boolean to use when getting terms
+/// @param presentingViewController view controller that button is displayed on
+/// @param frame frame to initialize the button
+/// @return an initialized AffirmAsLowAsButton
++ (instancetype)createButtonWithPromoID:(NSString *)promoID
+                                showCTA:(BOOL)showCTA
+               presentingViewController:(id)presentingViewController
+                                  frame:(CGRect)frame;
+
 
 /// Configures an AffirmAsLowAsButton with the appropriate details
 /// @param amount Amount of the transaction

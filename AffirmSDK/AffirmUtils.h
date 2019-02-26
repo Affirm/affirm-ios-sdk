@@ -81,4 +81,13 @@ typedef void (^AffirmNetworkCompletion)(NSDictionary *result, NSHTTPURLResponse 
 
 @end
 
+@interface AffirmJSONConvertUtils: NSObject {}
+
+/// Performs for json string convert to a dictionary
+/// @param jsonString json string
+/// @return The Dictionary
++ (NSDictionary *)dictionaryWithJsonString: (NSString *)jsonString;
+
+@end
+
 NS_ASSUME_NONNULL_END

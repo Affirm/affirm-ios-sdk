@@ -199,7 +199,6 @@
     [AffirmValidationUtils checkNotNil:items name:@"items"];
     [AffirmValidationUtils checkNotNil:shipping name:@"shipping"];
     [AffirmValidationUtils checkNotNil:shipping.name name:@"shipping.name"];
-    
     [AffirmValidationUtils checkNotNil:taxAmount name:@"taxAmount"];
     [AffirmValidationUtils checkNotNegative:taxAmount name:@"taxAmount"];
     [AffirmValidationUtils checkNotNil:shippingAmount name:@"shippingAmount"];

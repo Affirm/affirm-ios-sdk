@@ -14,11 +14,13 @@
 #import "AffirmErrorModal.h"
 #import "AffirmUtils.h"
 #import "AffirmLogger.h"
+#import "AffirmCreditCard.h"
 
 @implementation AffirmCheckoutViewController
 
 - (instancetype)initWithDelegate:(id<AffirmCheckoutDelegate>)delegate
                         checkout:(AffirmCheckout *)checkout
+                          useVCN:(BOOL)useVCN
                     checkoutType:(AffirmCheckoutType)checkoutType {
     [AffirmValidationUtils checkNotNil:delegate name:@"delegate"];
     [AffirmValidationUtils checkNotNil:checkout name:@"checkout"];
@@ -27,6 +29,7 @@
         _checkout = [checkout copy];
         _configuration = [[AffirmConfiguration sharedConfiguration] copy];
         _checkoutType = checkoutType;
+        _useVCN = useVCN;
     }
     self.delegate = delegate;
     [self prepareForCheckout];
@@ -34,7 +37,11 @@
 }
 
 + (AffirmCheckoutViewController *)startCheckout:(AffirmCheckout *)checkout checkoutType:(AffirmCheckoutType)checkoutType delegate:(nonnull id<AffirmCheckoutDelegate>)delegate {
-    return [[self alloc] initWithDelegate:delegate checkout:checkout checkoutType:checkoutType];
+    return [[self alloc] initWithDelegate:delegate checkout:checkout useVCN:NO checkoutType:checkoutType];
+}
+
++ (AffirmCheckoutViewController *)startCheckout:(AffirmCheckout *)checkout checkoutType:(AffirmCheckoutType)checkoutType useVCN:(BOOL)useVCN delegate:(nonnull id<AffirmCheckoutDelegate>)delegate {
+    return [[self alloc] initWithDelegate:delegate checkout:checkout useVCN:useVCN checkoutType:checkoutType];
 }
 
 - (void)viewDidLoad {
@@ -54,7 +61,8 @@
                                                      @"public_api_key": self.configuration.publicAPIKey,
                                                      @"user_confirmation_url": AFFIRM_CHECKOUT_CONFIRMATION_URL,
                                                      @"user_cancel_url": AFFIRM_CHECKOUT_CANCELLATION_URL,
-                                                     @"user_confirmation_url_action": @"GET"
+                                                     @"user_confirmation_url_action": @"GET",
+                                                     @"use_vcn": @(_useVCN)
                                                      },
                                              @"metadata": metaData
                                              }];
@@ -96,7 +104,7 @@
             NSString *redirect_url = [result objectForKey:@"redirect_url"];
             dispatch_async(dispatch_get_main_queue(), ^{
                 if (redirect_url) {
-                    [self.webView loadRequest:[NSURLRequest requestWithURL:[NSURL URLWithString:redirect_url]]];
+                    [self loadWebView:result];
                     [self.delegate checkoutReadyToPresent:self];
                     self.checkoutARI = [redirect_url lastPathComponent];
                     [AffirmLogger logEvent:@"Checkout ready to present" info:@{@"checkout_ari": self.checkoutARI}];
@@ -107,6 +115,40 @@
             });
         }
     }];
+}
+
+- (void)loadWebView:(NSDictionary *)result {
+    NSString *redirect_url = [result objectForKey:@"redirect_url"];
+    NSString *jsCallbackId = [result objectForKey:@"js_callback_id"];
+    if (_useVCN) {
+        if (!jsCallbackId || !redirect_url) {
+            return;
+        }
+
+        NSBundle *sdkBundle = [NSBundle bundleWithPath:[[NSBundle bundleForClass:[self class]] pathForResource:@"AffirmSDK" ofType:@"bundle"]];
+        NSString *filePath = [sdkBundle pathForResource:@"vcn_checkout" ofType:@"html"];
+        __block NSString *rawContent = [NSString stringWithContentsOfFile:filePath encoding:NSUTF8StringEncoding error:nil];
+        [@{@"{{URL}}": redirect_url,
+           @"{{URL2}}": redirect_url,
+           @"{{JS_CALLBACK_ID}}": jsCallbackId,
+           @"{{CONFIRM_CB_URL}}": AFFIRM_CHECKOUT_CONFIRMATION_URL,
+           @"{{CANCELLED_CB_URL}}": AFFIRM_CHECKOUT_CANCELLATION_URL}
+         enumerateKeysAndObjectsUsingBlock:^(NSString *  _Nonnull key, NSString *  _Nonnull obj, BOOL * _Nonnull stop) {
+             rawContent = [rawContent stringByReplacingOccurrencesOfString:key
+                                                                withString:obj
+                                                                   options:NSLiteralSearch
+                                                                     range:[rawContent rangeOfString:key]];
+        }];
+        NSURLComponents *urlComponents = [[NSURLComponents alloc] initWithString:redirect_url];
+        NSString *baseUrl = [NSString stringWithFormat:@"https://%@", urlComponents.host];
+        [self.webView loadData:[rawContent dataUsingEncoding:NSUTF8StringEncoding] MIMEType:@"text/html" characterEncodingName:@"utf-8" baseURL:[NSURL URLWithString:baseUrl]];
+    } else {
+        if (!redirect_url) {
+            return;
+        }
+
+        [self.webView loadRequest:[NSURLRequest requestWithURL:[NSURL URLWithString:redirect_url]]];
+    }
 }
 
 - (void)showPopup:(NSURL *)URL {
@@ -135,15 +177,22 @@
     NSString *strippedURL = [NSString stringWithFormat:@"%@://%@%@", URL.scheme, URL.host, URL.path];
     if ([strippedURL isEqualToString:AFFIRM_CHECKOUT_CONFIRMATION_URL]) {
         NSURLComponents *urlComponents = [[NSURLComponents alloc] initWithString:URL.absoluteString];
-        NSString *checkoutToken;
         for(NSURLQueryItem *item in urlComponents.queryItems) {
-            if([item.name isEqualToString:@"checkout_token"]) {
-                checkoutToken = item.value;
-                break;
+            if (_useVCN) {
+                if([item.name isEqualToString:@"data"]) {
+                    [self.delegate vcnCheckout:self
+                       completedWithCreditCard:[AffirmCreditCard creditCardWithDict:[AffirmJSONConvertUtils dictionaryWithJsonString:item.value]]];
+                    [AffirmLogger logEvent:@"Checkout completed" info:@{@"checkout_ari": self.checkoutARI, @"checkout_data_received": item.value != nil ? @"true" : @"false"}];
+                    break;
+                }
+            } else {
+                if([item.name isEqualToString:@"checkout_token"]) {
+                    [self.delegate checkout:self completedWithToken:item.value];
+                    [AffirmLogger logEvent:@"Checkout completed" info:@{@"checkout_ari": self.checkoutARI, @"checkout_token_received": item.value != nil ? @"true" : @"false"}];
+                    break;
+                }
             }
         }
-        [self.delegate checkout:self completedWithToken:checkoutToken];
-        [AffirmLogger logEvent:@"Checkout completed" info:@{@"checkout_ari": self.checkoutARI, @"checkout_token_received": checkoutToken != nil ? @"true" : @"false"}];
         decisionHandler(WKNavigationActionPolicyCancel);
         return;
     }
