@@ -6,8 +6,8 @@
 //  Copyright © 2017 Affirm. All rights reserved.
 //
 
-#define PUBLIC_API_KEY @"Y8CQXFF044903JC0"
-#define PROMO_ID @""
+#define PUBLIC_API_KEY @"2G9MNM7462PB1TAV"
+#define PROMO_ID @"promo_set_ios"
 
 #import <UIKit/UIKit.h>
 
