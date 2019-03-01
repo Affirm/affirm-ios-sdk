@@ -1,6 +1,11 @@
 # Affirm iOS SDK Changelog
 All notable changes to the SDK will be documented in this file.
 
+## Version 4.0.16 (Feb 28, 2019)
+- VCN checkout
+- Updated promo attributes
+- Bug Fixes
+
 ## Version 4.0.15 (Feb 14, 2019)
 - BUg fix for nil check for Tax and Shipping
  
