@@ -21,12 +21,12 @@
 /* End PBXAggregateTarget section */
 
 /* Begin PBXBuildFile section */
-		08C57CF8221CF8D7000DED6A /* AffirmPrequalModelViewController.h in Headers */ = {isa = PBXBuildFile; fileRef = 08C57CF6221CF8D7000DED6A /* AffirmPrequalModelViewController.h */; };
+		08C57CF8221CF8D7000DED6A /* AffirmPrequalModelViewController.h in Headers */ = {isa = PBXBuildFile; fileRef = 08C57CF6221CF8D7000DED6A /* AffirmPrequalModelViewController.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		08C57CF9221CF8D7000DED6A /* AffirmPrequalModelViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 08C57CF7221CF8D7000DED6A /* AffirmPrequalModelViewController.m */; };
 		08C57CFA221CF8DE000DED6A /* AffirmPrequalModelViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 08C57CF7221CF8D7000DED6A /* AffirmPrequalModelViewController.m */; };
 		08C57D02221CFFD3000DED6A /* AffirmCreditCard.m in Sources */ = {isa = PBXBuildFile; fileRef = 08C57D00221CFFD3000DED6A /* AffirmCreditCard.m */; };
 		08C57D03221CFFD3000DED6A /* AffirmCreditCard.m in Sources */ = {isa = PBXBuildFile; fileRef = 08C57D00221CFFD3000DED6A /* AffirmCreditCard.m */; };
-		08C57D04221CFFD3000DED6A /* AffirmCreditCard.h in Headers */ = {isa = PBXBuildFile; fileRef = 08C57D01221CFFD3000DED6A /* AffirmCreditCard.h */; };
+		08C57D04221CFFD3000DED6A /* AffirmCreditCard.h in Headers */ = {isa = PBXBuildFile; fileRef = 08C57D01221CFFD3000DED6A /* AffirmCreditCard.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		4E078B161F1044DA00395ECE /* AffirmActivityIndicator.m in Sources */ = {isa = PBXBuildFile; fileRef = 4E078AF61F1044DA00395ECE /* AffirmActivityIndicator.m */; };
 		4E078B191F1044DA00395ECE /* AffirmAsLowAsButton.m in Sources */ = {isa = PBXBuildFile; fileRef = 4E078AF81F1044DA00395ECE /* AffirmAsLowAsButton.m */; };
 		4E078B1C1F1044DA00395ECE /* AffirmAsLowAsData.m in Sources */ = {isa = PBXBuildFile; fileRef = 4E078AFA1F1044DA00395ECE /* AffirmAsLowAsData.m */; };
@@ -248,7 +248,6 @@
 				4E704B7E1F16DF6B000FDFBB /* AffirmCheckoutViewController+Protected.h in Headers */,
 				4E078BA51F14334600395ECE /* AffirmCheckoutData.h in Headers */,
 				4E078BA91F14334600395ECE /* AffirmErrorModal.h in Headers */,
-				08C57D04221CFFD3000DED6A /* AffirmCreditCard.h in Headers */,
 				4E704B801F16DF7E000FDFBB /* AffirmConfiguration+Protected.h in Headers */,
 				4E078BA31F14334600395ECE /* AffirmAsLowAsData.h in Headers */,
 				4E078BA21F14334600395ECE /* AffirmAsLowAsButton.h in Headers */,
@@ -258,6 +257,7 @@
 				4E078BAB1F14334600395ECE /* AffirmLogger.h in Headers */,
 				4E078BAC1F14334600395ECE /* AffirmPopupViewController.h in Headers */,
 				4E078BA41F14334600395ECE /* AffirmBaseModalViewController.h in Headers */,
+				08C57D04221CFFD3000DED6A /* AffirmCreditCard.h in Headers */,
 				4E078BA61F14334600395ECE /* AffirmCheckoutDelegate.h in Headers */,
 				08C57CF8221CF8D7000DED6A /* AffirmPrequalModelViewController.h in Headers */,
 			);
@@ -372,7 +372,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "set -e\nset +u\n# Avoid recursively calling this script.\nif [[ $SF_MASTER_SCRIPT_RUNNING ]]\nthen\nexit 0\nfi\nset -u\nexport SF_MASTER_SCRIPT_RUNNING=1\n\nSF_TARGET_NAME=${PROJECT_NAME}\nSF_EXECUTABLE_PATH=\"lib${SF_TARGET_NAME}.a\"\nSF_WRAPPER_NAME=\"${SF_TARGET_NAME}.framework\"\n\n# The following conditionals come from\n# https://github.com/kstenerud/iOS-Universal-Framework\n\nif [[ \"$SDK_NAME\" =~ ([A-Za-z]+) ]]\nthen\nSF_SDK_PLATFORM=${BASH_REMATCH[1]}\nelse\necho \"Could not find platform name from SDK_NAME: $SDK_NAME\"\nexit 1\nfi\n\nif [[ \"$SDK_NAME\" =~ ([0-9]+.*$) ]]\nthen\nSF_SDK_VERSION=${BASH_REMATCH[1]}\nelse\necho \"Could not find sdk version from SDK_NAME: $SDK_NAME\"\nexit 1\nfi\n\nif [[ \"$SF_SDK_PLATFORM\" = \"iphoneos\" ]]\nthen\nSF_OTHER_PLATFORM=iphonesimulator\nelse\nSF_OTHER_PLATFORM=iphoneos\nfi\n\nif [[ \"$BUILT_PRODUCTS_DIR\" =~ (.*)$SF_SDK_PLATFORM$ ]]\nthen\nSF_OTHER_BUILT_PRODUCTS_DIR=\"${BASH_REMATCH[1]}${SF_OTHER_PLATFORM}\"\nelse\necho \"Could not find platform name from build products directory: $BUILT_PRODUCTS_DIR\"\nexit 1\nfi\n\n# Build the other platform.\nxcrun xcodebuild -project \"${PROJECT_FILE_PATH}\" -target \"${TARGET_NAME}\" -configuration \"${CONFIGURATION}\" -sdk ${SF_OTHER_PLATFORM}${SF_SDK_VERSION} BUILD_DIR=\"${BUILD_DIR}\" OBJROOT=\"${OBJROOT}\" BUILD_ROOT=\"${BUILD_ROOT}\" SYMROOT=\"${SYMROOT}\" $ACTION\n\n# Smash the two static libraries into one fat binary and store it in the .framework\nxcrun lipo -create \"${BUILT_PRODUCTS_DIR}/${SF_EXECUTABLE_PATH}\" \"${SF_OTHER_BUILT_PRODUCTS_DIR}/${SF_EXECUTABLE_PATH}\" -output \"${BUILT_PRODUCTS_DIR}/${SF_WRAPPER_NAME}/Versions/A/${SF_TARGET_NAME}\"\n\n# Copy the binary to the other architecture folder to have a complete framework in both.\ncp -a \"${BUILT_PRODUCTS_DIR}/${SF_WRAPPER_NAME}/Versions/A/${SF_TARGET_NAME}\" \"${SF_OTHER_BUILT_PRODUCTS_DIR}/${SF_WRAPPER_NAME}/Versions/A/${SF_TARGET_NAME}\"";
+			shellScript = "set -e\nset +u\n# Avoid recursively calling this script.\nif [[ $SF_MASTER_SCRIPT_RUNNING ]]\nthen\nexit 0\nfi\nset -u\nexport SF_MASTER_SCRIPT_RUNNING=1\n\nSF_TARGET_NAME=${PROJECT_NAME}\nSF_EXECUTABLE_PATH=\"lib${SF_TARGET_NAME}.a\"\nSF_WRAPPER_NAME=\"${SF_TARGET_NAME}.framework\"\n\n# The following conditionals come from\n# https://github.com/kstenerud/iOS-Universal-Framework\n\nif [[ \"$SDK_NAME\" =~ ([A-Za-z]+) ]]\nthen\nSF_SDK_PLATFORM=${BASH_REMATCH[1]}\nelse\necho \"Could not find platform name from SDK_NAME: $SDK_NAME\"\nexit 1\nfi\n\nif [[ \"$SDK_NAME\" =~ ([0-9]+.*$) ]]\nthen\nSF_SDK_VERSION=${BASH_REMATCH[1]}\nelse\necho \"Could not find sdk version from SDK_NAME: $SDK_NAME\"\nexit 1\nfi\n\nif [[ \"$SF_SDK_PLATFORM\" = \"iphoneos\" ]]\nthen\nSF_OTHER_PLATFORM=iphonesimulator\nelse\nSF_OTHER_PLATFORM=iphoneos\nfi\n\nif [[ \"$BUILT_PRODUCTS_DIR\" =~ (.*)$SF_SDK_PLATFORM$ ]]\nthen\nSF_OTHER_BUILT_PRODUCTS_DIR=\"${BASH_REMATCH[1]}${SF_OTHER_PLATFORM}\"\nelse\necho \"Could not find platform name from build products directory: $BUILT_PRODUCTS_DIR\"\nexit 1\nfi\n\n# Build the other platform.\nxcrun xcodebuild -project \"${PROJECT_FILE_PATH}\" -target \"${TARGET_NAME}\" -configuration \"${CONFIGURATION}\" -sdk ${SF_OTHER_PLATFORM}${SF_SDK_VERSION} BUILD_DIR=\"${BUILD_DIR}\" OBJROOT=\"${OBJROOT}\" BUILD_ROOT=\"${BUILD_ROOT}\" SYMROOT=\"${SYMROOT}\" $ACTION\n\n# Smash the two static libraries into one fat binary and store it in the .framework\nxcrun lipo -create \"${BUILT_PRODUCTS_DIR}/${SF_EXECUTABLE_PATH}\" \"${SF_OTHER_BUILT_PRODUCTS_DIR}/${SF_EXECUTABLE_PATH}\" -output \"${BUILT_PRODUCTS_DIR}/${SF_WRAPPER_NAME}/Versions/A/${SF_TARGET_NAME}\"\n\n# Copy the binary to the other architecture folder to have a complete framework in both.\ncp -a \"${BUILT_PRODUCTS_DIR}/${SF_WRAPPER_NAME}/Versions/A/${SF_TARGET_NAME}\" \"${SF_OTHER_BUILT_PRODUCTS_DIR}/${SF_WRAPPER_NAME}/Versions/A/${SF_TARGET_NAME}\"\n";
 		};
 /* End PBXShellScriptBuildPhase section */
 
