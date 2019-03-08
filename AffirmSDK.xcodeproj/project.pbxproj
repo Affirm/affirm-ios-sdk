@@ -21,7 +21,7 @@
 /* End PBXAggregateTarget section */
 
 /* Begin PBXBuildFile section */
-		08C57CF8221CF8D7000DED6A /* AffirmPrequalModelViewController.h in Headers */ = {isa = PBXBuildFile; fileRef = 08C57CF6221CF8D7000DED6A /* AffirmPrequalModelViewController.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		08C57CF8221CF8D7000DED6A /* AffirmPrequalModelViewController.h in Headers */ = {isa = PBXBuildFile; fileRef = 08C57CF6221CF8D7000DED6A /* AffirmPrequalModelViewController.h */; settings = {ATTRIBUTES = (Private, ); }; };
 		08C57CF9221CF8D7000DED6A /* AffirmPrequalModelViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 08C57CF7221CF8D7000DED6A /* AffirmPrequalModelViewController.m */; };
 		08C57CFA221CF8DE000DED6A /* AffirmPrequalModelViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 08C57CF7221CF8D7000DED6A /* AffirmPrequalModelViewController.m */; };
 		08C57D02221CFFD3000DED6A /* AffirmCreditCard.m in Sources */ = {isa = PBXBuildFile; fileRef = 08C57D00221CFFD3000DED6A /* AffirmCreditCard.m */; };
