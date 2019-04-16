@@ -81,7 +81,7 @@
     return request;
 }
 
-- (void) prepareForCheckout {
+- (void)prepareForCheckout {
     [AffirmLogger logEvent:@"Checkout initiated"];
     [self.loadingIndicator startAnimatingOnView:self.view];
     self.loadingIndicator.hidden = self.checkoutType == AffirmCheckoutTypeManual;
@@ -119,9 +119,8 @@
 
 - (void)loadWebView:(NSDictionary *)result {
     NSString *redirect_url = [result objectForKey:@"redirect_url"];
-    NSString *jsCallbackId = [result objectForKey:@"js_callback_id"];
     if (_useVCN) {
-        if (!jsCallbackId || !redirect_url) {
+        if (!redirect_url) {
             return;
         }
 
@@ -130,7 +129,6 @@
         __block NSString *rawContent = [NSString stringWithContentsOfFile:filePath encoding:NSUTF8StringEncoding error:nil];
         [@{@"{{URL}}": redirect_url,
            @"{{URL2}}": redirect_url,
-           @"{{JS_CALLBACK_ID}}": jsCallbackId,
            @"{{CONFIRM_CB_URL}}": AFFIRM_CHECKOUT_CONFIRMATION_URL,
            @"{{CANCELLED_CB_URL}}": AFFIRM_CHECKOUT_CANCELLATION_URL}
          enumerateKeysAndObjectsUsingBlock:^(NSString *  _Nonnull key, NSString *  _Nonnull obj, BOOL * _Nonnull stop) {
