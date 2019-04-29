@@ -1,3 +1,7 @@
+## If this is your first time integrating this Affirm iOS SDK for Affirm, please use the following repository:
+```
+github "Affirm/affirm-merchant-sdk-ios"
+```
 Affirm iOS SDK
 ==============
 [![CocoaPods](https://img.shields.io/cocoapods/v/AffirmSDK.svg)](http://cocoadocs.org/docsets/AffirmSDK) [![Carthage compatible](https://img.shields.io/badge/Carthage-compatible-4BC51D.svg?style=flat)](https://github.com/Carthage/Carthage) [![Travis](https://travis-ci.org/Affirm/affirm-ios-sdk.svg?branch=master)](https://travis-ci.org/Affirm/affirm-ios-sdk) [![license](https://img.shields.io/cocoapods/l/AffirmSDK.svg)]()
