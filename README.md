@@ -1,4 +1,4 @@
-## If this is your first time integrating this Affirm iOS SDK for Affirm, please use the following repository:
+## If this is your first time integrating this Affirm iOS SDK, please use the following repository:
 ```
 github "Affirm/affirm-merchant-sdk-ios"
 ```
