@@ -1,3 +1,5 @@
+:no_entry: [DEPRECATED] Active at https://github.com/Affirm/affirm-merchant-sdk-ios
+
 <strong> If this is your first time integrating this Affirm iOS SDK, please use the following repository: https://github.com/Affirm/affirm-merchant-sdk-ios </strong>
 
 
